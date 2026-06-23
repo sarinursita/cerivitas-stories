@@ -1,1 +1,51 @@
-PAHLAWAN SUPER CILIK - CYOA GAME
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pahlawan Super Cilik - CYOA</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:linear-gradient(135deg,#e74c3c,#f39c12);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;font-family:'Segoe UI',sans-serif}
+.game{background:#fff;border-radius:24px;padding:30px;max-width:600px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+h1{text-align:center;color:#e74c3c;font-size:26px}
+.sub{text-align:center;color:#888;font-size:13px;margin-bottom:15px}
+.badge{background:#f39c12;color:#fff;padding:4px 12px;border-radius:20px;font-size:13px;display:inline-block;margin-bottom:10px}
+.story{background:#fff8f0;border-radius:16px;padding:24px;min-height:180px;margin-bottom:20px;font-size:18px;line-height:1.7;color:#333}
+.choices{display:flex;flex-direction:column;gap:10px}
+.btn{background:linear-gradient(135deg,#e74c3c,#f39c12);color:#fff;border:none;border-radius:12px;padding:14px 20px;font-size:16px;cursor:pointer;transition:.2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(231,76,60,0.4)}
+.reset{background:#7f8c8d;color:#fff;border:none;border-radius:12px;padding:10px;font-size:14px;cursor:pointer;width:100%;margin-top:15px}
+</style>
+</head>
+<body>
+<div class="game">
+<h1>Pahlawan Super Cilik</h1>
+<p class="sub">Jadilah pahlawan versimu sendiri!</p>
+<div class="badge" id="badge">Markas</div>
+<div class="story" id="story">Kota Pelangi dalam bahaya! Kincir raksasa berputar tak terkendali! Kamu di markas. Pilih kekuatan supermu!</div>
+<div class="choices" id="choices"></div>
+<button class="reset" onclick="go('start')">Mulai Lagi</button>
+</div>
+<script>
+const S={
+start:{text:"Kota Pelangi dalam bahaya! Kincir raksasa berputar tak terkendali! Pilih kekuatan supermu!",choices:[{text:"Bisa Terbang!",next:"terbang"},{text:"Kekuatan Super Kuat!",next:"kuat"},{text:"Kecepatan Super!",next:"cepat"},{text:"Merayap di Dinding!",next:"merayap"}]},
+terbang:{text:"Kamu terbang tinggi! Dari atas, kincir berputar kencang. Seekor burung raksasa terjebak di dalamnya!",choices:[{text:"Selamatkan burungnya",next:"selamatkanBurung"},{text:"Hentikan kincir paksa",next:"hentikanPaksa"}]},
+kuat:{text:"Kamu angkat mobil-mobil yang menghalangi jalan. Warga bersorak! Sesampainya di kincir, baut-bautnya longgar.",choices:[{text:"Kencangkan bautnya",next:"kencangkan"},{text:"Ajak warga gotong royong",next:"gotongRoyong"}]},
+cepat:{text:"Kamu berlari super cepat mengelilingi kincir! Tapi kamu mulai lelah...",choices:[{text:"Terus berlari!",next:"terusLari"},{text:"Minta bantuan teman",next:"mintaBantuan"}]},
+merayap:{text:"Kamu merayap naik dengan lincah! Ada anak kucing terjebak di salah satu bilah kincir!",choices:[{text:"Selamatkan kucingnya",next:"selamatkanKucing"},{text:"Lanjut ke mesin utama",next:"mesinUtama"}]},
+selamatkanBurung:{text:"Kamu lepaskan ranting yang menjepit sayap burung. Burung terbang bebas dan kincir melambat!",
+choices:[{text:"SELAMAT! Main lagi?",next:"start"}]},
+hentikanPaksa:{text:"Terlalu berat! Kamu terjatuh, tapi selamat. Mungkin ada cara lebih baik...",choices:[{text:"Cek ke dalam kincir",next:"selamatkanBurung"}]},
+kencangkan:{text:"Kamu kencangkan baut, tapi kincir masih berputar. Ada masalah di dalam!",choices:[{text:"Masuk ke dalam kincir",next:"selamatkanBurung"}]},
+gotongRoyong:{text:"Warga bersama-sama menarik tali raksasa! Kincir melambat. Seorang kakek berkata, 'Kamu pahlawan sejati!'",choices:[{text:"SELAMAT! Main lagi?",next:"start"}]},
+terusLari:{text:"Temanmu si Tupai Cepat datang membantu! Bersama kalian berlari dan kincir berhenti!",choices:[{text:"SELAMAT! Main lagi?",next:"start"}]},
+mintaBantuan:{text:"Teman-teman sekolah datang! Mereka bawa tali dan bersama-sama mengikat kincir hingga berhenti!",choices:[{text:"SELAMAT! Main lagi?",next:"start"}]},
+selamatkanKucing:{text:"Kamu gendong kucing itu. Setelah aman, kincir tiba-tiba berhenti! Ternyata kucing penyebabnya!",choices:[{text:"SELAMAT! Main lagi?",next:"start"}]},
+mesinUtama:{text:"Ada tuas darurat! Kamu pegang dan berpikir tentang orang-orang tersayang. Klik! Kincir berhenti!",choices:[{text:"SELAMAT! Main lagi?",next:"start"}]}
+};
+function go(id){const n=S[id];if(!n)return;document.getElementById('story').innerHTML=n.text;const c=document.getElementById('choices');c.innerHTML='';if(id==='start')document.getElementById('badge').textContent='Markas Pahlawan';else if(n.text.includes('SELAMAT'))document.getElementById('badge').textContent='PAHLAWAN!';else document.getElementById('badge').textContent='Sedang Bertugas';n.choices.forEach(ch=>{const b=document.createElement('button');b.className='btn';b.textContent=ch.text;b.onclick=()=>go(ch.next);c.appendChild(b)});}
+go('start');
+</script>
+</body>
+</html>
