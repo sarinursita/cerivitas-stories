@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Misteri Topi Hilang - CYOA</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:linear-gradient(135deg,#2c3e50,#3498db);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;font-family:'Segoe UI',sans-serif}
+.game{background:#fff;border-radius:24px;padding:30px;max-width:600px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+h1{text-align:center;color:#2c3e50;font-size:26px}
+.sub{text-align:center;color:#888;font-size:13px;margin-bottom:15px}
+.badge{background:#3498db;color:#fff;padding:4px 12px;border-radius:20px;font-size:13px;display:inline-block;margin-bottom:10px}
+.story{background:#f0f4ff;border-radius:16px;padding:24px;min-height:180px;margin-bottom:20px;font-size:18px;line-height:1.7;color:#333}
+.choices{display:flex;flex-direction:column;gap:10px}
+.btn{background:linear-gradient(135deg,#2c3e50,#3498db);color:#fff;border:none;border-radius:12px;padding:14px 20px;font-size:16px;cursor:pointer;transition:.2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(52,152,219,0.4)}
+.reset{background:#e74c3c;color:#fff;border:none;border-radius:12px;padding:10px;font-size:14px;cursor:pointer;width:100%;margin-top:15px}
+</style>
+</head>
+<body>
+<div class="game">
+<h1>Misteri Topi Hilang</h1>
+<p class="sub">Bantu si Kembar Detektif memecahkan kasus!</p>
+<div class="badge" id="badge">Kasus Baru</div>
+<div class="story" id="story">Selamat datang, Detektif! Hari ini kamu membantu Tika dan Tono, si Kembar Detektif. Mereka kehilangan topi detektif kesayangan! Topi itu ada di suatu tempat di sekolah. Ayo cari bersama!</div>
+<div class="choices" id="choices"></div>
+<button class="reset" onclick="go('start')">Mulai Lagi</button>
+</div>
+<script>
+const S={
+start:{text:"Tika dan Tono sedih. Topi detektif biru mereka hilang! 'Terakhir kami pakai pas jam istirahat,' kata Tika. 'Sekarang kita cari!' seru Tono. Mau mulai cari dari mana?",choices:[{text:"Cari di kelas",next:"kelas"},{text:"Cari di kantin",next:"kantin"},{text:"Cari di perpustakaan",next:"perpustakaan"},{text:"Tanya saksi",next:"saksi"}]},
+kelas:{text:"Di kelas, kamu lihat meja Tika dan Tono berantakan. Ada buku terbuka, pensil berserakan, dan... sehelai bulu biru di lantai! 'Bulu ini bukan punya topi,' kata Tono. 'Tapi siapa yang punya bulu?'",choices:[{text:"Ikuti jejak bulu biru",next:"jejakBulu"},{text:"Cari petunjuk lain di kelas",next:"cermati"}]},
+kantin:{text:"Di kantin, Bu Sari si penjual makanan ingat sesuatu. 'Aku lihat topi biru itu tadi pagi! Ada anak kelas 4 yang main lempar-lemparan dengan topi di lapangan.'",choices:[{text:"Cari di lapangan",next:"lapangan"},{text:"Tanya anak kelas 4",next:"anak4"}]},
+perpustakaan:{text:"Di perpustakaan, suasana sunyi. Pak Guru Pustaka sedang membereskan buku. 'Aku lihat topi biru tersangkut di rak paling atas tadi,' bisiknya. 'Tapi sekarang sudah tidak ada.'",choices:[{text:"Cek kamera CCTV",next:"cctv"},{text:"Tanya lebih detail ke Pak Guru",next:"detailGuru"}]},
+saksi:{text:"Tika dan Tono bertanya pada teman-teman. Rina bilang, 'Aku lihat Budi main topi di lapangan waktu jam istirahat.' Budi terkenal suka usil! Kalian bergegas ke lapangan.",choices:[{text:"Cari Budi",next:"cariBudi"},{text:"Cari topi di lapangan dulu",next:"lapangan"}]},
+jejakBulu:{text:"Bulu biru itu ternyata dari jaket adik kelas! Adik kelas bernama Aisyah mengaku, 'Maaf! Aku pinjam topinya buat main detektif-detektifan. Tapi aku simpan di lemari olahraga.'",choices:[{text:"Cek lemari olahraga",next:"lemariOlahraga"}]},
+cermati:{text:"Kamu perhatikan papan tulis. Ada coretan: 'Topi biru, siapa yang ambil? Coba lihat di keranjang buku!' Kamu lari ke keranjang buku di pojok kelas.",choices:[{text:"Buka keranjang buku",next:"keranjangBuku"}]},
+lapangan:{text:"Di lapangan, kamu lihat sesuatu biru di bawah pohon besar! Ternyata itu saputangan, bukan topi. Tapi di dahan pohon, ada sesuatu tergantung...",choices:[{text:"Panjat pohon",next:"pohon"},{text:"Cari tongkat buat ambil",next:"tongkat"}]},
+anak4:{text:"Anak kelas 4 bernama Dimas mengaku, 'Aku tadi main topi sama Budi. Terus Budi lempar ke atap kantin!' Kalian melongo. 'Atap kantin?'",choices:[{text:"Cari ke atap kantin",next:"atap"},{text:"Cari Budi dulu",next:"cariBudi"}]},
+cctv:{text:"Kamu minta Bu Guru lihatkan CCTV. Di layar, terlihat Tika dan Tono masuk perpustakaan... lalu keluar tanpa topi! Tapi ada anak lain masuk 5 menit kemudian... 'Itu Budi!' seru Tono.",choices:[{text:"Cari Budi!",next:"cariBudi"}]},
+detailGuru:{text:"Pak Guru bilang, 'Oh iya, anak kelas 4, Budi, sempat ke sini. Dia bawa topi biru dan berlari ke arah kantin.' Petunjuk mengarah ke Budi!",choices:[{text:"Cari Budi",next:"cariBudi"}]},
+cariBudi:{text:"Budi ditemukan sedang bermain di belakang kelas. 'Aku pinjam topinya buat main drama! Tapi aku simpan di lemari olahraga, sumpah!' Budi berkata jujur. Kalian percaya dan pergi ke lemari olahraga.",choices:[{text:"Ke lemari olahraga",next:"lemariOlahraga"}]},
+lemariOlahraga:{text:"Lemari olahraga besar dan gelap. Tika dan Tono takut. 'Aku yang buka,' kata kamu berani. Kamu tarik pintu lemari... dan topi biru itu ada di dalam! Tapi ada sesuatu yang mengejutkan...",choices:[{text:"Ambil topi!",next:"ending"}]},
+pohon:{text:"Kamu panjat pohon dengan hati-hati. Di dahan tertinggi, ternyata ada sangkar burung tua, dan di dalamnya... topi biru! Tapi ada catatan: 'Terima kasih sudah menjaga topiku.' Tanda tangan: Burung Biru.",choices:[{text:"Bawa topinya!",next:"ending2"}]},
+tongkat:{text:"Kamu ambil tongkat panjang dan menjatuhkan benda di pohon. Benda itu jatuh... ternyata sarung tangan! Tapi dari sarung tangan, keluar kunci kecil bertanda 'Lemari OR'.",choices:[{text:"Coba kunci ke lemari olahraga!",next:"lemariOlahraga"}]},
+atap:{text:"Kamu, Tika, dan Tono meminjam tangga dari Pak Kebun. Di atap kantin, kamu lihat topi biru tersangkut di antena! Tika berteriak senang. 'Topiku!' Kalian mengambilnya dengan hati-hati.",choices:[{text:"Ambil topi!",next:"ending"}]},
+keranjangBuku:{text:"Kamu buka keranjang buku. Di dalamnya bukan topi, tapi sekelompok anak kucing! Mereka lucu sekali. Di bawah kucing, ada secarik kertas: 'Topi ada di lemari olahraga.'",choices:[{text:"Ke lemari olahraga!",next:"lemariOlahraga"}]},
+ending:{text:"KASUS PECAH! Topi biru ditemukan! Tika dan Tono senang sekali. 'Terima kasih, Detektif Hebat!' Mereka menaruh topi itu di kepala dan tersenyum lebar. 'Ayo lanjut ke petualangan berikutnya!'",choices:[{text:"Main lagi!",next:"start"}]},
+ending2:{text:"KASUS PECAH! Ternyata burung biru yang meminjam topi itu untuk membuat sarang! Burung itu hinggap di dekatmu dan berkicau riang. Kamu, Tika, dan Tono tertawa. 'Baiklah, topinya boleh dipinjam kok, asal dikembalikan!'",choices:[{text:"Main lagi!",next:"start"}]}
+};
+function go(id){const n=S[id];if(!n)return;document.getElementById('story').innerHTML=n.text;const c=document.getElementById('choices');c.innerHTML='';if(id==='start')document.getElementById('badge').textContent='Kasus Baru';else if(n.text.includes('PECAH'))document.getElementById('badge').textContent='KASUS PECAH!';else document.getElementById('badge').textContent='Menyelidiki...';n.choices.forEach(ch=>{const b=document.createElement('button');b.className='btn';b.textContent=ch.text;b.onclick=()=>go(ch.next);c.appendChild(b)});}
+go('start');
+</script>
+</body>
+</html>
