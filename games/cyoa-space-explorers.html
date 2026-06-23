@@ -1,1 +1,62 @@
-SPACE EXPLORERS - CYOA GAME
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Space Explorers - CYOA</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:linear-gradient(135deg,#0a0015,#1a0a3e,#0d1b2a);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;font-family:'Segoe UI','Comic Sans MS',sans-serif}
+.game{background:linear-gradient(180deg,#1a1a3e,#0d1b2a);border-radius:24px;padding:30px;max-width:650px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.5);border:1px solid rgba(255,215,0,0.2)}
+h1{text-align:center;color:#ffd700;font-size:26px;text-shadow:0 0 10px rgba(255,215,0,0.3)}
+.sub{text-align:center;color:#aaa;font-size:13px;margin-bottom:15px}
+.badge{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#1a1a3e;padding:5px 14px;border-radius:20px;font-size:13px;display:inline-block;font-weight:bold;margin-bottom:10px}
+.story{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:24px;min-height:200px;margin-bottom:20px;font-size:17px;line-height:1.8;color:#e0d0ff}
+.choices{display:flex;flex-direction:column;gap:10px}
+.btn{background:linear-gradient(135deg,#4a00e0,#8e2de2);color:#fff;border:none;border-radius:12px;padding:15px 20px;font-size:16px;cursor:pointer;transition:.3s;text-align:left}
+.btn:hover{transform:translateX(5px);box-shadow:0 6px 25px rgba(142,45,226,0.4)}
+.reset{background:#ff6b6b;border:none;border-radius:12px;padding:10px;font-size:14px;cursor:pointer;width:100%;margin-top:15px;color:#fff}
+</style>
+</head>
+<body>
+<div class="game">
+<h1>Space Explorers</h1>
+<p class="sub">Misi: Menyelamatkan Persahabatan di Luar Angkasa</p>
+<div class="badge" id="badge">Bumi</div>
+<div class="story" id="story">Hari ini bukan hari biasa! Kamu dan sahabatmu Luna terpilih ikut program pertukaran pelajar antariksa! Tapi begitu sampai di stasiun luar angkasa, sesuatu terjadi...</div>
+<div class="choices" id="choices"></div>
+<button class="reset" onclick="go('start')">Mulai Lagi</button>
+</div>
+<script>
+const S={
+start:{text:"Kamu dan Luna naik roket Nusantara-1! Dari jendela, Bumi terlihat biru dan indah. Tapi alarm berbunyi! Sebuah pesawat asing menabrak stasiun!",choices:[{text:"Investigasi benda asing",next:"bendaAsing"},{text:"Cari petugas stasiun",next:"petugas"}]},
+bendaAsing:{text:"Di ruang observasi, terlihat pod kristal ungu. Di dalamnya makhluk kecil bercahaya! Matanya biru besar dan ketakutan.",choices:[{text:"Jangan takut, kami teman!",next:"kenalan"},{text:"Cari cara buka pod",next:"bukaPod"}]},
+petugas:{text:"Pak Adi datang. 'Ada pesawat mini asing menabrak perisai. Sepertinya ada makhluk di dalamnya.'",choices:[{text:"Kita harus bantu!",next:"bendaAsing"}]},
+kenalan:{text:"Makhluk itu mengulurkan tangan bercahaya. 'Aku... Starlight...' bisiknya di pikiranmu. Dia bisa telepati!",choices:[{text:"Senang berteman, Starlight!",next:"bukaPod"}]},
+bukaPod:{text:"Pak Adi buka pod dengan laser. Starlight melayang keluar! Seluruh ruangan terasa hangat. Starlight tunjukkan peta bintang.",choices:[{text:"Ikuti peta bintang!",next:"petaBintang"},{text:"Tanya soal planetnya",next:"tanyaPlanet"}]},
+tanyaPlanet:{text:"Starlight tunjukkan Planet Lumina! Segalanya dari cahaya dan kristal. Tapi Starlight tersesat.",choices:[{text:"Ayo antar Starlight pulang!",next:"petaBintang"}]},
+petaBintang:{text:"Peta bintang menunjukkan 3 lokasi: Asteroid Crystal, Nebula Pelangi, Planet Biru. Pilih urutan!",choices:[{text:"Ke Asteroid Crystal",next:"asteroid"},{text:"Ke Nebula Pelangi",next:"nebula"},{text:"Ke Planet Biru",next:"planetBiru"}]},
+asteroid:{text:"Hujan meteor! Pod oleng. Luna hampir terlempar!",choices:[{text:"Tenangkan Starlight",next:"tenangkan"},{text:"Ambil alih kendali",next:"kendali"},{text:"Aktifkan perisai",next:"perisai"}]},
+tenangkan:{text:"Kamu pegang Luna dan bilang ke Starlight, 'Tenang, kita bisa lewati ini!' Pod stabil. Kalian mendarat di Asteroid Crystal.",choices:[{text:"Ambil kristal",next:"asteroid2"}]},
+kendali:{text:"Kamu hindari meteor dengan lincah! Luna bersorak. Kamu mendarat dengan mulus.",choices:[{text:"Mendarat sempurna!",next:"asteroid2"}]},
+perisai:{text:"Perisai aktif, tapi energi habis. Starlight sedih. Kalian harus isi ulang.",choices:[{text:"Cari sumber energi",next:"asteroid2"}]},
+asteroid2:{text:"Asteroid Crystal penuh kristal raksasa! Starlight ambil kristal biru. Tapi tanah berguncang!",choices:[{text:"Lari ke pod!",next:"asteroid3"},{text:"Ambil lebih banyak",next:"rakus"}]},
+rakus:{text:"Terlalu banyak kristal! Asteroid pecah! Kalian kabur, tapi pod kelebihan muatan.",choices:[{text:"Buang sebagian kristal",next:"asteroid3"}]},
+asteroid3:{text:"Bahan bakar terisi! Lanjut ke lokasi berikutnya!",choices:[{text:"Ke Nebula Pelangi",next:"nebula"},{text:"Ke Planet Biru",next:"planetBiru"}]},
+nebula:{text:"Nebula Pelangi - awan warna-warni paling indah! Tapi visibilitas rendah.",choices:[{text:"Ikuti suara musik",next:"musik"},{text:"Nyalakan lampu",next:"lampu"},{text:"Ikuti insting Starlight",next:"insting"}]},
+musik:{text:"Nyanyian Bintang! Kamu ikuti suara dan temukan kristal musik raksasa!",choices:[{text:"Mainkan kristal",next:"nebula2"}]},
+lampu:{text:"Cahaya menyilaukan Starlight. 'Matikan!' Kalian ikuti arah Starlight.",choices:[{text:"Ikuti Starlight",next:"nebula2"}]},
+insting:{text:"Starlight rasakan energi murni di dekat sana. Kalian temukan partikel cahaya!",choices:[{text:"Kumpulkan partikel",next:"nebula2"}]},
+nebula2:{text:"Baterai terisi penuh! Starlight senang. Pod bisa terbang lebih cepat!",choices:[{text:"Ke Asteroid Crystal",next:"asteroid"},{text:"Ke Planet Biru",next:"planetBiru"}]},
+planetBiru:{text:"Planet air! Semuanya lautan biru dengan pulau mengambang. Pusaran air menuju inti planet.",choices:[{text:"Selam ke pusaran",next:"menyelam"},{text:"Cari perahu",next:"perahu"},{text:"Panggil penghuni",next:"panggil"}]},
+menyelam:{text:"Di dasar laut, ada kota bawah air! Bangunan dari gelembung. Penduduk ikan ramah!",choices:[{text:"Berteman dengan penduduk",next:"laut2"}]},
+perahu:{text:"Perahu daun raksasa yang bisa bicara! 'Aku Daun Ajaib!' Perahu membawa kalian ke pusaran.",choices:[{text:"Terima kasih!",next:"menyelam"}]},
+panggil:{text:"Lumba-lumba bercahaya muncul! 'Kami penjaga Planet Biru. Ikut kami!'",choices:[{text:"Ikuti lumba-lumba!",next:"menyelam"}]},
+laut2:{text:"Penduduk memberi Mutiara Keberanian. Bahan bakar penuh! Kamu menari bersama ikan.",choices:[{text:"Lanjutkan",next:"lengkap"}]},
+lengkap:{text:"Semua kristal terkumpul! Pod bersinar. Kalian terbang ke Planet Lumina. Orang tua Starlight memeluknya. 'Kalian pahlawan sejati.' Starlight memberi gelang kristal untuk komunikasi lintas galaksi.",choices:[{text:"SELAMAT! Main lagi?",next:"start"}]}
+};
+function go(id){const n=S[id];if(!n)return;document.getElementById('story').innerHTML=n.text;const c=document.getElementById('choices');c.innerHTML='';if(id==='start')document.getElementById('badge').textContent='Bumi';else if(n.text.includes('SELAMAT'))document.getElementById('badge').textContent='MISI SELESAI!';else document.getElementById('badge').textContent='Luar Angkasa';n.choices.forEach(ch=>{const b=document.createElement('button');b.className='btn';b.textContent=ch.text;b.onclick=()=>go(ch.next);c.appendChild(b)});}
+go('start');
+</script>
+</body>
+</html>
