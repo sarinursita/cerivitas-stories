@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lintang di Antara Bintang - CYOA</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:linear-gradient(135deg,#0a0015,#1a0a3e,#0d1b2a);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;font-family:'Segoe UI',sans-serif}
+.game{background:linear-gradient(180deg,#1a1a3e,#0d1b2a);border-radius:24px;padding:30px;max-width:600px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.5);border:1px solid rgba(255,215,0,0.2)}
+h1{text-align:center;color:#ffd700;font-size:24px}
+.sub{text-align:center;color:#aaa;font-size:13px;margin-bottom:15px}
+.badge{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#1a1a3e;padding:5px 14px;border-radius:20px;font-size:13px;display:inline-block;font-weight:bold;margin-bottom:10px}
+.story{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:24px;min-height:200px;margin-bottom:20px;font-size:16px;line-height:1.8;color:#e0d0ff}
+.choices{display:flex;flex-direction:column;gap:10px}
+.btn{background:linear-gradient(135deg,#4a00e0,#8e2de2);color:#fff;border:none;border-radius:12px;padding:15px 20px;font-size:16px;cursor:pointer;transition:.3s;text-align:left}
+.btn:hover{transform:translateX(5px);box-shadow:0 6px 25px rgba(142,45,226,0.4)}
+.reset{background:#ff6b6b;border:none;border-radius:12px;padding:10px;font-size:14px;cursor:pointer;width:100%;margin-top:15px;color:#fff}
+</style>
+</head>
+<body>
+<div class="game">
+<h1>Lintang di Antara Bintang</h1>
+<p class="sub">Sebuah cerita tentang jarak, waktu, dan persahabatan</p>
+<div class="badge" id="badge">Bumi, 2026</div>
+<div class="story" id="story">Namaku Lintang. Aku murid pindahan di SMA Bumi Angkasa. Hari pertama selalu berat, apalagi kalau kamu pendiam. Tapi hari ini ada yang beda. Di meja sebelah, ada perempuan dengan mata secerah bintang. Namanya Ara.</div>
+<div class="choices" id="choices"></div>
+<button class="reset" onclick="go('start')">Mulai Lagi</button>
+</div>
+<script>
+const S={
+start:{text:"Hari pertama di SMA Bumi Angkasa. Kamu adalah Lintang, murid pindahan yang pendiam. Di meja sebelah, ada Ara - perempuan dengan mata secerah bintang. Guru memperkenalkanmu, dan Ara tersenyum. Mau ngapain pas istirahat?",choices:[{text:"Duduk sendiri di taman",next:"sendiri"},{text:"Ajakin Ara ngobrol",next:"ajakAra"},{text:"Jelajahi sekolah",next:"jelajah"}]},
+sendiri:{text:"Kamu duduk di taman sendiri. Tiba-tiba Ara datang! 'Sendiri aja? Aku boleh duduk?' Tanpa nunggu jawab, dia duduk. 'Kamu suka stargazing? Malam ini ada hujan meteor.'",choices:[{text:"Ajak Ara stargazing bareng",next:"stargazing"},{text:"Bilang tidak tertarik",next:"tidakTertarik1"}]},
+ajakAra:{text:"Kamu memberanikan diri ngobrol sama Ara. Ternyata Ara adalah ketua klub astronomi! 'Malam ini ada hujan meteor, aku mau observasi di atap sekolah. Mau ikut?'",choices:[{text:"Ikut observasi meteor",next:"observasi"},{text:"Tolak karena gugup",next:"gugup"}]},
+jelajah:{text:"Kamu jelajahi sekolah. Di lantai 3, kamu nemu teras rahasia dengan teleskop tua. 'Menarik kan?' suara di belakangmu. Ara!",choices:[{text:"Tanya soal teleskop",next:"teleskop"},{text:"Minta Ara ngajarin",next:"belajarBintang"}]},
+stargazing:{text:"Malam itu, kalian duduk di atap sekolah. Langit penuh bintang. Ara menunjuk rasi bintang Orion. Tapi tiba-tiba, Ara menunduk. Matanya berkaca-kaca.",choices:[{text:"Tanya kenapa Ara sedih",next:"araSedih"},{text:"Diam dan nikmati momen",next:"diamMomen"}]},
+tidakTertarik1:{text:"Kamu bilang tidak tertarik. Ara mengangguk dan pergi. Kamu merasa menyesal. Besok Ara tidak masuk sekolah.",choices:[{text:"Cari tahu kenapa",next:"cariAra"}]},
+observasi:{text:"Malam di atap sekolah. Ara mengatur teleskop. 'Lihat, itu Saturnus!' Kamu mengintip. 'Indah banget.' Ara tersenyum sedih.",choices:[{text:"Tanya kenapa Ara sedih",next:"araSedih"},{text:"Pegang tangan Ara",next:"pegangTangan"}]},
+gugup:{text:"Kamu menolak karena gugup. Ara tersenyum maklum. Tapi seharian kamu tidak bisa fokus.",choices:[{text:"Cari Ara dan bilang iya",next:"cariAra2"}]},
+teleskop:{text:"'Teleskop ini punya kakekku,' kata Ara. 'Dulu kakek bilang: Kita semua terbuat dari debu bintang.' Ara terdiam.",choices:[{text:"Tanya soal Ara",next:"araCurhat"}]},
+belajarBintang:{text:"Ara mengajarkanmu nama-nama bintang. 'Aku suka bintang karena mereka membuatku merasa tidak sendiri.'",choices:[{text:"Cerita ke Ara soal perasaanmu",next:"curhat"}]},
+araSedih:{text:"Ara diam panjang. 'Aku akan pindah bulan depan. Ayahku dipindahtugaskan ke Mars.' Jantungmu berhenti.",choices:[{text:"Hibur Ara",next:"hiburAra"},{text:"Bilang kita bisa tetap berteman",next:"tetapTemen"},{text:"Peluk Ara",next:"pelukAra"}]},
+diamMomen:{text:"Kalian diam. Ara akhirnya bicara, 'Lintang... aku mau bilang sesuatu.'",choices:[{text:"Dengarkan Ara",next:"araSedih"}]},
+cariAra:{text:"Kamu cari Ara ke rumahnya. Ibunya bilang Ara di rumah sakit. Ara punya penyakit jantung.",choices:[{text:"Jenguk Ara",next:"rumahSakit"}]},
+pegangTangan:{text:"Kamu pegang tangan Ara. Dia kaget, tapi tidak menarik. 'Aku senang bertemu kamu, Lintang.'",choices:[{text:"Tanya apa yang disembunyikan Ara",next:"araSedih"}]},
+cariAra2:{text:"Kamu temukan Ara di perpustakaan. Kamu bilang ingin ikut observasi. Wajah Ara bersinar.",choices:[{text:"Observasi bareng Ara",next:"observasi"}]},
+araCurhat:{text:"Ara akhirnya jujur. 'Aku punya penyakit jantung. Tapi aku tidak mau menyerah pada mimpiku ke luar angkasa.'",choices:[{text:"Semangatin Ara",next:"semangatinAra"}]},
+curhat:{text:"Kamu cerita kalau kamu juga sering kesepian. Ara mendengarkan. 'Hei, kamu nggak sendiri lagi. Ada aku.'",choices:[{text:"Makasih Ara",next:"makasihAra"}]},
+hiburAra:{text:"Kamu tersenyum. 'Hei, Mars nggak sejauh itu. Kita bisa video call.' Ara tertawa. 'Janji?' 'Janji.'",choices:[{text:"Buat kenang-kenangan",next:"kenangan"}]},
+tetapTemen:{text:"Kamu bilang, 'Jarak bukan masalah. Kita bisa tetap berteman.' Ara tersenyum.",choices:[{text:"Buat sesuatu yang spesial",next:"kenangan2"}]},
+pelukAra:{text:"Kamu peluk Ara. Dia menangis di pundakmu. Tidak ada kata-kata yang cukup.",choices:[{text:"Buat janji sama Ara",next:"janjiBintang"}]},
+rumahSakit:{text:"Di rumah sakit, Ara tersenyum lemah. Kamu bacain dia buku tentang bintang. Di luar jendela, bintang bersinar.",choices:[{text:"Bacain Ara terus",next:"bacainAra"}]},
+makasihAra:{text:"Sejak hari itu, kalian menjadi sahabat. Setiap malam stargazing bersama. Sampai Ara harus pergi. Tapi persahabatan sejati selalu bersinar.",choices:[{text:"Selesai. Mulai lagi?",next:"start"}]},
+semangatinAra:{text:"Kamu genggam tangan Ara. 'Kamu kuat. Apa pun terjadi, aku ada untukmu.' Ara menangis bahagia.",choices:[{text:"Buat kenangan",next:"kenangan"}]},
+kenangan:{text:"30 hari penuh tawa, bintang, dan cerita. Lalu Ara pergi ke Mars. Setiap malam kamu lihat langit dan tersenyum. Ara ada di antara bintang-bintang.",choices:[{text:"Selesai. Mulai lagi?",next:"start"}]},
+kenangan2:{text:"Kamu buat scrapbook. Dari Mars, Ara kirim pesan: 'Aku lihat Bumi. Setiap malam aku cari bintang paling terang. Itu kamu.'",choices:[{text:"Selesai. Mulai lagi?",next:"start"}]},
+janjiBintang:{text:"Kalian berjanji akan melihat bintang yang sama setiap malam. Persahabatan sejati melampaui ruang dan waktu.",choices:[{text:"Selesai. Mulai lagi?",next:"start"}]},
+bacainAra:{text:"Setiap hari kamu bacain Ara cerita. Operasinya berhasil! Tapi Ara harus pindah ke Mars untuk rehabilitasi. Perpisahan berat, tapi persahabatan tetap bersinar.",choices:[{text:"Selesai. Mulai lagi?",next:"start"}]}
+};
+function go(id){const n=S[id];if(!n)return;document.getElementById('story').innerHTML=n.text;const c=document.getElementById('choices');c.innerHTML='';if(id==='start')document.getElementById('badge').textContent='Bumi, 2026';else if(n.text.includes('Selesai'))document.getElementById('badge').textContent='Selesai';else document.getElementById('badge').textContent='Lintang & Ara';n.choices.forEach(ch=>{const b=document.createElement('button');b.className='btn';b.textContent=ch.text;b.onclick=()=>go(ch.next);c.appendChild(b)});}
+go('start');
+</script>
+</body>
+</html>
