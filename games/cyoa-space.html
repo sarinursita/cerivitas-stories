@@ -1,1 +1,54 @@
-SAHABAT BINTANG - CYOA GAME
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sahabat Bintang - CYOA</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:linear-gradient(135deg,#0c0020,#1a0a3e,#2d1b69);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;font-family:'Segoe UI',sans-serif}
+.game{background:linear-gradient(180deg,#1a1a3e,#2d2d6b);border-radius:24px;padding:30px;max-width:600px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.1)}
+h1{text-align:center;color:#ffd700;font-size:26px}
+.sub{text-align:center;color:#aaa;font-size:13px;margin-bottom:15px}
+.badge{background:#ffd700;color:#1a1a3e;padding:4px 12px;border-radius:20px;font-size:13px;display:inline-block;margin-bottom:10px}
+.story{background:rgba(255,255,255,0.08);border-radius:16px;padding:24px;min-height:180px;margin-bottom:20px;font-size:18px;line-height:1.7;color:#e0d0ff}
+.choices{display:flex;flex-direction:column;gap:10px}
+.btn{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#1a1a3e;border:none;border-radius:12px;padding:14px 20px;font-size:16px;font-weight:bold;cursor:pointer;transition:.2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,215,0,0.4)}
+.reset{background:#ff6b6b;color:#fff;border:none;border-radius:12px;padding:10px;font-size:14px;cursor:pointer;width:100%;margin-top:15px}
+</style>
+</head>
+<body>
+<div class="game">
+<h1>Sahabat Bintang</h1>
+<p class="sub">Sebuah petualangan persahabatan di luar angkasa</p>
+<div class="badge" id="badge">Bumi</div>
+<div class="story" id="story">Kamu dan sahabatmu, Bima, sedang berkemah. Tiba-tiba bintang jatuh berhenti di depan kalian! Dari dalamnya, makhluk kecil biru yang menangis.</div>
+<div class="choices" id="choices"></div>
+<button class="reset" onclick="go('start')">Mulai Lagi</button>
+</div>
+<script>
+const S={
+start:{text:"Kamu dan Bima berkemah. Tiba-tiba bintang jatuh berhenti di depan kalian! Dari dalamnya, makhluk kecil biru menangis.",choices:[{text:"Tanya kenapa dia menangis",next:"tanya"},{text:"Peluk makhluk itu",next:"peluk"},{text:"Mundur takut",next:"mundur"}]},
+tanya:{text:"Makhluk biru itu terisak, 'Aku Nebula... Aku tersesat dan jauh dari rumah. Aku ingin pulang ke Planet Persahabatan.'",choices:[{text:"Bantu Nebula!",next:"bantu1"},{text:"Panggil Bima buat bantu",next:"bantuBima"}]},
+peluk:{text:"Kamu peluk Nebula. Dia berhenti menangis. 'Terima kasih... Tak ada yang pernah memelukku.' Nebula menunjukkan kristal biru yang bersinar.",choices:[{text:"Bantu Nebula pulang",next:"bantu1"}]},
+mundur:{text:"Bima berkata, 'Jangan takut, dia butuh bantuan!' Kamu merasa berani dan ikut maju.",choices:[{text:"Bantu Nebula",next:"bantu1"}]},
+bantuBima:{text:"Bima datang dengan kotak peralatan. 'Aku bisa bikin antena dari barang bekas!' Kalian bertiga bekerja sama.",choices:[{text:"Kerja sama tim!",next:"perbaiki"}]},
+bantu1:{text:"Nebula membawa kalian ke pesawatnya yang tersembunyi. Tapi mesinnya kehilangan 3 Bintang Energi.",choices:[{text:"Cari Bintang Energi 1: Hutan",next:"hutan"},{text:"Cari Bintang Energi 2: Sungai",next:"sungai"},{text:"Cari Bintang Energi 3: Gua",next:"gua"}]},
+hutan:{text:"Di hutan, kalian bertemu kunang-kunang yang bicara! Mereka menjaga Bintang Energi.",choices:[{text:"Bantu kunang-kunang",next:"bantuKunang"},{text:"Ambil paksa",next:"ambilPaksa"}]},
+sungai:{text:"Bintang Energi terapung di atas air. Ikan pelangi yang menjaga.",choices:[{text:"Pancing ikan dengan kebaikan",next:"pancingIkan"},{text:"Berenang ambil",next:"ambilPaksa2"}]},
+gua:{text:"Di dalam gua kristal, Bintang Energi ketiga di altar. Tapi gelap.",choices:[{text:"Minta Bima temani",next:"berduaGua"},{text:"Berani sendiri",next:"beraniSendiri"}]},
+bantuKunang:{text:"Kunang-kunang kehilangan rumah. Kalian gotong royong. Mereka berikan Bintang Energi!",choices:[{text:"Bintang 1 dapat!",next:"bantu1"}]},
+ambilPaksa:{text:"Bima menghentikanmu. 'Kita harus baik!' Kalian meminta maaf dan membantu.",choices:[{text:"Bantu kunang-kunang",next:"bantuKunang"}]},
+pancingIkan:{text:"Kamu beri ikan kue. Ikan senang dan beri Bintang Energi.",choices:[{text:"Bintang 2 dapat!",next:"bantu1"}]},
+ambilPaksa2:{text:"Air dingin dan kamu kedinginan. Bima menarikmu. 'Harus minta izin!'",choices:[{text:"Coba cara baik",next:"pancingIkan"}]},
+berduaGua:{text:"Kamu dan Bima masuk bersama. Kristal bersinar. Kalian temukan Bintang Energi!",choices:[{text:"Bintang 3 dapat!",next:"lengkap"}]},
+beraniSendiri:{text:"Kamu ingat kata Nebula tentang persahabatan. Kristal di sakumu bersinar menerangi jalan!",choices:[{text:"Bintang 3 dapat!",next:"lengkap"}]},
+perbaiki:{text:"Bima berhasil buat antena, Nebula perbaiki mesin. Tapi mesin masih butuh 3 Bintang Energi.",choices:[{text:"Cari Bintang Energi!",next:"bantu1"}]},
+lengkap:{text:"Semua Bintang Energi terkumpul! Pesawat Nebula menyala. Nebula memeluk kalian. 'Kalian mengajarkanku arti persahabatan sejati.' Kristal Persahabatan bersinar. Nebula naik ke pesawatnya. 'Aku akan selalu mengingat kalian!'",choices:[{text:"SELAMAT! Main lagi?",next:"start"}]}
+};
+function go(id){const n=S[id];if(!n)return;document.getElementById('story').innerHTML=n.text;const c=document.getElementById('choices');c.innerHTML='';if(id==='start')document.getElementById('badge').textContent='Bumi';else if(n.text.includes('SELAMAT'))document.getElementById('badge').textContent='MISI SELESAI!';else document.getElementById('badge').textContent='Luar Angkasa';n.choices.forEach(ch=>{const b=document.createElement('button');b.className='btn';b.textContent=ch.text;b.onclick=()=>go(ch.next);c.appendChild(b)});}
+go('start');
+</script>
+</body>
+</html>
