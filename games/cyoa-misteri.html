@@ -1,1 +1,51 @@
-MISTERI PENSIL AJAIB - CYOA GAME
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Misteri Pensil Ajaib - CYOA</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:linear-gradient(135deg,#2c3e50,#3498db);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;font-family:'Segoe UI',sans-serif}
+.game{background:#fff;border-radius:24px;padding:30px;max-width:600px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+h1{text-align:center;color:#2c3e50;font-size:26px}
+.sub{text-align:center;color:#888;font-size:13px;margin-bottom:15px}
+.badge{background:#3498db;color:#fff;padding:4px 12px;border-radius:20px;font-size:13px;display:inline-block;margin-bottom:10px}
+.story{background:#f0f4ff;border-radius:16px;padding:24px;min-height:180px;margin-bottom:20px;font-size:18px;line-height:1.7;color:#333}
+.choices{display:flex;flex-direction:column;gap:10px}
+.btn{background:linear-gradient(135deg,#2c3e50,#3498db);color:#fff;border:none;border-radius:12px;padding:14px 20px;font-size:16px;cursor:pointer;transition:.2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(52,152,219,0.4)}
+.reset{background:#e74c3c;color:#fff;border:none;border-radius:12px;padding:10px;font-size:14px;cursor:pointer;width:100%;margin-top:15px}
+</style>
+</head>
+<body>
+<div class="game">
+<h1>🔍 Misteri Pensil Ajaib</h1>
+<p class="sub">Pilih sendiri jalan ceritanya!</p>
+<div class="badge" id="badge">📍 Awal Misteri</div>
+<div class="story" id="story">Selamat datang detektif cilik! Hari pertama sekolah, kamu nemu sebuah pensil aneh di laci meja. Saat kamu pegang, pensil itu berbisik, "Aku tahu rahasia sekolah ini..."</div>
+<div class="choices" id="choices"></div>
+<button class="reset" onclick="go('start')">🔄 Mulai Lagi</button>
+</div>
+<script>
+const S={
+start:{text:"Kamu nemu pensil aneh di laci meja. Pensil itu berbisik, 'Aku tahu rahasia sekolah ini...' Apa yang kamu lakukan?",choices:[{text:"✏️ Tanya pensilnya",next:"tanyaPensil"},{text:"🔍 Cari tahu sendiri",next:"cariSendiri"},{text:"👋 Ajakin temen",next:"ajakTemen"}]},
+tanyaPensil:{text:"Pensil itu bicara lagi, 'Di perpustakaan ada buku tua yang bisa menjawab semua teka-teki. Tapi... dijaga oleh Pak Penjaga yang misterius.'",choices:[{text:"📚 Ke perpustakaan",next:"perpustakaan"},{text:"🤔 Curiga sama Pak Penjaga",next:"curigaPenjaga"}]},
+cariSendiri:{text:"Kamu mulai mencari petunjuk. Di koridor, kamu lihat jejak kaki aneh yang bersinar redup. Jejak itu menuju ke arah ruang musik.",choices:[{text:"🎵 Ikuti jejak ke ruang musik",next:"ruangMusik"},{text:"📸 Foto jejak dulu",next:"fotoJejak"}]},
+ajakTemen:{text:"Temanmu, Rina, ikut serta! 'Aku pernah lihat pensil kayak gitu di lemari Pak Guru,' bisiknya. Kalian berdua berani menyelidiki!",choices:[{text:"🔎 Selidiki lemari Pak Guru",next:"lemariGuru"},{text:"📖 Ke perpustakaan bareng Rina",next:"perpustakaan"}]},
+perpustakaan:{text:"Di perpustakaan yang sunyi, kamu menemukan buku dengan sampul bintang. Saat dibuka, buku itu mengeluarkan cahaya! Ada peta tersembunyi di dalamnya yang menunjukkan ruang rahasia di belakang rak buku!",choices:[{text:"🗺️ Ikuti peta ke ruang rahasia",next:"ruangRahasia"},{text:"📱 Panggil Rina",next:"panggilRina"}]},
+curigaPenjaga:{text:"Kamu diam-diam mengikuti Pak Penjaga. Ternyata dia hanya sedang memberi makan kucing-kucing liar di belakang sekolah! Dia tersenyum dan memberi kamu kue. 'Anak baik, jangan lupa belajar ya!'",choices:[{text:"😊 Makasih dan lanjut investigasi",next:"perpustakaan"}]},
+ruangMusik:{text:"Di ruang musik, jejak cahaya berhenti di depan piano tua. Kamu buka tuts piano dan... ada secarik kertas! 'Temukan 3 kunci ajaib untuk membuka pintu rahasia.'",choices:[{text:"🔑 Cari kunci pertama!",next:"cariKunci1"},{text:"💡 Panggil temen buat bantu",next:"ajakTemen"}]},
+fotoJejak:{text:"Kamu foto jejak itu dan fotonya menunjukkan sesuatu yang tak terlihat mata telanjang — tulisan 'Baca Buku Di Rak 7'! Kamu lari ke perpustakaan!",choices:[{text:"📚 Ke rak 7!",next:"perpustakaan"}]},
+lemariGuru:{text:"Lemari Pak Guru terbuka sedikit! Di dalamnya ada kotak musik tua. Saat diputar, lagu aneh keluar. Di balik kotak musik, ada kunci perak mengkilap!",choices:[{text:"🔑 Ambil kunci perak!",next:"dapatKunci1"},{text:"❓ Kembalikan kotak musik",next:"kembalikan"}]},
+kembalikan:{text:"Kamu kembalikan kotak musik. Tapi dari celah lemari, kamu lihat secarik kertas jatuh bertuliskan 'Ruang Rahasia ada di belakang buku ensiklopedia.'",choices:[{text:"📚 Cek ensiklopedia!",next:"perpustakaan"}]},
+dapatKunci1:{text:"Kunci perak itu bertanda bintang! Kamu rasa ini salah satu dari 3 kunci. Sekarang tinggal cari 2 kunci lagi!",choices:[{text:"🔍 Lanjut cari kunci lain",next:"perpustakaan"}]},
+cariKunci1:{text:"Kamu cari di sekitar piano. Di balik papan nada, kamu menemukan kunci emas kecil! 1 dari 3 kunci berhasil!",choices:[{text:"🔍 Cari kunci kedua!",next:"perpustakaan"}]},
+panggilRina:{text:"Rina datang dan bersama-sama kalian membaca peta. Peta itu menunjuk ke belakang rak buku misteri. Kalian berdua berhasil membuka jalan masuk!",choices:[{text:"🚪 Masuk!",next:"ruangRahasia"}]},
+ruangRahasia:{text:"RUANG RAHASIA! Di dalamnya ada tiga tiang dengan lubang kunci. Kamu masukkan kunci-kunci yang kamu kumpulkan. Pintu besar terbuka dan... di dalamnya ada taman indah dengan air mancur pelangi! Ternyata sekolah ini punya taman ajaib untuk anak-anak yang suka membaca dan bertualang!",choices:[{text:"🌟 SELAMAT! Main lagi?",next:"start"}]}
+};
+function go(id){const n=S[id];if(!n)return;document.getElementById('story').innerHTML=n.text;const c=document.getElementById('choices');c.innerHTML='';if(id==='start')document.getElementById('badge').textContent='📍 Awal Misteri';else if(n.text.includes('SELAMAT'))document.getElementById('badge').textContent='🏆 BERHASIL!';else document.getElementById('badge').textContent='📍 Mencari petunjuk...';n.choices.forEach(ch=>{const b=document.createElement('button');b.className='btn';b.textContent=ch.text;b.onclick=()=>go(ch.next);c.appendChild(b)});}
+go('start');
+</script>
+</body>
+</html>
