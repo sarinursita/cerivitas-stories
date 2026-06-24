@@ -3,113 +3,71 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Peniru - CYOA</title>
+<title>Wuyung - CYOA</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;font-family:'Segoe UI',sans-serif}
 .game{background:#fff;border-radius:24px;padding:35px;max-width:700px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.4)}
-h1{text-align:center;color:#e94560;font-size:28px;margin-bottom:5px}
-.sub{text-align:center;color:#888;font-size:14px;margin:5px 0 20px}
+h1{text-align:center;color:#e94560;font-size:28px;margin-bottom:5px;letter-spacing:2px}
+.sub{text-align:center;color:#888;font-size:14px;margin:5px 0 20px;font-style:italic}
 .badge{background:#e94560;color:#fff;padding:6px 16px;border-radius:20px;font-size:13px;display:inline-block;margin-bottom:15px}
 .story{background:#f8f5f0;border-left:4px solid #e94560;border-radius:0 16px 16px 0;padding:25px;min-height:220px;margin-bottom:20px;font-size:16px;line-height:1.9;color:#333;text-align:justify}
 .choices{display:flex;flex-direction:column;gap:10px}
 .btn{background:#16213e;color:#fff;border:none;border-radius:12px;padding:15px 22px;font-size:16px;cursor:pointer;transition:.3s;text-align:left}
 .btn:hover{background:#0f3460;transform:translateX(5px)}
 .reset{background:#e94560;color:#fff;border:none;border-radius:12px;padding:12px;font-size:15px;cursor:pointer;width:100%;margin-top:18px}
-.stats{display:flex;justify-content:space-between;margin-bottom:15px;font-size:13px;color:#666;background:#f0f0f5;padding:10px 15px;border-radius:10px}
 </style>
 </head>
 <body>
 <div class="game">
-<h1>Peniru</h1>
-<p class="sub">Seseorang di sekolah ini bukan dirinya sendiri. Atau kamu?</p>
-<div class="badge" id="badge">Hari 1</div>
-<div class="stats" id="stats">Kepercayaan: 100 | Kecurigaan: 0</div>
-<div class="story" id="story">Namaku Rendra. Kelas 8. Akhir-akhir ini ada yang aneh. Teman-teman mulai bertingkah tidak seperti biasanya. Aku mulai mencatat.</div>
+<h1>Wuyung</h1>
+<p class="sub">Tiga sahabat lama bertemu kembali. Tapi sesuatu dalam diri mereka telah berubah.</p>
+<div class="badge" id="badge">Undangan</div>
+<div class="story" id="story">Namaku Bima. Kelas 7. Dua tahun lalu aku pindah kota. Hari ini aku kembali ke rumah lama. Adi dan Cakra mengundangku sleepover di rumah pohon. Aku senang, tapi gugup. Dua tahun adalah waktu yang lama. Orang bisa berubah.</div>
 <div class="choices" id="choices"></div>
-<button class="reset" onclick="resetGame()">Mulai Lagi</button>
+<button class="reset" onclick="go('start')">Mulai Lagi</button>
 </div>
 <script>
-let trust=100,susp=0;
-function updateStats(){document.getElementById('stats').textContent='Kepercayaan: '+trust+' | Kecurigaan: '+susp}
 const S={
-start:{text:'Namaku Rendra. Kelas 8. Seminggu terakhir, teman-teman mulai bertingkah aneh. Wajah mereka sama, suara sama... tapi matanya berbeda. Hari ini, Dina sahabatku, duduk di sampingku. "Ren, lo percaya gak sama gue?" tanyanya tiba-tiba.',choices:[{text:'"Percaya banget dong."',next:'percaya1',t:+10},{text:'"Kenapa lo nanya gitu?" (curiga)',next:'curiga1',s:+15},{text:'Diem aja',next:'diam1',s:+5}]},
-percaya1:{text:'Dina tersenyum lega. Tapi di sudut matanya, ada kilatan putih. Kamu kucek mata. Bel masuk. Bu Guru hari ini berbeda.',choices:[{text:'Perhatikan Bu Guru',next:'perhatikanGuru',s:+10},{text:'Anggap biasa',next:'abaikanGuru',t:+5},{text:'Bisikin Dina',next:'bisikDina'}]},
-curiga1:{text:'Dina tersinggung. "Gue cuma nanya, lo marah?" Kamu merasa bersalah. Tapi ada yang mengganjal.',choices:[{text:'Minta maaf',next:'percaya1',t:+5},{text:'Tanya kenapa Dina berubah',next:'tanyaBerubah',s:+10}]},
-diam1:{text:'Kalian diam. Dina akhirnya berkata, "Ada rumor. Katanya ada makhluk yang bisa berubah bentuk."',choices:[{text:'Tanya detail rumor',next:'detailRumor',s:+10},{text:'Itu cuma gosip',next:'gosip',t:+5}]},
-perhatikanGuru:{text:'Bu Guru guru Biologi, tapi sekarang ngajar Astronomi. Tidak ada yang sadar.',choices:[{text:'Angkat tangan dan tanya',next:'tanyaGuru2',s:+15},{text:'Catat kejanggalan',next:'catatKejanggalan',s:+10}]},
-abaikanGuru:{text:'Jam istirahat, kamu lihat Bu Guru ke laboratorium terkunci.',choices:[{text:'Ikuti diam-diam',next:'ikutiGuru',s:+15},{text:'Cari Dina',next:'cariDina',t:+5}]},
-bisikDina:{text:'Dina setuju ada yang aneh. "Kita selidiki setelah pulang?"',choices:[{text:'Setuju!',next:'selidiki',t:+10}]},
-tanyaBerubah:{text:'Dina menunduk. "Aku lupa hal-hal kecil. Suka ada waktu yang ilang."',choices:[{text:'Bilang istirahat',next:'istirahat',t:+5},{text:'Ajak selidiki',next:'selidikiBareng',t:+10}]},
-detailRumor:{text:'"Katanya mata mereka bisa berubah putih semua." Jantungmu berdegup.',choices:[{text:'"Lo pernah lihat?"',next:'pernahLihat',s:+10},{text:'"Gue percaya lo."',next:'percayaDina',t:+10},{text:'Cari tahu sendiri',next:'cariTahu',s:+5}]},
-gosip:{text:'Elsa muncul. "Bukan gosip! Aku lihat sendiri sosok kayak kembaranku!"',choices:[{text:'Percaya Elsa',next:'percayaElsa',s:+10},{text:'Tenangin Elsa',next:'tenanginElsa',t:+5}]},
-tanyaGuru2:{text:'Bu Guru menatap kosong. "Karena teman kalian yang mengajar Biologi tidak masuk." Masuk akal. Lalu kenapa rasanya salah?',choices:[{text:'Duduk dan diam',next:'dudukDiam'},{text:'Perhatikan terus',next:'perhatianTerus',s:+10}]},
-catatKejanggalan:{text:'Kamu catat: Bu Guru ngajar salah, Dina aneh, Elsa liat sosok.',choices:[{text:'Cari bukti di lab',next:'labLama',s:+15},{text:'Ajak Dina investigasi',next:'timInvest',t:+10}]},
-ikutiGuru:{text:'Dari celah lab, Bu Guru berdiri di depan cermin. Wajahnya meleleh dan berganti menjadi wajah Dina!',choices:[{text:'Teriak',next:'teriakKaget',s:+15},{text:'Rekam!',next:'rekamHP',t:+10}]},
-cariDina:{text:'Dina di perpustakaan. "Ren... aku lihat sesuatu di lab kemarin."',choices:[{text:'"Apa?"',next:'lihatDiLab',s:+10},{text:'Ajak ke lab',next:'keLabBareng',t:+10}]},
-selidiki:{text:'Lorong gelap. HP Dina mati. "Ren... agak serem."',choices:[{text:'Terus maju',next:'terusMaju',s:+10},{text:'Balik',next:'balik',t:+5},{text:'Pegang tangan Dina',next:'pegangan',t:+10}]},
-istirahat:{text:'Malam jam 2, HP bergetar. "Ren... aku lupa siapa aku."',choices:[{text:'Balas',next:'balasPesan',s:+10},{text:'Telepon Dina',next:'telponDina',t:+5},{text:'Ke rumah Dina',next:'keRumahDina',s:+15}]},
-selidikiBareng:{text:'Saat Dina menulis, matanya berubah putih sesaat.',choices:[{text:'Diem dan perhatikan',next:'perhatikanDina',s:+15},{text:'Tanya langsung',next:'tanyaDinaLang',s:+10}]},
-pernahLihat:{text:'"Di cermin kamar mandi. Bayanganku bergerak duluan."',choices:[{text:'Selidiki kamar mandi',next:'kamarMandi',s:+15}]},
-percayaDina:{text:'Dina memelukmu. Tapi di cermin, bayangan Dina tersenyum jahat.',choices:[{text:'Tarik diri!',next:'cekCermin',s:+20},{text:'Peluk lebih erat',next:'pelukErat',s:+5}]},
-cariTahu:{text:'Malam, kamu diam-diam ke sekolah. Suara bisikan dari lab.',choices:[{text:'Dekati suara',next:'dekatiSuara',s:+15},{text:'Rekam',next:'rekamSuara',t:+10},{text:'Lari pulang',next:'lariPulang',t:+5}]},
-percayaElsa:{text:'"Makasih, aku pikir aku gila." Tapi benakmu bertanya: bagaimana bedain asli dan palsu?',choices:[{text:'Tanya cara bedain',next:'bedaCara',s:+10},{text:'Ajak Elsa ikut',next:'timInvest',t:+10}]},
-tenanginElsa:{text:'Saat ia berbalik, rambutnya bergerak sendiri tanpa angin.',choices:[{text:'Kejar Elsa',next:'kejarElsa',s:+15}]},
-dudukDiam:{text:'Kamu tidak bisa konsentrasi. Sepanjang pelajaran kamu perhatikan Bu Guru.',choices:[{text:'Cek ruang guru',next:'ruangGuru',s:+15}]},
-perhatianTerus:{text:'Bu Guru berhenti di tengah kalimat, matanya kosong.'},
-labLama:{text:'Di lab, ada puluhan kepompong sebesar manusia. Salah satunya bergerak.',choices:[{text:'Buka kepompong',next:'bukaKepompong',s:+20},{text:'Foto semua!',next:'fotoKepompong',t:+10},{text:'Lari kunci pintu',next:'lariKunci',s:+5}]},
-timInvest:{text:'Tim terbentuk: kamu, Dina, Raka, Elsa. Raka akses CCTV. Dina cek jurnal. Elsa jadi umpan.',choices:[{text:'Mulai investigasi',next:'mulaiInvestigasi',t:+10}]},
-teriakKaget:{text:'Makhluk itu menoleh. Wajah Dina tersenyum. Pintu lab terkunci dari luar.',choices:[{text:'Cari jalan keluar',next:'cariKeluar',s:+15},{text:'Hadapi!',next:'hadapiMakhluk',s:+20}]},
-rekamHP:{text:'Di layar HP, Dina di cermin bilang "Jangan rekam!" HP mati total.',choices:[{text:'Lari!',next:'lariHP',s:+10},{text:'Diem dan hadapi',next:'hadapiHP',s:+15}]},
-lihatDiLab:{text:'"Gue lihat diri gue sendiri di lab. Duduk di kursi. Dia bilang giliran lo sebentar lagi."',choices:[{text:'Ke lab sekarang!',next:'labSekarang',s:+15}]},
-keLabBareng:{text:'Di lab ada catatan: "Kami sudah datang. Kami sudah banyak."',choices:[{text:'Simpan bukti',next:'simpanCatatan',s:+10},{text:'Cari penulis',next:'cariPenulis',s:+15}]},
-terusMaju:{text:'Di ujung lorong, suara tangisan aneh dari lab.',choices:[{text:'Buka pintu',next:'bukaPintuLab',s:+10},{text:'Intip celah',next:'intipCelah',s:+15}]},
-balik:{text:'Di ujung lorong lain, Dina lain berdiri. Tapi Dina di sampingmu juga ada.',choices:[{text:'Lari!',next:'lariGelap',s:+10}]},
-pegangan:{text:'Tangannya terlalu dingin. Tapi kamu terus maju.',choices:[{text:'Buka pintu lab',next:'bukaPintuLab',t:+10}]},
-balasPesan:{text:'"Lo Dina. Sahabat gue." Kamu telepon. Tidak diangkat.',choices:[{text:'Ke rumah Dina',next:'keRumahDina',t:+10}]},
-telponDina:{text:'"Di luar jendela... ada yang lihatin. Senyumnya kayak senyum gue."',choices:[{text:'Ke rumah lo sekarang!',next:'keRumahDina',t:+10}]},
-keRumahDina:{text:'Dina di pojok kamar. "Di cermin... dia tersenyum."',choices:[{text:'Cek cermin',next:'cekCerminBareng',s:+15},{text:'Ajak Dina keluar',next:'ajakDinaKeluar',t:+10}]},
-perhatikanDina:{text:'Matanya putih dua detik. "Kenapa lo liatin gue?"',choices:[{text:'Jujur',next:'jujurDina',s:+10},{text:'Uji dengan pertanyaan',next:'ujiDina',s:+15}]},
-tanyaDinaLang:{text:'"Mata lo putih tadi." Dina gemetar. "Gimana kalau gue juga mulai berubah?"',choices:[{text:'Tenangin',next:'tenanginDina2',t:+10},{text:'Cari bantuan',next:'cariBantuan',s:+5}]},
-kamarMandi:{text:'Bayanganmu di cermin tidak mengikuti gerakanmu. Ia tersenyum.',choices:[{text:'Paksa gerak',next:'paksaGerak',s:+15},{text:'Tatap balik',next:'tatapBalik',s:+10},{text:'Pejam mata',next:'pejamMata',t:+5}]},
-cekCermin:{text:'Bayangan Dina mulutnya sampai ke telinga. "Lo bukan Dina?"',choices:[{text:'Tarik Dina lari!',next:'lariBersama',t:+10},{text:'Hadapi bayangan',next:'hadapiBayangan',s:+15}]},
-pelukErat:{text:'Bayangan mundur. Tidak bisa menembus ikatan kalian.',choices:[{text:'Kekuatan persahabatan!',next:'kekuatanSahabat',t:+15}]},
-dekatiSuara:{text:'Bahasa Indonesia terbalik, seperti kaset mundur.',choices:[{text:'Buka pintu',next:'bukaPintuLab',s:+15},{text:'Rekam dulu',next:'rekamSuara2',t:+10}]},
-rekamSuara:{text:'Putar ulang: "Dia bisa mendengar kita. Dia tahu."',choices:[{text:'Lanjut besok',next:'lanjutBesok',t:+5},{text:'Balik siang',next:'labSiang',s:+10}]},
-lariPulang:{text:'Di bawah pintu: "Kamu akan menjadi salah satu dari kami."',choices:[{text:'Bakar',next:'bakarKertas',t:+5},{text:'Simpan bukti',next:'simpanBukti',s:+10}]},
-bedaCara:{text:'"Tanya sesuatu yang cuma lo dan dia tahu."',choices:[{text:'Uji Dina',next:'ujiDina',s:+10}]},
-kejarElsa:{text:'Matanya putih. "Jangan ikutin gue." Suara bergema.',choices:[{text:'Hadapi!',next:'hadapiElsa',s:+20},{text:'Pura pergi',next:'puraPergi',t:+5}]},
-bukaKepompong:{text:'Di dalam ada Raka! "Mereka sudah ada di mana-mana."',choices:[{text:'Bantu Raka',next:'bantuRaka',t:+15},{text:'Mundur... apa kamu asli?',next:'raguAsli',s:+10}]},
-fotoKepompong:{text:'Kepompong terbuka. Dari dalam keluar dirimu sendiri. "Halo. Senang bertemu diriku."',choices:[{text:'Lari!',next:'lariKaget',s:+15},{text:'Tanya maunya apa',next:'tanyaMaksud2',s:+10}]},
-lariKunci:{text:'Bayanganmu di dinding bergerak sendiri. Menghadang.',choices:[{text:'Hadapi',next:'hadapiTakutan',s:+15}]},
-mulaiInvestigasi:{text:'CCTV: sosok berjalan jam 2 pagi. Wajahnya berganti-ganti.',choices:[{text:'Lanjut dan cari pola',next:'cariPola',t:+10}]},
-cariKeluar:{text:'Ventilasi! Dari atas, tubuh Bu Guru meleleh jadi cairan perak. Membentuk ulang menjadi kamu.',choices:[{text:'Kabur lewat ventilasi',next:'kaburVentilasi',t:+10}]},
-hadapiMakhluk:{text:'"Kami adalah Refleksi. Kami ada di cermin, di bayangan."',choices:[{text:'"Gak akan!"',next:'lawanRefleksi',s:+20},{text:'Bantu gimana?',next:'nego',s:+10}]},
-lariHP:{text:'Semua pintu terkunci. Lorong labirin.',choices:[{text:'Lari cari Dina',next:'dinaAsli',t:+10}]},
-hadapiHP:{text:'"Kami ingin belajar menjadi manusia."',choices:[{text:'Lawan!',next:'lawanRefleksi',s:+20},{text:'Nego',next:'nego',s:+10}]},
-labSekarang:{text:'Kursi di tengah. Tulisan kapur: "Duduklah. Kita bicara."',choices:[{text:'Duduk',next:'dudukLab',s:+15},{text:'Hapus dan pergi',next:'hapusTulisan',t:+5}]},
-cariPenulis:{text:'Anak kelas 7 bersembunyi. "Aku satu-satunya yang belum tertukar."',choices:[{text:'Lindungi dia',next:'lindungAnak',t:+15}]},
-bukaPintuLab:{text:'Logbook: Proses Peniruan. Progress: 87%.',choices:[{text:'Baca logbook',next:'bacaLogbook',s:+15}]},
-intipCelah:{text:'Wajahmu di dalam. Matanya putih. "Masuklah."',choices:[{text:'Masuk hadapi',next:'masukHadapi',s:+15},{text:'Tarik Dina lari!',next:'lariGelap2',t:+10}]},
-lariGelap:{text:'Dari lab: "Tidak akan ada tempat persembunyian."',choices:[{text:'Ke atap',next:'keAtap',t:+10},{text:'Bersembunyi',next:'sembunyiPerpus',s:+5}]},
-cekCerminBareng:{text:'Cermin terasa hangat. Berdenyut seperti jantung.',choices:[{text:'Pecahkan!',next:'pecahCermin',t:+10},{text:'Tarik Dina',next:'tarikDina',s:+10}]},
-ajakDinaKeluar:{text:'Ibu Dina buatkan susu. Pulang, Dina kirim: "Jangan percaya siapa pun. Termasuk ibuku."'},
-jujurDina:{text:'Dina menangis. "Aku takut kehilangan diriku sendiri."',choices:[{text:'Cari bantuan',next:'cariBantuan'}]},
-ujiDina:{text:'Dina jawab benar. Tapi matanya berubah putih lagi.',choices:[{text:'Pura tidak lihat',next:'puraTdkLihat2',s:+10},{text:'Cari bantuan',next:'cariBantuan',t:+10}]},
-tenanginDina2:{text:'Dina tersenyum. "Lo sahabat terbaik."',choices:[{text:'Cari solusi',next:'cariBantuan'}]},
-cariBantuan:{text:'Profesor: "Refleksi takut pada ikatan manusia yang tulus."',choices:[{text:'Kembali hadapi!',next:'kembaliHadapi',t:+15}]},
-paksaGerak:{text:'Kamu pukul cermin. Retak. Bayangan hilang.',choices:[{text:'Keluar!',next:'keluarKamarMandi',t:+10}]},
-tatapBalik:{text:'"Kami ingin menjadi nyata."',choices:[{text:'Tolak',next:'tolakBayangan',s:+15}]},
-pejamMata:{text:'Di saku: "Kami bisa menunggu."',choices:[{text:'Simpan',next:'simpanKertas',s:+10}]},
-lariBersama:{text:'"Peniru gak bisa nangis." Dina menangis.',choices:[{text:'Sahabat selamanya!',next:'kekuatanSahabat',t:+15}]},
-hadapiBayangan:{text:'"Aku mau menjadi dia. Karena dia berharga."',choices:[{text:'Tetap gak boleh!',next:'lawanRefleksi',s:+15},{text:'Bantu cara lain',next:'nego2',s:+10}]},
-kekuatanSahabat:{text:'Cermin retak. Refleksi menjerit. Mereka tidak bisa meniru ikatan tulus. Kalian selamat. Tapi Refleksi masih di luar sana, menunggu di cermin, di bayangan. Menunggu yang kesepian.',choices:[{text:'SELESAI. Main lagi?',next:'start'}]},
-lawanRefleksi:{text:'"Kami punya sesuatu yang tidak bisa kalian tiru: perasaan, persahabatan." Refleksi mundur. Mereka tidak pernah memahami kehilangan.',choices:[{text:'SELESAI. Main lagi?',next:'start'}]},
-nego:{text:'"Belajarlah dari kami. Tapi jangan gantikan kami." Refleksi mengangguk. Mungkin damai bisa tercapai.',choices:[{text:'SELESAI. Main lagi?',next:'start'}]},
-kembaliHadapi:{text:'Kamu kumpulkan teman-teman yang asli. Berpegangan tangan. Refleksi menjerit dan menghilang.',choices:[{text:'SELESAI. Main lagi?',next:'start'}]}
+start:{text:"Aku Bima. Dua tahun lalu pindah kota. Hari ini kembali. Adi dan Cakra mengundangku sleepover di rumah pohon. Aku senang, tapi gugup. Dua tahun waktu yang lama. Orang bisa berubah.",choices:[{text:"Datang lebih awal",next:"datangAwal"},{text:"Datang tepat waktu",next:"tepatWaktu"},{text:"Datang terlambat",next:"terlambat"}]},
+datangAwal:{text:"Pukul 4 sore. Rumah pohon masih sama. Adi datang. 'Bim!' Ia tersenyum. Tapi ada yang aneh. Caranya bicara sedikit kaku.",choices:[{text:"Tanya kabar Adi",next:"tanyaAdi"},{text:"Peluk Adi",next:"pelukAdi"}]},
+tepatWaktu:{text:"Pukul 5. Adi dan Cakra tertawa. Tapi saat aku masuk, mereka berhenti. Terlalu cepat.",choices:[{text:"Tanya kenapa berhenti",next:"tanyaBerhenti"},{text:"Diam dan duduk",next:"dudukDiam"}]},
+terlambat:{text:"Pukul 6. Suasana aneh. Mereka duduk berhadapan, tidak bicara. Seperti baru bertengkar.",choices:[{text:"Tanya mereka bertengkar",next:"tanyaTengkar"},{text:"Duduk di antara mereka",next:"dudukAntara"}]},
+tanyaAdi:{text:"'Kabar baik. Sekolah baru, teman baru.' Jawaban pendek. Dulu Adi tidak pernah menjawab pendek.",choices:[{text:"Bahas masa kecil",next:"basaMasaKecil"},{text:"Tunggu Cakra",next:"tungguCakra"}]},
+pelukAdi:{text:"Tubuhnya kaku. 'Kamu berubah, Bim.' Ada sesuatu di matanya yang tidak kukenal.",choices:[{text:"Tanya kenapa dia berubah",next:"tanyaAdiBerubah"},{text:"Ngobrol santai",next:"ngobrolAdi"}]},
+tanyaBerhenti:{text:"'Kami cuma ngomongin masa lalu,' kata Adi. Tapi matanya berkata lain.",choices:[{text:"Desak mereka jujur",next:"desakJujur"},{text:"Ganti topik",next:"gantiTopik"}]},
+dudukDiam:{text:"Dulu kami tidak bisa diam. Sekarang, sunyi. Ada yang salah.",choices:[{text:"Mulai ngobrol",next:"mulaiNgobrol"},{text:"Buka radio",next:"bukaRadio"}]},
+tanyaTengkar:{text:"'Kami tidak bertengkar. Hanya tidak bicara.' Alasan masuk akal. Tapi aku kenal mereka.",choices:[{text:"Paksa mereka cerita",next:"paksaCerita"},{text:"Nikmati malam",next:"nikmatiMalam"}]},
+dudukAntara:{text:"Mereka bercerita terlalu rapi. Seperti sudah menghafal naskah.",choices:[{text:"Uji ingatan mereka",next:"ujiIngatan"},{text:"Anggap mereka gugup",next:"anggapGugup"}]},
+basaMasaKecil:{text:"Adi mendengarkan penuh perhatian. Terlalu penuh. Seperti mencatat.",choices:[{text:"Gunakan kode rahasia",next:"kodeRahasia"},{text:"Diam dan sedih",next:"sedih"}]},
+tungguCakra:{text:"Cakra tidak datang. Adi gelisah. 'Bagaimana kau tahu rumahnya cuma 5 menit?' Adi terdiam. 'Dia... bilang.' Tapi matanya berkata lain.",choices:[{text:"Cari Cakra bersama",next:"cariCakraBersama"},{text:"Telepon Cakra",next:"hubungiCakra"}]},
+ngobrolAdi:{text:"'Ingat waktu jatuh dari pohon?' 'Iya, kakiku patah.' Ia menunjuk kaki kiri. Tapi dulu kaki kanan.",choices:[{text:"Koreksi Adi",next:"koreksiAdi"},{text:"Diam",next:"diamPerhati"}]},
+tanyaAdiBerubah:{text:"'Berubah? Tidak. Aku masih Adi.' Tapi caranya bilang 'masih Adi' seperti baru pertama kali menyadari.",choices:[{text:"Uji dengan kenangan",next:"ujiKenangan"},{text:"Anggap baik-baik saja",next:"anggapBaik"}]},
+desakJujur:{text:"Cakra bilang, 'Ada yang perlu kau tahu. Nanti malam. Saat Adi tidur.' Seperti ada dua kubu.",choices:[{text:"Percaya Cakra",next:"temuiNanti"},{text:"Bilang ke Adi",next:"bilangAdi"}]},
+gantiTopik:{text:"Mereka menjawab 'Bakso Pak Mario' serempak. Terlalu serempak. Seperti berlatih.",choices:[{text:"Pesan bakso",next:"pesanBakso"},{text:"Tolak",next:"tolakBakso"}]},
+mulaiNgobrol:{text:"Cerita mereka terlalu lancar. Tidak ada jeda. Seperti sudah didiskusikan.",choices:[{text:"Tanya soal bayangan",next:"tanyaBayangan"},{text:"Pura tidak lihat",next:"puraTdkLihat"}]},
+bukaRadio:{text:"Lagu favorit masa kecil. Adi tidak ingat. Ini lagu yang selalu kami nyanyikan.",choices:[{text:"Tanya kenapa lupa",next:"tanyaLupa"},{text:"Anggap bercanda",next:"anggapCanda"}]},
+paksaCerita:{text:"'Kami berbeda pendapat. Tentang apakah perlu memberitahumu sesuatu.'",choices:[{text:"Desak mereka",next:"desakMereka"},{text:"Tunggu mereka siap",next:"tungguMereka"}]},
+nikmatiMalam:{text:"Pukul 2 pagi aku lihat mereka berbisik. 'Dia tidak tahu.' 'Kita harus menjaganya.'",choices:[{text:"Diam dan dengar",next:"diamDengar"},{text:"Hadapi mereka",next:"hadapiMereka"}]},
+kodeRahasia:{text:"Kode rahasia: 'Ada elang di langit.' Mereka tidak tahu. Mereka lupa sumpah kita.",choices:[{text:"Konfrontasi",next:"konfrontasi"},{text:"Pura-pura tidak terjadi",next:"puraTdkPapa"}]},
+sedih:{text:"Hatiku sakit. Tapi aku harus kuat.",choices:[{text:"Cari Cakra",next:"cariCakra"}]},
+cariCakraBersama:{text:"Rumah Cakra gelap. Dari dalam, suara tangisan. Atau tawa?",choices:[{text:"Masuk",next:"masukRumah"},{text:"Kembali",next:"kembaliPohon"}]},
+hubungiCakra:{text:"Tidak diangkat. Adi semakin pucat.",choices:[{text:"Cari ke rumah",next:"cariCakraBersama"},{text:"Hadapi Adi",next:"hadapiAdi"}]},
+temuiNanti:{text:"Di balik jendela, dua pasang mata bersinar dalam gelap.",choices:[{text:"Tunggu Adi tidur",next:"tungguAdiTidur"},{text:"Cerita ke Adi",next:"bilangAdi"}]},
+bilangAdi:{text:"Adi tersenyum lega. 'Oh. Bicaralah.' Seperti sudah tahu.",choices:[{text:"Tanya apa yang dia tahu",next:"tanyaAdiTahu"},{text:"Batal",next:"batalTidur"}]},
+koreksiAdi:{text:"Adi menatap kakinya. 'Kanan? Aku lupa.' Adi tidak akan lupa. Kecuali dia tidak mengalaminya.",choices:[{text:"Cari Cakra",next:"cariCakra"},{text:"Hadapi Adi",next:"hadapiAdi"}]},
+diamPerhati:{text:"Aku akan uji mereka. Cari tahu seberapa dalam kepalsuan ini.",choices:[{text:"Gunakan kode rahasia",next:"kodeRahasia"}]},
+ujiKenangan:{text:"Semua jawaban benar. Tapi tanpa emosi. Seperti membaca fakta.",choices:[{text:"Tantang lebih privat",next:"kenanganPrivat"},{text:"Terima mereka masih sama",next:"terimaSama"}]},
+anggapBaik:{text:"Saat aku rileks, mereka juga rileks. Tapi mereka saling berpandangan. Seperti baru lewati ujian.",choices:[{text:"Tetap waspada",next:"waspada"},{text:"Nikmati malam",next:"nikmatMalam"}]},
+konfrontasi:{text:"'Kalian bukan Adi dan Cakra.' Mereka tertawa bersamaan. 'Kami adalah Wuyung. Kami mengambil bentuk orang yang kami gantikan.' Aku mundur. 'Di mana mereka yang asli?' 'Mereka ada di dalam kami.'",choices:[{text:"Lari!",next:"lariMenjauh"},{text:"Hadapi",next:"hadapiKebenaran"}]},
+puraTdkPapa:{text:"Aku harus bertahan sampai pagi. Tapi di kegelapan, aku merasakan mereka menatapku.",choices:[{text:"Pura tidur",next:"puraTidur"},{text:"Lari diam-diam",next:"lariDiam"}]},
+hadapiAdi:{text:"'Aku Adi. Tapi aku juga bukan.' Ia memegang kepalanya. 'Dia di dalam kepalaku. Dia bilang aku harus menggantikannya. Tapi aku ingin menjadi Adi yang asli.'",choices:[{text:"Bantu dia melawan",next:"lawanWuyung"},{text:"Cari Cakra",next:"cariCakra"}]},
+lawanWuyung:{text:"'Kau Adi. Yang suka lari hujan-hujanan. Yang takut ketinggian.' Air matanya mengalir. 'Aku ingat.' Ia tersenyum. Senyum asli. 'Makasih, Bim.'",choices:[{text:"SELESAI. Main lagi?",next:"start"}]},
+lariMenjauh:{text:"Aku lari. Hujan deras. Tidak ada yang mengejar. Atau mereka tidak perlu mengejar. Karena mereka sudah ada di dalam kepalaku.",choices:[{text:"SELESAI. Main lagi?",next:"start"}]},
+hadapiKebenaran:{text:"'Tunjukkan wujud aslimu.' Tubuh mereka meleleh. Menjadi siluet. 'Kami tidak punya wujud. Kami adalah bayangan. Keraguan kalian yang memberi kami kekuatan.'",choices:[{text:"Percayai temanmu",next:"damai"},{text:"Lari",next:"lariMenjauh"}]},
+damai:{text:"Kami berpelukan. Hujan di luar. Lagu lama di radio. Untuk pertama kalinya malam ini, semuanya nyata.",choices:[{text:"SELESAI. Main lagi?",next:"start"}]}
 };
-function go(id){const n=S[id];if(!n)return;trust=Math.max(0,Math.min(100,trust+(n.t||0)));susp=Math.max(0,Math.min(100,susp+(n.s||0)));updateStats();document.getElementById('story').innerHTML=n.text;const c=document.getElementById('choices');c.innerHTML='';if(id==='start'){trust=100;susp=0;updateStats();document.getElementById('badge').textContent='Hari 1'}else if(n.text.includes('SELESAI'))document.getElementById('badge').textContent='SELESAI';else document.getElementById('badge').textContent='Penyelidikan';n.choices.forEach(ch=>{const b=document.createElement('button');b.className='btn';b.textContent=ch.text;b.onclick=()=>go(ch.next);c.appendChild(b)});}
-function resetGame(){go('start')}
+function go(id){const n=S[id];if(!n)return;document.getElementById('story').innerHTML=n.text;const c=document.getElementById('choices');c.innerHTML='';if(id==='start')document.getElementById('badge').textContent='Undangan';else if(n.text.includes('SELESAI'))document.getElementById('badge').textContent='SELESAI';else if(id==='konfrontasi')document.getElementById('badge').textContent='KONFRONTASI';else document.getElementById('badge').textContent='Rumah Pohon';n.choices.forEach(ch=>{const b=document.createElement('button');b.className='btn';b.textContent=ch.text;b.onclick=()=>go(ch.next);c.appendChild(b)});}
 go('start');
 </script>
 </body>
