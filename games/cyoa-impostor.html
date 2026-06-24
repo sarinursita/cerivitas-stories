@@ -3,25 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wuyung - CYOA</title>
+<title>Null - CYOA</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;font-family:'Segoe UI',sans-serif}
-.game{background:#fff;border-radius:24px;padding:35px;max-width:700px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.4)}
-h1{text-align:center;color:#e94560;font-size:28px;margin-bottom:5px;letter-spacing:2px}
-.sub{text-align:center;color:#888;font-size:14px;margin:5px 0 20px;font-style:italic}
-.badge{background:#e94560;color:#fff;padding:6px 16px;border-radius:20px;font-size:13px;display:inline-block;margin-bottom:15px}
-.story{background:#f8f5f0;border-left:4px solid #e94560;border-radius:0 16px 16px 0;padding:25px;min-height:220px;margin-bottom:20px;font-size:16px;line-height:1.9;color:#333;text-align:justify}
+body{background:linear-gradient(135deg,#0a0a0a,#1a1a2e,#0d0d0d);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;font-family:'Segoe UI',sans-serif}
+.game{background:linear-gradient(180deg,#0d0d0d,#1a1a2e);border-radius:24px;padding:35px;max-width:700px;width:100%;box-shadow:0 20px 60px rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.2)}
+h1{text-align:center;color:#00ff88;font-size:32px;margin-bottom:5px;letter-spacing:4px;text-shadow:0 0 20px rgba(0,255,136,0.5)}
+.sub{text-align:center;color:#66ffaa;font-size:14px;margin:5px 0 20px;font-style:italic;opacity:0.8}
+.badge{background:#00ff88;color:#000;padding:6px 16px;border-radius:20px;font-size:13px;display:inline-block;margin-bottom:15px;font-weight:bold}
+.story{background:rgba(0,255,136,0.03);border:1px solid rgba(0,255,136,0.1);border-radius:16px;padding:25px;min-height:220px;margin-bottom:20px;font-size:16px;line-height:1.9;color:#ccffdd;text-align:justify}
 .choices{display:flex;flex-direction:column;gap:10px}
-.btn{background:#16213e;color:#fff;border:none;border-radius:12px;padding:15px 22px;font-size:16px;cursor:pointer;transition:.3s;text-align:left}
-.btn:hover{background:#0f3460;transform:translateX(5px)}
-.reset{background:#e94560;color:#fff;border:none;border-radius:12px;padding:12px;font-size:15px;cursor:pointer;width:100%;margin-top:18px}
+.btn{background:linear-gradient(135deg,#00ff88,#00cc66);color:#000;font-weight:bold;border:none;border-radius:12px;padding:15px 22px;font-size:16px;cursor:pointer;transition:.3s;text-align:left}
+.btn:hover{transform:translateX(5px);box-shadow:0 6px 20px rgba(0,255,136,0.4)}
+.reset{background:#ff3366;color:#fff;border:none;border-radius:12px;padding:12px;font-size:15px;cursor:pointer;width:100%;margin-top:18px}
 </style>
 </head>
 <body>
 <div class="game">
-<h1>Wuyung</h1>
-<p class="sub">Tiga sahabat lama bertemu kembali. Tapi sesuatu dalam diri mereka telah berubah.</p>
+<h1>NULL</h1>
+<p class="sub">Seseorang di antara kalian bukanlah dirinya sendiri. Identitas adalah ilusi.</p>
 <div class="badge" id="badge">Undangan</div>
 <div class="story" id="story">Namaku Bima. Kelas 7. Dua tahun lalu aku pindah kota. Hari ini aku kembali ke rumah lama. Adi dan Cakra mengundangku sleepover di rumah pohon. Aku senang, tapi gugup. Dua tahun adalah waktu yang lama. Orang bisa berubah.</div>
 <div class="choices" id="choices"></div>
@@ -29,43 +29,43 @@ h1{text-align:center;color:#e94560;font-size:28px;margin-bottom:5px;letter-spaci
 </div>
 <script>
 const S={
-start:{text:"Aku Bima. Dua tahun lalu pindah kota. Hari ini kembali. Adi dan Cakra mengundangku sleepover di rumah pohon. Aku senang, tapi gugup. Dua tahun waktu yang lama. Orang bisa berubah.",choices:[{text:"Datang lebih awal",next:"datangAwal"},{text:"Datang tepat waktu",next:"tepatWaktu"},{text:"Datang terlambat",next:"terlambat"}]},
-datangAwal:{text:"Pukul 4 sore. Rumah pohon masih sama. Adi datang. 'Bim!' Ia tersenyum. Tapi ada yang aneh. Caranya bicara sedikit kaku.",choices:[{text:"Tanya kabar Adi",next:"tanyaAdi"},{text:"Peluk Adi",next:"pelukAdi"}]},
-tepatWaktu:{text:"Pukul 5. Adi dan Cakra tertawa. Tapi saat aku masuk, mereka berhenti. Terlalu cepat.",choices:[{text:"Tanya kenapa berhenti",next:"tanyaBerhenti"},{text:"Diam dan duduk",next:"dudukDiam"}]},
-terlambat:{text:"Pukul 6. Suasana aneh. Mereka duduk berhadapan, tidak bicara. Seperti baru bertengkar.",choices:[{text:"Tanya mereka bertengkar",next:"tanyaTengkar"},{text:"Duduk di antara mereka",next:"dudukAntara"}]},
-tanyaAdi:{text:"'Kabar baik. Sekolah baru, teman baru.' Jawaban pendek. Dulu Adi tidak pernah menjawab pendek.",choices:[{text:"Bahas masa kecil",next:"basaMasaKecil"},{text:"Tunggu Cakra",next:"tungguCakra"}]},
+start:{text:"Aku Bima. Dua tahun lalu pindah kota. Hari ini kembali. Adi dan Cakra mengundangku sleepover di rumah pohon. Aku senang, tapi gugup.",choices:[{text:"Datang lebih awal",next:"datangAwal"},{text:"Datang tepat waktu",next:"tepatWaktu"},{text:"Datang terlambat",next:"terlambat"}]},
+datangAwal:{text:"Pukul 4 sore. Adi datang. 'Bim!' Ia tersenyum. Tapi caranya bicara sedikit kaku.",choices:[{text:"Tanya kabar Adi",next:"tanyaAdi"},{text:"Peluk Adi",next:"pelukAdi"}]},
+tepatWaktu:{text:"Pukul 5. Adi dan Cakra tertawa. Tapi saat aku masuk, mereka berhenti.",choices:[{text:"Tanya kenapa berhenti",next:"tanyaBerhenti"},{text:"Diam dan duduk",next:"dudukDiam"}]},
+terlambat:{text:"Pukul 6. Suasana aneh. Mereka duduk berhadapan, tidak bicara.",choices:[{text:"Tanya mereka bertengkar",next:"tanyaTengkar"},{text:"Duduk di antara mereka",next:"dudukAntara"}]},
+tanyaAdi:{text:"'Kabar baik. Sekolah baru.' Jawaban pendek. Dulu Adi tidak pernah menjawab pendek.",choices:[{text:"Bahas masa kecil",next:"basaMasaKecil"},{text:"Tunggu Cakra",next:"tungguCakra"}]},
 pelukAdi:{text:"Tubuhnya kaku. 'Kamu berubah, Bim.' Ada sesuatu di matanya yang tidak kukenal.",choices:[{text:"Tanya kenapa dia berubah",next:"tanyaAdiBerubah"},{text:"Ngobrol santai",next:"ngobrolAdi"}]},
-tanyaBerhenti:{text:"'Kami cuma ngomongin masa lalu,' kata Adi. Tapi matanya berkata lain.",choices:[{text:"Desak mereka jujur",next:"desakJujur"},{text:"Ganti topik",next:"gantiTopik"}]},
-dudukDiam:{text:"Dulu kami tidak bisa diam. Sekarang, sunyi. Ada yang salah.",choices:[{text:"Mulai ngobrol",next:"mulaiNgobrol"},{text:"Buka radio",next:"bukaRadio"}]},
+tanyaBerhenti:{text:"'Kami cuma ngomongin masa lalu.' Tapi matanya berkata lain.",choices:[{text:"Desak mereka jujur",next:"desakJujur"},{text:"Ganti topik",next:"gantiTopik"}]},
+dudukDiam:{text:"Dulu kami tidak bisa diam. Sekarang sunyi.",choices:[{text:"Mulai ngobrol",next:"mulaiNgobrol"},{text:"Buka radio",next:"bukaRadio"}]},
 tanyaTengkar:{text:"'Kami tidak bertengkar. Hanya tidak bicara.' Alasan masuk akal. Tapi aku kenal mereka.",choices:[{text:"Paksa mereka cerita",next:"paksaCerita"},{text:"Nikmati malam",next:"nikmatiMalam"}]},
 dudukAntara:{text:"Mereka bercerita terlalu rapi. Seperti sudah menghafal naskah.",choices:[{text:"Uji ingatan mereka",next:"ujiIngatan"},{text:"Anggap mereka gugup",next:"anggapGugup"}]},
 basaMasaKecil:{text:"Adi mendengarkan penuh perhatian. Terlalu penuh. Seperti mencatat.",choices:[{text:"Gunakan kode rahasia",next:"kodeRahasia"},{text:"Diam dan sedih",next:"sedih"}]},
-tungguCakra:{text:"Cakra tidak datang. Adi gelisah. 'Bagaimana kau tahu rumahnya cuma 5 menit?' Adi terdiam. 'Dia... bilang.' Tapi matanya berkata lain.",choices:[{text:"Cari Cakra bersama",next:"cariCakraBersama"},{text:"Telepon Cakra",next:"hubungiCakra"}]},
-ngobrolAdi:{text:"'Ingat waktu jatuh dari pohon?' 'Iya, kakiku patah.' Ia menunjuk kaki kiri. Tapi dulu kaki kanan.",choices:[{text:"Koreksi Adi",next:"koreksiAdi"},{text:"Diam",next:"diamPerhati"}]},
-tanyaAdiBerubah:{text:"'Berubah? Tidak. Aku masih Adi.' Tapi caranya bilang 'masih Adi' seperti baru pertama kali menyadari.",choices:[{text:"Uji dengan kenangan",next:"ujiKenangan"},{text:"Anggap baik-baik saja",next:"anggapBaik"}]},
-desakJujur:{text:"Cakra bilang, 'Ada yang perlu kau tahu. Nanti malam. Saat Adi tidur.' Seperti ada dua kubu.",choices:[{text:"Percaya Cakra",next:"temuiNanti"},{text:"Bilang ke Adi",next:"bilangAdi"}]},
-gantiTopik:{text:"Mereka menjawab 'Bakso Pak Mario' serempak. Terlalu serempak. Seperti berlatih.",choices:[{text:"Pesan bakso",next:"pesanBakso"},{text:"Tolak",next:"tolakBakso"}]},
-mulaiNgobrol:{text:"Cerita mereka terlalu lancar. Tidak ada jeda. Seperti sudah didiskusikan.",choices:[{text:"Tanya soal bayangan",next:"tanyaBayangan"},{text:"Pura tidak lihat",next:"puraTdkLihat"}]},
-bukaRadio:{text:"Lagu favorit masa kecil. Adi tidak ingat. Ini lagu yang selalu kami nyanyikan.",choices:[{text:"Tanya kenapa lupa",next:"tanyaLupa"},{text:"Anggap bercanda",next:"anggapCanda"}]},
+tungguCakra:{text:"Cakra tidak datang. Adi gelisah. 'Bagaimana kau tahu rumahnya cuma 5 menit?'",choices:[{text:"Cari Cakra bersama",next:"cariCakraBersama"},{text:"Telepon Cakra",next:"hubungiCakra"}]},
+ngobrolAdi:{text:"'Ingat waktu jatuh dari pohon?' 'Iya, kakiku patah.' Ia menunjuk kaki kiri. Tapi dulu kaki kanan.",choices:[{text:"Koreksi Adi",next:"koreksiAdi"},{text:"Diam dan perhatikan",next:"diamPerhati"}]},
+tanyaAdiBerubah:{text:"'Berubah? Tidak. Aku masih Adi.' Caranya bilang seperti baru pertama kali sadar.",choices:[{text:"Uji dengan kenangan",next:"ujiKenangan"},{text:"Anggap baik-baik saja",next:"anggapBaik"}]},
+desakJujur:{text:"Cakra bilang, 'Ada yang perlu kau tahu. Nanti malam. Saat Adi tidur.'",choices:[{text:"Percaya Cakra",next:"temuiNanti"},{text:"Bilang ke Adi",next:"bilangAdi"}]},
+gantiTopik:{text:"Mereka menjawab 'Bakso Pak Mario' serempak. Seperti berlatih.",choices:[{text:"Pesan bakso",next:"pesanBakso"},{text:"Tolak",next:"tolakBakso"}]},
+mulaiNgobrol:{text:"Cerita mereka terlalu lancar. Tidak ada jeda.",choices:[{text:"Tanya soal bayangan",next:"tanyaBayangan"},{text:"Pura tidak lihat",next:"puraTdkLihat"}]},
+bukaRadio:{text:"Lagu favorit masa kecil. Adi tidak ingat.",choices:[{text:"Tanya kenapa lupa",next:"tanyaLupa"},{text:"Anggap bercanda",next:"anggapCanda"}]},
 paksaCerita:{text:"'Kami berbeda pendapat. Tentang apakah perlu memberitahumu sesuatu.'",choices:[{text:"Desak mereka",next:"desakMereka"},{text:"Tunggu mereka siap",next:"tungguMereka"}]},
-nikmatiMalam:{text:"Pukul 2 pagi aku lihat mereka berbisik. 'Dia tidak tahu.' 'Kita harus menjaganya.'",choices:[{text:"Diam dan dengar",next:"diamDengar"},{text:"Hadapi mereka",next:"hadapiMereka"}]},
-kodeRahasia:{text:"Kode rahasia: 'Ada elang di langit.' Mereka tidak tahu. Mereka lupa sumpah kita.",choices:[{text:"Konfrontasi",next:"konfrontasi"},{text:"Pura-pura tidak terjadi",next:"puraTdkPapa"}]},
+nikmatiMalam:{text:"Pukul 2 pagi aku lihat mereka berbisik. 'Dia tidak tahu. Kita harus menjaganya.'",choices:[{text:"Diam dan dengar",next:"diamDengar"},{text:"Hadapi mereka",next:"hadapiMereka"}]},
+kodeRahasia:{text:"'Ada elang di langit.' Mereka tidak tahu kode rahasia kita.",choices:[{text:"Konfrontasi",next:"konfrontasi"},{text:"Pura-pura tidak terjadi",next:"puraTdkPapa"}]},
 sedih:{text:"Hatiku sakit. Tapi aku harus kuat.",choices:[{text:"Cari Cakra",next:"cariCakra"}]},
-cariCakraBersama:{text:"Rumah Cakra gelap. Dari dalam, suara tangisan. Atau tawa?",choices:[{text:"Masuk",next:"masukRumah"},{text:"Kembali",next:"kembaliPohon"}]},
+cariCakraBersama:{text:"Rumah Cakra gelap. Dari dalam suara tangisan.",choices:[{text:"Masuk",next:"masukRumah"},{text:"Kembali",next:"kembaliPohon"}]},
 hubungiCakra:{text:"Tidak diangkat. Adi semakin pucat.",choices:[{text:"Cari ke rumah",next:"cariCakraBersama"},{text:"Hadapi Adi",next:"hadapiAdi"}]},
-temuiNanti:{text:"Di balik jendela, dua pasang mata bersinar dalam gelap.",choices:[{text:"Tunggu Adi tidur",next:"tungguAdiTidur"},{text:"Cerita ke Adi",next:"bilangAdi"}]},
+temuiNanti:{text:"Di balik jendela, dua pasang mata bersinar.",choices:[{text:"Tunggu Adi tidur",next:"tungguAdiTidur"},{text:"Cerita ke Adi",next:"bilangAdi"}]},
 bilangAdi:{text:"Adi tersenyum lega. 'Oh. Bicaralah.' Seperti sudah tahu.",choices:[{text:"Tanya apa yang dia tahu",next:"tanyaAdiTahu"},{text:"Batal",next:"batalTidur"}]},
-koreksiAdi:{text:"Adi menatap kakinya. 'Kanan? Aku lupa.' Adi tidak akan lupa. Kecuali dia tidak mengalaminya.",choices:[{text:"Cari Cakra",next:"cariCakra"},{text:"Hadapi Adi",next:"hadapiAdi"}]},
+koreksiAdi:{text:"'Kaki kanan, Adi.' Adi menatap kosong. 'Aku lupa.' Adi tidak akan lupa. Kecuali dia tidak mengalaminya.",choices:[{text:"Cari Cakra",next:"cariCakra"},{text:"Hadapi Adi",next:"hadapiAdi"}]},
 diamPerhati:{text:"Aku akan uji mereka. Cari tahu seberapa dalam kepalsuan ini.",choices:[{text:"Gunakan kode rahasia",next:"kodeRahasia"}]},
 ujiKenangan:{text:"Semua jawaban benar. Tapi tanpa emosi. Seperti membaca fakta.",choices:[{text:"Tantang lebih privat",next:"kenanganPrivat"},{text:"Terima mereka masih sama",next:"terimaSama"}]},
-anggapBaik:{text:"Saat aku rileks, mereka juga rileks. Tapi mereka saling berpandangan. Seperti baru lewati ujian.",choices:[{text:"Tetap waspada",next:"waspada"},{text:"Nikmati malam",next:"nikmatMalam"}]},
-konfrontasi:{text:"'Kalian bukan Adi dan Cakra.' Mereka tertawa bersamaan. 'Kami adalah Wuyung. Kami mengambil bentuk orang yang kami gantikan.' Aku mundur. 'Di mana mereka yang asli?' 'Mereka ada di dalam kami.'",choices:[{text:"Lari!",next:"lariMenjauh"},{text:"Hadapi",next:"hadapiKebenaran"}]},
-puraTdkPapa:{text:"Aku harus bertahan sampai pagi. Tapi di kegelapan, aku merasakan mereka menatapku.",choices:[{text:"Pura tidur",next:"puraTidur"},{text:"Lari diam-diam",next:"lariDiam"}]},
-hadapiAdi:{text:"'Aku Adi. Tapi aku juga bukan.' Ia memegang kepalanya. 'Dia di dalam kepalaku. Dia bilang aku harus menggantikannya. Tapi aku ingin menjadi Adi yang asli.'",choices:[{text:"Bantu dia melawan",next:"lawanWuyung"},{text:"Cari Cakra",next:"cariCakra"}]},
-lawanWuyung:{text:"'Kau Adi. Yang suka lari hujan-hujanan. Yang takut ketinggian.' Air matanya mengalir. 'Aku ingat.' Ia tersenyum. Senyum asli. 'Makasih, Bim.'",choices:[{text:"SELESAI. Main lagi?",next:"start"}]},
-lariMenjauh:{text:"Aku lari. Hujan deras. Tidak ada yang mengejar. Atau mereka tidak perlu mengejar. Karena mereka sudah ada di dalam kepalaku.",choices:[{text:"SELESAI. Main lagi?",next:"start"}]},
-hadapiKebenaran:{text:"'Tunjukkan wujud aslimu.' Tubuh mereka meleleh. Menjadi siluet. 'Kami tidak punya wujud. Kami adalah bayangan. Keraguan kalian yang memberi kami kekuatan.'",choices:[{text:"Percayai temanmu",next:"damai"},{text:"Lari",next:"lariMenjauh"}]},
-damai:{text:"Kami berpelukan. Hujan di luar. Lagu lama di radio. Untuk pertama kalinya malam ini, semuanya nyata.",choices:[{text:"SELESAI. Main lagi?",next:"start"}]}
+anggapBaik:{text:"Saat aku rileks, mereka juga rileks. Tapi saling berpandangan.",choices:[{text:"Tetap waspada",next:"waspada"},{text:"Nikmati malam",next:"nikmatMalam"}]},
+konfrontasi:{text:"'Kalian bukan Adi dan Cakra.' Mereka tertawa bersamaan. 'Kami Null. Kami mengambil bentuk yang kami gantikan.'",choices:[{text:"Lari!",next:"lariMenjauh"},{text:"Hadapi",next:"hadapiKebenaran"}]},
+puraTdkPapa:{text:"Aku harus bertahan sampai pagi. Tapi di kegelapan, mereka menatapku.",choices:[{text:"Pura tidur",next:"puraTidur"},{text:"Lari diam-diam",next:"lariDiam"}]},
+hadapiAdi:{text:"'Aku Adi. Tapi aku juga bukan. Dia di dalam kepalaku.'",choices:[{text:"Bantu dia melawan",next:"lawanNull"},{text:"Cari Cakra",next:"cariCakra"}]},
+lawanNull:{text:"'Kau Adi. Yang suka lari hujan-hujanan. Yang takut ketinggian.' Air matanya mengalir. 'Aku ingat.' Ia tersenyum asli.",choices:[{text:"SELESAI. Main lagi?",next:"start"}]},
+lariMenjauh:{text:"Aku lari. Tidak ada yang mengejar. Tapi mereka sudah ada di dalam kepalaku.",choices:[{text:"SELESAI. Main lagi?",next:"start"}]},
+hadapiKebenaran:{text:"'Tunjukkan wujud aslimu.' Mereka meleleh jadi siluet. 'Kami adalah Null. Ketidakpercayaan kalian yang memberi kami bentuk.'",choices:[{text:"Percayai temanmu",next:"damai"},{text:"Lari",next:"lariMenjauh"}]},
+damai:{text:"Kami berpelukan. Hujan di luar. Lagu lama di radio. Semuanya nyata.",choices:[{text:"SELESAI. Main lagi?",next:"start"}]}
 };
 function go(id){const n=S[id];if(!n)return;document.getElementById('story').innerHTML=n.text;const c=document.getElementById('choices');c.innerHTML='';if(id==='start')document.getElementById('badge').textContent='Undangan';else if(n.text.includes('SELESAI'))document.getElementById('badge').textContent='SELESAI';else if(id==='konfrontasi')document.getElementById('badge').textContent='KONFRONTASI';else document.getElementById('badge').textContent='Rumah Pohon';n.choices.forEach(ch=>{const b=document.createElement('button');b.className='btn';b.textContent=ch.text;b.onclick=()=>go(ch.next);c.appendChild(b)});}
 go('start');
