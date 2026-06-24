@@ -1,1 +1,33 @@
-Aku Halilintar panggil aku Lintar. Ayahku ilmuwan. NULL 2.0 lolos dari lab. 7 agen teman. Sleepover gone wrong. Slime di lorong. Impostor.
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Null - CYOA</title>
+<style>
+**{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;font-family:'Segoe UI',sans-serif}
+.game{background:linear-gradient(180deg,#0d0d0d,#1a1a2e);border-radius:24px;padding:25px;max-width:700px;width:100%;border:1px solid rgba(0,255,136,0.2)}
+h1{text-align:center;color:#00ff88;font-size:28px;letter-spacing:6px;margin-bottom:2px}
+.sub{text-align:center;color:#66ffaa;font-size:11px;margin:2px 0 12px;font-style:italic;opacity:0.6}
+.badge{background:#00ff88;color:#000;padding:3px 12px;border-radius:16px;font-size:11px;display:inline-block;margin-bottom:10px;font-weight:bold}
+.story{background:rgba(0,255,136,0.02);border:1px solid rgba(0,255,136,0.08);border-radius:14px;padding:18px 20px;min-height:260px;margin-bottom:14px;font-size:14px;line-height:1.9;color:#bbffdd;text-align:justify}
+.choices{display:flex;flex-direction:column;gap:7px}
+.btn{background:linear-gradient(135deg,#00ff88,#00cc66);color:#000;font-weight:bold;border:none;border-radius:10px;padding:11px 18px;font-size:14px;cursor:pointer;text-align:left}
+.btn:hover{transform:translateX(5px);box-shadow:0 6px 20px rgba(0,255,136,0.3)}
+.reset{background:#ff3366;color:#fff;border:none;border-radius:10px;padding:10px;font-size:13px;cursor:pointer;width:100%;margin-top:14px}
+.count{text-align:center;color:#449944;font-size:11px;margin-top:8px;opacity:0.5}
+</style>
+</head>
+<body>
+<div class="game">
+<h1>NULL</h1>
+<p class="sub">Percobaan ayahku. 7 agen. 1 penyusup. Sat per peru mereka berguguran.</p>
+<div class="badge" id="badge">BERSÅMA</div>
+<div class="story" id="story">[Memuat cerita...]</div>
+<div class="choices" id="choices"></div>
+<button class="reset" onclick="go('start')">MULAI ULANG</button>
+<div class="count" id="count">Teman tersisa: 7</div>
+</div>
+<script>
+var S={},r=7;function go(i){var n=S[i];if(!n)return;document.getElementById('story').innerHTML=n.text;var c=document.getElementById('choices');c.innerHTML='';if(i==='start'){r=7;document.getElementById('badge').textContent='BERSAMEA';}else if(n.e){document.getElementById('badge').textContent='SELESAI';r=-1;}else{document.getElementById('badge').textContent='INFILTRASI';}document.getElementById('count').textContent=r>=0?'Teman tersisa: '+r:'';n.choices.forEach(function(ch){var b=document.createElement('button');b.className='btn';b.textContent=ch.text;b.onclick=function(){if(ch.next==='selesaiPercaya'||ch.next==='selesaiCuriga'||ch.next==='selesaiKalah'){go(ch.next)}else{r--;go(ch.next)}};c.appendChild(b);});}
