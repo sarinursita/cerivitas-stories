@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Petualangan Field Trip - CYOA</title>
+<style>
+**{margin:0;padding:0;box-sizing:border-box}
+body{background:linear-gradient(135deg,#ff9a9e,#fad0c4);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;font-family:'Segoe UI','Comic Sans',sans-serif}
+.game{background:#fff;border-radius:24px;padding:30px;max-width:650px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.15)}
+h1{text-align:center;color:#ff6b6b;font-size:28px;margin-bottom:2px}
+.sub{text-align:center;color:#888;font-size:13px;margin-bottom:15px;font-style:italic}
+.badge{background:linear-gradient(135deg,#ff6b6b,#ee5a24);color:#fff;padding:4px 14px;border-radius:20px;font-size:12px;display:inline-block;margin-bottom:12px;font-weight:bold}
+.story{background:#fef9f0;border:2px solid #ffe0d0;border-radius:16px;padding:22px;min-height:260px;margin-bottom:18px;font-size:16px;line-height:1.8;color:#444;text-align:justify}
+.choices{display:flex;flex-direction:column;gap:8px}
+.btn{background:linear-gradient(135deg,#ff6b6b,#ee5a24);color:#fff;border:none;border-radius:12px;padding:13px 20px;font-size:15px;cursor:pointer;text-align:left;transition:.2s}
+.btn:hover{transform:translateX(5px);box-shadow:0 6px 20px rgba(255,107,107,0.4)}
+.reset{background:#636e72;color:#fff;border:none;border-radius:10px;padding:10px;font-size:13px;cursor:pointer;width:100%;margin-top:14px}
+</style>
+</head>
+<body>
+<div class="game">
+<h1>Petualangan Field Trip</h1>
+<p class="sub">5 sahabat + 1 kakak. Satu bus. Satu petualangan yang tidak akan pernah terlupakan.</p>
+<div class="badge" id="badge">BERANGKAT</div>
+<div class="story" id="story">[Memuat cerita...]</div>
+<div class="choices" id="choices"></div>
+<button class="reset" onclick="go('start')">MULAI LAGI</button>
+</div>
+<script>
+var S={};function go(){}
