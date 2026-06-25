@@ -20,34 +20,35 @@ h1{text-align:center;color:#ffd700;font-size:26px}
 </head>
 <body>
 <div class="game">
-<h1>Sahabat Bintang</h1>
+<h1>🚀 Sahabat Bintang</h1>
 <p class="sub">Sebuah petualangan persahabatan di luar angkasa</p>
-<div class="badge" id="badge">Bumi</div>
-<div class="story" id="story">Kamu dan sahabatmu, Bima, sedang berkemah. Tiba-tiba bintang jatuh berhenti di depan kalian! Dari dalamnya, makhluk kecil biru yang menangis.</div>
+<div class="badge" id="badge">🌍 Bumi</div>
+<div class="story" id="story">Kamu dan sahabatmu, Bima, sedang berkemah di halaman belakang. Tiba-tiba, sebuah bintang jatuh... tapi berhenti di depan kalian! Dari dalam bintang itu, muncul makhluk kecil biru yang menangis.</div>
 <div class="choices" id="choices"></div>
-<button class="reset" onclick="go('start')">Mulai Lagi</button>
+<button class="reset" onclick="go('start')">🔄 Mulai Lagi</button>
 </div>
 <script>
 const S={
-start:{text:"Kamu dan Bima berkemah. Tiba-tiba bintang jatuh berhenti di depan kalian! Dari dalamnya, makhluk kecil biru menangis.",choices:[{text:"Tanya kenapa dia menangis",next:"tanya"},{text:"Peluk makhluk itu",next:"peluk"},{text:"Mundur takut",next:"mundur"}]},
-tanya:{text:"Makhluk biru itu terisak, 'Aku Nebula... Aku tersesat dan jauh dari rumah. Aku ingin pulang ke Planet Persahabatan.'",choices:[{text:"Bantu Nebula!",next:"bantu1"},{text:"Panggil Bima buat bantu",next:"bantuBima"}]},
-peluk:{text:"Kamu peluk Nebula. Dia berhenti menangis. 'Terima kasih... Tak ada yang pernah memelukku.' Nebula menunjukkan kristal biru yang bersinar.",choices:[{text:"Bantu Nebula pulang",next:"bantu1"}]},
-mundur:{text:"Bima berkata, 'Jangan takut, dia butuh bantuan!' Kamu merasa berani dan ikut maju.",choices:[{text:"Bantu Nebula",next:"bantu1"}]},
-bantuBima:{text:"Bima datang dengan kotak peralatan. 'Aku bisa bikin antena dari barang bekas!' Kalian bertiga bekerja sama.",choices:[{text:"Kerja sama tim!",next:"perbaiki"}]},
-bantu1:{text:"Nebula membawa kalian ke pesawatnya yang tersembunyi. Tapi mesinnya kehilangan 3 Bintang Energi.",choices:[{text:"Cari Bintang Energi 1: Hutan",next:"hutan"},{text:"Cari Bintang Energi 2: Sungai",next:"sungai"},{text:"Cari Bintang Energi 3: Gua",next:"gua"}]},
-hutan:{text:"Di hutan, kalian bertemu kunang-kunang yang bicara! Mereka menjaga Bintang Energi.",choices:[{text:"Bantu kunang-kunang",next:"bantuKunang"},{text:"Ambil paksa",next:"ambilPaksa"}]},
-sungai:{text:"Bintang Energi terapung di atas air. Ikan pelangi yang menjaga.",choices:[{text:"Pancing ikan dengan kebaikan",next:"pancingIkan"},{text:"Berenang ambil",next:"ambilPaksa2"}]},
-gua:{text:"Di dalam gua kristal, Bintang Energi ketiga di altar. Tapi gelap.",choices:[{text:"Minta Bima temani",next:"berduaGua"},{text:"Berani sendiri",next:"beraniSendiri"}]},
-bantuKunang:{text:"Kunang-kunang kehilangan rumah. Kalian gotong royong. Mereka berikan Bintang Energi!",choices:[{text:"Bintang 1 dapat!",next:"bantu1"}]},
-ambilPaksa:{text:"Bima menghentikanmu. 'Kita harus baik!' Kalian meminta maaf dan membantu.",choices:[{text:"Bantu kunang-kunang",next:"bantuKunang"}]},
-pancingIkan:{text:"Kamu beri ikan kue. Ikan senang dan beri Bintang Energi.",choices:[{text:"Bintang 2 dapat!",next:"bantu1"}]},
-ambilPaksa2:{text:"Air dingin dan kamu kedinginan. Bima menarikmu. 'Harus minta izin!'",choices:[{text:"Coba cara baik",next:"pancingIkan"}]},
-berduaGua:{text:"Kamu dan Bima masuk bersama. Kristal bersinar. Kalian temukan Bintang Energi!",choices:[{text:"Bintang 3 dapat!",next:"lengkap"}]},
-beraniSendiri:{text:"Kamu ingat kata Nebula tentang persahabatan. Kristal di sakumu bersinar menerangi jalan!",choices:[{text:"Bintang 3 dapat!",next:"lengkap"}]},
-perbaiki:{text:"Bima berhasil buat antena, Nebula perbaiki mesin. Tapi mesin masih butuh 3 Bintang Energi.",choices:[{text:"Cari Bintang Energi!",next:"bantu1"}]},
-lengkap:{text:"Semua Bintang Energi terkumpul! Pesawat Nebula menyala. Nebula memeluk kalian. 'Kalian mengajarkanku arti persahabatan sejati.' Kristal Persahabatan bersinar. Nebula naik ke pesawatnya. 'Aku akan selalu mengingat kalian!'",choices:[{text:"SELAMAT! Main lagi?",next:"start"}]}
+start:{text:"Kamu dan sahabatmu, Bima, sedang berkemah. Tiba-tiba bintang jatuh berhenti di depan kalian! Dari dalamnya, makhluk kecil biru yang menangis.",choices:[{text:"💙 \"Kenapa kamu nangis?\"",next:"tanya"},{text:"🫂 Peluk makhluk itu",next:"peluk"},{text:"😨 Mundur takut",next:"mundur"}]},
+tanya:{text:"Makhluk biru itu terisak, 'Aku Nebula... Aku tersesat dan jauh dari rumah. Aku ingin pulang ke Planet Persahabatan, tapi pesawatku rusak.'",choices:[{text:"🔧 Bantu Nebula!",next:"bantu1"},{text:"📞 Panggil Bima buat bantu",next:"bantuBima"}]},
+peluk:{text:"Kamu peluk Nebula. Dia berhenti menangis dan tersenyum. 'Terima kasih... Tak ada yang pernah memelukku sebelumnya. Kalian baik sekali.' Nebula menunjukkan kristal biru yang bersinar.",choices:[{text:"🌟 \"Ayo kita bantu kamu pulang!\"",next:"bantu1"},{text:"❓ Tanya soal kristal itu",next:"kristal"}]},
+mundur:{text:"Bima berkata, 'Jangan takut, dia butuh bantuan!' Bima maju dan Nebula tersenyum. Kamu merasa berani dan ikut maju. Persahabatan memberimu keberanian!",choices:[{text:"💪 Maju dan bantu Nebula",next:"bantu1"}]},
+bantuBima:{text:"Bima datang dengan kotak peralatan. 'Aku bisa bikin antena komunikasi dari barang bekas!' Nebula senang. Kalian bertiga bekerja sama memperbaiki pesawat.",choices:[{text:"🔧 Kerja sama tim!",next:"perbaiki"}]},
+kristal:{text:"Nebula menjelaskan, 'Ini Kristal Persahabatan. Kekuatannya berasal dari ikatan tulus. Makin kuat persahabatan, makin terang sinarnya.' Kristal itu mulai bersinar hangat.",choices:[{text:"🌟 Gunakan kristal buat bantu Nebula",next:"bantu1"}]},
+bantu1:{text:"Nebula membawa kalian ke pesawatnya yang tersembunyi di balik bukit. Pesawat itu berbentuk kerang mutiara! Tapi mesinnya kehilangan 3 Bintang Energi.",choices:[{text:"🌟 Cari Bintang Energi 1: Hutan",next:"hutan"},{text:"🌟 Cari Bintang Energi 2: Sungai",next:"sungai"},{text:"🌟 Cari Bintang Energi 3: Gua",next:"gua"}]},
+hutan:{text:"Di hutan, kalian bertemu sekelompok kunang-kunang yang berbicara! 'Kami menjaga Bintang Energi. Tunjukkan bahwa kalian peduli pada sesama!'",choices:[{text:"🪲 Bantu kunang-kunang",next:"bantuKunang"},{text:"🏃 Ambil paksa",next:"ambilPaksa"}]},
+sungai:{text:"Di tepi sungai bintang, Bintang Energi kedua terapung di atas air. Tapi ada penghalang — sekelompok ikan pelangi yang menjaga.",choices:[{text:"🎣 Pancing ikan dengan kebaikan",next:"pancingIkan"},{text:"🏊‍♂️ Berenang ambil",next:"ambilPaksa2"}]},
+gua:{text:"Di dalam gua kristal, Bintang Energi ketiga berada di altar. Tapi gua gelap dan kamunya takut sendirian.",choices:[{text:"🕯️ Minta Bima buat nemenin",next:"berduaGua"},{text:"💪 Berani sendiri!",next:"beraniSendiri"}]},
+bantuKunang:{text:"Kunang-kunang kehilangan rumahnya karena pohon tua tumbang. Kalian gotong royong membersihkan dahan. Kunang-kunang senang dan memberikan Bintang Energi!",choices:[{text:"🌟 Bintang 1 dapat!",next:"bantu1"}]},
+ambilPaksa:{text:"Kamu coba ambil paksa, tapi Bima menghentikanmu. 'Kita harus baik, bukan mencuri!' Kalian meminta maaf dan membantu kunang-kunang.",choices:[{text:"🪲 Bantu kunang-kunang",next:"bantuKunang"}]},
+pancingIkan:{text:"Kamu tidak memancing, tapi memberi ikan-ikan itu kue yang kamu bawa! Ikan-ikan senang dan membiarkan kamu mengambil Bintang Energi.",choices:[{text:"🌟 Bintang 2 dapat!",next:"bantu1"}]},
+ambilPaksa2:{text:"Kamu loncat ke sungai, tapi airnya terasa dingin dan kamu kedinginan. Bima menarikmu keluar. 'Harus minta izin dulu!'",choices:[{text:"🎣 Coba cara baik",next:"pancingIkan"}]},
+berduaGua:{text:"Kamu dan Bima masuk bersama. Di dalam, kristal bersinar menerangi jalan. Kalian menemukan Bintang Energi dan Nebula menangis haru. 'Kalian sahabat sejati!'",choices:[{text:"🌟 Bintang 3 dapat!",next:"lengkap"}]},
+beraniSendiri:{text:"Kamu masuk sendirian. Di kegelapan, kamu ingat kata Nebula tentang persahabatan. Kristal Persahabatan di sakumu mulai bersinar dan menerangi jalanmu!",choices:[{text:"🌟 Bintang 3 dapat!",next:"lengkap"}]},
+perbaiki:{text:"Bima berhasil membuat antena, Nebula memperbaiki mesin, dan kamu menghibur Nebula saat dia sedih. Kerja sama tim yang hebat! Tapi mesin masih butuh 3 Bintang Energi.",choices:[{text:"🌟 Cari Bintang Energi!",next:"bantu1"}]},
+lengkap:{text:"Semua Bintang Energi terkumpul! Pesawat Nebula menyala terang. Nebula memeluk kalian. 'Kalian bukan hanya menolongku pulang... kalian mengajarkanku arti persahabatan sejati.' Kristal Persahabatan bersinar sangat terang. Nebula naik ke pesawatnya. 'Aku akan selalu mengingat kalian!'",choices:[{text:"🌟 SELAMAT! Main lagi?",next:"start"}]}
 };
-function go(id){const n=S[id];if(!n)return;document.getElementById('story').innerHTML=n.text;const c=document.getElementById('choices');c.innerHTML='';if(id==='start')document.getElementById('badge').textContent='Bumi';else if(n.text.includes('SELAMAT'))document.getElementById('badge').textContent='MISI SELESAI!';else document.getElementById('badge').textContent='Luar Angkasa';n.choices.forEach(ch=>{const b=document.createElement('button');b.className='btn';b.textContent=ch.text;b.onclick=()=>go(ch.next);c.appendChild(b)});}
+function go(id){const n=S[id];if(!n)return;document.getElementById('story').innerHTML=n.text;const c=document.getElementById('choices');c.innerHTML='';if(id==='start')document.getElementById('badge').textContent='🌍 Bumi';else if(n.text.includes('SELAMAT'))document.getElementById('badge').textContent='🏆 MISI SELESAI!';else document.getElementById('badge').textContent='🚀 Luar Angkasa';n.choices.forEach(ch=>{const b=document.createElement('button');b.className='btn';b.textContent=ch.text;b.onclick=()=>go(ch.next);c.appendChild(b)});}
 go('start');
 </script>
 </body>

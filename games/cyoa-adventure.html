@@ -1,58 +1,286 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Petualangan Ajaib - CYOA Game</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
-.game{background:#fff;border-radius:24px;padding:30px;max-width:600px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.3)}
-h1{text-align:center;color:#764ba2;font-size:28px;margin-bottom:5px}
-.sub{text-align:center;color:#888;font-size:14px;margin-bottom:20px}
-.badge{background:#ffd700;color:#333;padding:4px 12px;border-radius:20px;font-size:13px;display:inline-block;margin-bottom:10px}
-.story{background:#f8f6ff;border-radius:16px;padding:24px;min-height:200px;margin-bottom:20px;font-size:18px;line-height:1.7;color:#333}
-.choices{display:flex;flex-direction:column;gap:10px}
-.btn{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border:none;border-radius:12px;padding:14px 20px;font-size:16px;cursor:pointer}
-.btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(102,126,234,0.4)}
-.reset{background:#ff6b6b;color:#fff;border:none;border-radius:12px;padding:10px;font-size:14px;cursor:pointer;width:100%;margin-top:15px}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Petualangan Ajaib - CYOA Game</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', 'Comic Sans MS', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .game-container {
+      background: white;
+      border-radius: 24px;
+      padding: 30px;
+      max-width: 600px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    h1 {
+      text-align: center;
+      color: #764ba2;
+      font-size: 28px;
+      margin-bottom: 5px;
+    }
+    .subtitle {
+      text-align: center;
+      color: #888;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    .story-box {
+      background: #f8f6ff;
+      border-radius: 16px;
+      padding: 24px;
+      min-height: 200px;
+      margin-bottom: 20px;
+      font-size: 18px;
+      line-height: 1.7;
+      color: #333;
+    }
+    .choices {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .choice-btn {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .choice-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+    .reset-btn {
+      background: #ff6b6b;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 10px 20px;
+      font-size: 14px;
+      cursor: pointer;
+      margin-top: 15px;
+      display: block;
+      width: 100%;
+    }
+    .badge {
+      display: inline-block;
+      background: #ffd700;
+      color: #333;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+    @media (max-width: 480px) {
+      .game-container { padding: 20px; }
+      .story-box { font-size: 16px; padding: 16px; }
+    }
+  </style>
 </head>
 <body>
-<div class="game">
-<h1>Petualangan Ajaib</h1>
-<p class="sub">Choose Your Own Adventure - Untuk Anak Hebat!</p>
-<div class="badge" id="badge">Petualangan Baru</div>
-<div class="story" id="story">Selamat datang, Pahlawan! Siap untuk petualangan seru?</div>
-<div class="choices" id="choices"></div>
-<button class="reset" onclick="resetGame()">Mulai Lagi</button>
+<div class="game-container">
+  <h1>🌟 Petualangan Ajaib</h1>
+  <p class="subtitle">Choose Your Own Adventure — Untuk Anak Hebat!</p>
+  <div class="badge" id="badgeDisplay">📍 Petualangan Baru</div>
+  <div class="story-box" id="storyBox">Selamat datang, Pahlawan! Siap untuk petualangan seru?</div>
+  <div class="choices" id="choicesContainer"></div>
+  <button class="reset-btn" onclick="resetGame()">🔄 Mulai Lagi</button>
 </div>
+
 <script>
-const story={
-start:{text:"Kamu bangun di pagi hari yang cerah. Di luar jendela, seekor burung ajaib berwarna emas mengetuk kaca dan meninggalkan sebuah peta tua. Apa yang kamu lakukan?",choices:[{text:"Buka peta itu",next:"bukaPeta"},{text:"Kejar burung emasnya",next:"kejarBurung"},{text:"Sarapan dulu ah",next:"sarapan"}]},
-bukaPeta:{text:"Peta itu menunjukkan sebuah pulau berbentuk bintang! Ada tulisan: Hanya anak pemberani yang bisa menemukan harta karun persahabatan. Di tepi peta, ada dua jalan:",choices:[{text:"Masuk ke Hutan Pelangi",next:"hutanPelangi"},{text:"Naik ke Gunung Awan",next:"gunungAwan"}]},
-kejarBurung:{text:"Kamu berlari mengejar burung emas! Dia terbang rendah dan meninggalkan jejak berkilau. Burung itu hinggap di pohon besar dan menjatuhkan sebuah kunci emas!",choices:[{text:"Ambil kunci emasnya",next:"kunciEmas"},{text:"Ngomong sama burungnya",next:"ngomongBurung"}]},
-sarapan:{text:"Kamu makan nasi goreng buatan ibu. Enak banget! Setelah kenyang, kamu lihat peta itu mulai bersinar. Ada kata-kata muncul: Ayo, petualangan menunggumu!",choices:[{text:"Baca peta dengan serius",next:"bukaPeta"},{text:"Tidur lagi ah",next:"tidurLagi"}]},
-tidurLagi:{text:"Kamu tidur lagi dan mimpi jadi pahlawan super! Tapi saat bangun, burung emas udah pergi dan petanya hilang. Petualangan selesai sebelum mulai... Coba lagi!",choices:[{text:"Mulai petualangan baru",next:"start"}]},
-hutanPelangi:{text:"Selamat datang di Hutan Pelangi! Pepohonan di sini berwarna-warni. Kamu bertemu sekelompok kelinci yang bisa bicara. Mereka bilang ada jembatan pelangi di ujung hutan!",choices:[{text:"Cari jembatan pelangi",next:"jembatanPelangi"},{text:"Main sama kelinci dulu",next:"mainKelinci"},{text:"Petik bunga ajaib",next:"bungaAjaib"}]},
-gunungAwan:{text:"Kamu mendaki Gunung Awan! Awan di sini empuk banget, kayak kapas raksasa! Kamu bisa melompat-lompat di atas awan. Di puncak, ada istana awan yang megah!",choices:[{text:"Masuk ke istana awan",next:"istanaAwan"},{text:"Lompat-lompat di awan",next:"lompatAwan"}]},
-kunciEmas:{text:"Kunci emas itu hangat di tanganmu. Tiba-tiba, kuncinya bersinar terang dan membuka portal di udara! Di balik portal, kamu lihat taman penuh permen dan coklat!",choices:[{text:"Masuk ke portal permen",next:"tamanPermen"},{text:"Tutup portal dan simpan kuncinya",next:"simpanKunci"}]},
-ngomongBurung:{text:"Burung emas itu ternyata bisa bicara! Cip! Aku penjaga petualangan! Bawa kunci ini ke Hutan Pelangi, di sana kau akan menemukan sesuatu yang istimewa!",choices:[{text:"Ambil kunci dan ke Hutan Pelangi",next:"kunciEmas"}]},
-jembatanPelangi:{text:"Kamu menemukan jembatan pelangi di atas sungai bintang! Setiap langkah mengeluarkan suara musik. Di seberang, ada gerbang menuju Istana Persahabatan!",choices:[{text:"Istana Persahabatan",next:"istanaPersahabatan"}]},
-mainKelinci:{text:"Kelinci-kelinci itu mengajakmu main petak umpet! Seru banget! Sebagai hadiah, mereka memberimu wortel ajaib yang bisa bersinar dalam gelap.",choices:[{text:"Lanjut jelajahi hutan",next:"hutanPelangi"}]},
-bungaAjaib:{text:"Kamu memetik bunga yang berubah warna sesuai suasana hatimu! Bunga ini bisa membantumu melihat jalan yang tersembunyi!",choices:[{text:"Ikuti jalan yang terlihat",next:"jembatanPelangi"}]},
-istanaAwan:{text:"Di dalam istana awan, ada Ratu Awan yang ramah. Kau anak pemberani! katanya. Sebagai hadiah, kuberikan kamu kemampuan untuk terbang 5 menit!",choices:[{text:"Terbang keliling istana awan",next:"terbangAwan"}]},
-lompatAwan:{text:"Asyiiik! Awan-awan ini kayak trampolin alami! Kamu lompat semakin tinggi sampai bisa menyentuh pelangi.",choices:[{text:"Pergi ke arah kilauan",next:"istanaAwan"}]},
-tamanPermen:{text:"PORTAL PERMEN! Sungai coklat, pohon permen lolipop, dan gunung es krim! Kamu bertemu anak-anak lain yang main di sini. Kalian bermain bersama!",choices:[{text:"Makan permen dan main sama teman",next:"happyEnding"}]},
-simpanKunci:{text:"Kamu menyimpan kunci emas di saku. Tanpa masuk portal, petualangan terasa kurang seru. Mungkin lain kali kamu berani!",choices:[{text:"Coba petualangan lain",next:"start"}]},
-terbangAwan:{text:"Kamu terbang mengelilingi istana awan! Dari atas, kamu lihat Hutan Pelangi, sungai bintang, dan portal permen! Luar biasa!",choices:[{text:"Lanjutkan petualangan",next:"happyEnding2"}]},
-istanaPersahabatan:{text:"SELAMAT! Kamu menemukan Istana Persahabatan! Semua anak berkumpul. Ada pesta besar dengan musik dan makanan enak! Kamu membuat banyak teman baru!",choices:[{text:"Main lagi",next:"start"}]},
-happyEnding:{text:"SELAMAT! Kamu menghabiskan hari paling manis di Taman Permen! Pulang dengan permen dan senyum lebar. Ibu bilang, Senang lihat kamu bahagia!",choices:[{text:"Petualangan lagi yuk",next:"start"}]},
-happyEnding2:{text:"SELAMAT! Kamu berhasil menyelesaikan petualangan dengan penuh keberanian! Pulang membawa cerita seru dan teman baru.",choices:[{text:"Petualangan baru",next:"start"}]}
+const story = {
+  start: {
+    text: "Kamu bangun di pagi hari yang cerah. Di luar jendela, seekor burung ajaib berwarna emas mengetuk kaca dan meninggalkan sebuah peta tua. Apa yang kamu lakukan?",
+    choices: [
+      { text: "📜 Buka peta itu!", next: "bukaPeta" },
+      { text: "🪟 Kejar burung emasnya!", next: "kejarBurung" },
+      { text: "🍳 Sarapan dulu ah", next: "sarapan" }
+    ]
+  },
+  bukaPeta: {
+    text: "Peta itu menunjukkan sebuah pulau berbentuk bintang! Ada tulisan: 'Hanya anak pemberani yang bisa menemukan harta karun persahabatan.' Di tepi peta, ada dua jalan:",
+    choices: [
+      { text: "🌲 Masuk ke Hutan Pelangi", next: "hutanPelangi" },
+      { text: "⛰️ Naik ke Gunung Awan", next: "gunungAwan" }
+    ]
+  },
+  kejarBurung: {
+    text: "Kamu berlari mengejar burung emas! Dia terbang rendah dan meninggalkan jejak berkilau. Burung itu hinggap di pohon besar dan menjatuhkan... sebuah kunci emas!",
+    choices: [
+      { text: "🔑 Ambil kunci emasnya", next: "kunciEmas" },
+      { text: "🐦 Ngomong sama burungnya", next: "ngomongBurung" }
+    ]
+  },
+  sarapan: {
+    text: "Kamu makan nasi goreng buatan ibu. Enak banget! Setelah kenyang, kamu lihat peta itu mulai bersinar. Ada kata-kata muncul: 'Ayo, petualangan menunggumu!'",
+    choices: [
+      { text: "📜 Baca peta dengan serius", next: "bukaPeta" },
+      { text: "😴 Tidur lagi ah", next: "tidurLagi" }
+    ]
+  },
+  tidurLagi: {
+    text: "Kamu tidur lagi dan mimpi jadi pahlawan super! Tapi saat bangun, burung emas udah pergi dan petanya hilang. Petualangan selesai sebelum mulai... 😴 Coba lagi!",
+    choices: [
+      { text: "🔄 Mulai petualangan baru!", next: "start" }
+    ]
+  },
+  hutanPelangi: {
+    text: "Selamat datang di Hutan Pelangi! Pepohonan di sini berwarna-warni — ada merah, kuning, biru, hijau, ungu! Kamu bertemu sekelompok kelinci yang bisa bicara. Mereka bilang ada jembatan pelangi di ujung hutan!",
+    choices: [
+      { text: "🌈 Cari jembatan pelangi", next: "jembatanPelangi" },
+      { text: "🐰 main sama kelinci-kelinci dulu", next: "mainKelinci" },
+      { text: "🌺 Petik bunga ajaib", next: "bungaAjaib" }
+    ]
+  },
+  gunungAwan: {
+    text: "Kamu mendaki Gunung Awan! Awan di sini真的很 empuk, kayak kapas raksasa! Kamu bisa melompat-lompat di atas awan. Di puncak, ada sebuah istana awan yang megah!",
+    choices: [
+      { text: "🏰 Masuk ke istana awan", next: "istanaAwan" },
+      { text: "☁️ Lompat-lompat di awan", next: "lompatAwan" }
+    ]
+  },
+  kunciEmas: {
+    text: "Kunci emas itu hangat di tanganmu. Tiba-tiba, kuncinya bersinar terang dan membuka portal di udara! Di balik portal, kamu lihat taman penuh permen dan coklat!",
+    choices: [
+      { text: "🚪 Masuk ke portal permen!", next: "tamanPermen" },
+      { text: "🤔 Tutup portal dan simpan kuncinya", next: "simpanKunci" }
+    ]
+  },
+  ngomongBurung: {
+    text: "Burung emas itu ternyata bisa bicara! 'Cip! Aku penjaga petualangan! Bawa kunci ini ke Hutan Pelangi, di sana kau akan menemukan sesuatu yang istimewa!'",
+    choices: [
+      { text: "🔑 Ambil kunci dan ke Hutan Pelangi", next: "kunciEmas" },
+      { text: "❓ Tanya burung soal harta karun", next: "tanyaBurung" }
+    ]
+  },
+  tanyaBurung: {
+    text: "Burung itu berkicau riang, 'Harta karun yang sebenarnya adalah persahabatan dan keberanian yang kau temukan selama petualangan!' Kamu tersenyum. Burung itu memberikan satu bulu emasnya sebagai oleh-oleh.",
+    choices: [
+      { text: "🌟 Simpan bulu emas dan lanjutkan petualangan", next: "bukaPeta" }
+    ]
+  },
+  jembatanPelangi: {
+    text: "Kamu menemukan jembatan pelangi yang membentang di atas sungai bintang! Setiap langkah di jembatan mengeluarkan suara musik yang indah. Di seberang, ada gerbang menuju...",
+    choices: [
+      { text: "✨ Istana Persahabatan!", next: "istanaPersahabatan" }
+    ]
+  },
+  mainKelinci: {
+    text: "Kelinci-kelinci itu mengajakmu main petak umpet! Seru banget! Sebagai hadiah, mereka memberimu wortel ajaib yang bisa bersinar dalam gelap. 🥕✨",
+    choices: [
+      { text: "🌲 Lanjut jelajahi hutan", next: "hutanPelangi" }
+    ]
+  },
+  bungaAjaib: {
+    text: "Kamu memetik bunga yang berubah warna sesuai suasana hatimu! Saat kamu senang, bunganya jadi warna emas. Bunga ini bisa membantumu melihat jalan yang tersembunyi!",
+    choices: [
+      { text: "🌿 Ikuti jalan yang terlihat berkat bunga", next: "jembatanPelangi" }
+    ]
+  },
+  istanaAwan: {
+    text: "Di dalam istana awan, ada seorang Ratu Awan yang ramah. 'Kau anak pemberani!' katanya. 'Sebagai hadiah, kuberikan kamu kemampuan untuk terbang selama 5 menit!' Kamu bisa terbang mengelilingi istana!",
+    choices: [
+      { text: "🌟 Terbang keliling istana awan", next: "terbangAwan" },
+      { text: "❓ Tanya Ratu soal harta karun", next: "tanyaRatuAwan" }
+    ]
+  },
+  lompatAwan: {
+    text: "Asyiiik! Awan-awan ini kayak trampolin alami! Kamu lompat semakin tinggi sampai bisa menyentuh pelangi. Dari atas sini, kamu lihat ada sesuatu yang berkilau di kejauhan...",
+    choices: [
+      { text: "🏰 Menuju ke arah kilauan", next: "istanaAwan" }
+    ]
+  },
+  tamanPermen: {
+    text: "PORTAL PERMEN! Di sini ada sungai coklat, pohon permen lolipop, dan gunung es krim! Kamu bertemu anak-anak lain yang juga main di sini. Kalian bermain bersama sepanjang hari!",
+    choices: [
+      { text: "🍭 Makan permen dan main sama teman baru!", next: "happyEnding" }
+    ]
+  },
+  simpanKunci: {
+    text: "Kamu menyimpan kunci emas di saku. Siapa tahu berguna nanti. Tapi tanpa masuk portal, petualangan terasa kurang seru. Mungkin lain kali kamu berani masuk portal!",
+    choices: [
+      { text: "🔄 Coba petualangan lain!", next: "start" }
+    ]
+  },
+  terbangAwan: {
+    text: "Kamu terbang mengelilingi istana awan! Dari atas, kamu lihat seluruh dunia petualangan: Hutan Pelangi, sungai bintang, dan bahkan sekilas portal permen! Luar biasa!",
+    choices: [
+      { text: "🌟 Turun dan lanjutkan petualangan!", next: "happyEnding2" }
+    ]
+  },
+  tanyaRatuAwan: {
+    text: "Ratu Awan tersenyum, 'Harta karun sejati bukan emas atau permata, tapi kebaikan hati dan teman-teman yang kau kumpulkan. Kau sudah menemukannya sejak awal, Pahlawan!'",
+    choices: [
+      { text: "🥹 Makasih, Ratu Awan!", next: "happyEnding2" }
+    ]
+  },
+  istanaPersahabatan: {
+    text: "SELAMAT! 🎉🎉🎉 Kamu menemukan Istana Persahabatan! Di sini, semua anak dari berbagai petualangan berkumpul. Ada pesta besar dengan musik, tarian, dan makanan enak! Kamu membuat banyak teman baru dan pulang dengan penuh cerita seru!",
+    choices: [
+      { text: "🏆 Main lagi! 🏆", next: "start" }
+    ]
+  },
+  happyEnding: {
+    text: "SELAMAT! 🎉🍭 Kamu menghabiskan hari paling manis di Taman Permen! Pulang dengan kantong penuh permen dan senyum lebar. Ibu bilang, 'Senang lihat kamu bahagia, Pahlawan kecilku!'",
+    choices: [
+      { text: "🌟 Petualangan lagi, yuk!", next: "start" }
+    ]
+  },
+  happyEnding2: {
+    text: "SELAMAT! 🎉✨ Kamu berhasil menyelesaikan petualangan dengan penuh keberanian dan kebaikan! Kamu pulang membawa banyak cerita seru dan teman baru. Sampai jumpa di petualangan berikutnya, Pahlawan! 🌟",
+    choices: [
+      { text: "🚀 Mulai petualangan baru!", next: "start" }
+    ]
+  }
 };
-function startGame(){showNode("start")}
-function showNode(id){const n=story[id];if(!n)return;document.getElementById("story").innerHTML=n.text;const c=document.getElementById("choices");c.innerHTML="";if(id==="start")document.getElementById("badge").textContent="Petualangan Baru";else if(n.text.includes("SELAMAT"))document.getElementById("badge").textContent="SELESAI!";else document.getElementById("badge").textContent="Petualangan";n.choices.forEach(ch=>{const b=document.createElement("button");b.className="btn";b.textContent=ch.text;b.onclick=()=>showNode(ch.next);c.appendChild(b)})}
-function resetGame(){showNode("start")}
+
+function startGame() {
+  showNode("start");
+}
+
+function showNode(nodeId) {
+  const node = story[nodeId];
+  if (!node) return;
+
+  document.getElementById("storyBox").innerHTML = node.text;
+  const container = document.getElementById("choicesContainer");
+  container.innerHTML = "";
+
+  if (nodeId === "start") {
+    document.getElementById("badgeDisplay").textContent = "📍 Petualangan Baru";
+  } else if (node.text.includes("SELAMAT")) {
+    document.getElementById("badgeDisplay").textContent = "🏆 SELESAI! 🏆";
+  } else {
+    document.getElementById("badgeDisplay").textContent = "📍 " + (node.choices?.[0]?.text?.substring(0, 20) || "Lanjutan");
+  }
+
+  node.choices.forEach(choice => {
+    const btn = document.createElement("button");
+    btn.className = "choice-btn";
+    btn.textContent = choice.text;
+    btn.onclick = () => showNode(choice.next);
+    container.appendChild(btn);
+  });
+}
+
+function resetGame() {
+  showNode("start");
+}
+
 startGame();
 </script>
 </body>

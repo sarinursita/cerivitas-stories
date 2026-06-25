@@ -20,31 +20,30 @@ h1{text-align:center;color:#e74c3c;font-size:26px}
 </head>
 <body>
 <div class="game">
-<h1>Pahlawan Super Cilik</h1>
+<h1>🦸 Pahlawan Super Cilik</h1>
 <p class="sub">Jadilah pahlawan versimu sendiri!</p>
-<div class="badge" id="badge">Markas</div>
-<div class="story" id="story">Kota Pelangi dalam bahaya! Kincir raksasa berputar tak terkendali! Kamu di markas. Pilih kekuatan supermu!</div>
+<div class="badge" id="badge">📍 Markas</div>
+<div class="story" id="story">Selamat datang, Pahlawan Super Cilik! Hari ini kamu menerima sinyal darurat dari Kota Pelangi! Sebuah kincir raksasa berputar terlalu cepat dan mengancam kota. Kamu berlari ke markas untuk mengambil perlengkapan!</div>
 <div class="choices" id="choices"></div>
-<button class="reset" onclick="go('start')">Mulai Lagi</button>
+<button class="reset" onclick="go('start')">🔄 Mulai Lagi</button>
 </div>
 <script>
 const S={
-start:{text:"Kota Pelangi dalam bahaya! Kincir raksasa berputar tak terkendali! Pilih kekuatan supermu!",choices:[{text:"Bisa Terbang!",next:"terbang"},{text:"Kekuatan Super Kuat!",next:"kuat"},{text:"Kecepatan Super!",next:"cepat"},{text:"Merayap di Dinding!",next:"merayap"}]},
-terbang:{text:"Kamu terbang tinggi! Dari atas, kincir berputar kencang. Seekor burung raksasa terjebak di dalamnya!",choices:[{text:"Selamatkan burungnya",next:"selamatkanBurung"},{text:"Hentikan kincir paksa",next:"hentikanPaksa"}]},
-kuat:{text:"Kamu angkat mobil-mobil yang menghalangi jalan. Warga bersorak! Sesampainya di kincir, baut-bautnya longgar.",choices:[{text:"Kencangkan bautnya",next:"kencangkan"},{text:"Ajak warga gotong royong",next:"gotongRoyong"}]},
-cepat:{text:"Kamu berlari super cepat mengelilingi kincir! Tapi kamu mulai lelah...",choices:[{text:"Terus berlari!",next:"terusLari"},{text:"Minta bantuan teman",next:"mintaBantuan"}]},
-merayap:{text:"Kamu merayap naik dengan lincah! Ada anak kucing terjebak di salah satu bilah kincir!",choices:[{text:"Selamatkan kucingnya",next:"selamatkanKucing"},{text:"Lanjut ke mesin utama",next:"mesinUtama"}]},
-selamatkanBurung:{text:"Kamu lepaskan ranting yang menjepit sayap burung. Burung terbang bebas dan kincir melambat!",
-choices:[{text:"SELAMAT! Main lagi?",next:"start"}]},
-hentikanPaksa:{text:"Terlalu berat! Kamu terjatuh, tapi selamat. Mungkin ada cara lebih baik...",choices:[{text:"Cek ke dalam kincir",next:"selamatkanBurung"}]},
-kencangkan:{text:"Kamu kencangkan baut, tapi kincir masih berputar. Ada masalah di dalam!",choices:[{text:"Masuk ke dalam kincir",next:"selamatkanBurung"}]},
-gotongRoyong:{text:"Warga bersama-sama menarik tali raksasa! Kincir melambat. Seorang kakek berkata, 'Kamu pahlawan sejati!'",choices:[{text:"SELAMAT! Main lagi?",next:"start"}]},
-terusLari:{text:"Temanmu si Tupai Cepat datang membantu! Bersama kalian berlari dan kincir berhenti!",choices:[{text:"SELAMAT! Main lagi?",next:"start"}]},
-mintaBantuan:{text:"Teman-teman sekolah datang! Mereka bawa tali dan bersama-sama mengikat kincir hingga berhenti!",choices:[{text:"SELAMAT! Main lagi?",next:"start"}]},
-selamatkanKucing:{text:"Kamu gendong kucing itu. Setelah aman, kincir tiba-tiba berhenti! Ternyata kucing penyebabnya!",choices:[{text:"SELAMAT! Main lagi?",next:"start"}]},
-mesinUtama:{text:"Ada tuas darurat! Kamu pegang dan berpikir tentang orang-orang tersayang. Klik! Kincir berhenti!",choices:[{text:"SELAMAT! Main lagi?",next:"start"}]}
+start:{text:"Kota Pelangi dalam bahaya! Kincir raksasa berputar tak terkendali! Kamu di markas. Apa kekuatan super yang kamu pilih?",choices:[{text:"🕊️ Bisa Terbang!",next:"terbang"},{text:"💪 Kekuatan Super Kuat!",next:"kuat"},{text:"⚡ Kecepatan Super!",next:"cepat"},{text:"🦎 Bisa Merayap di Dinding!",next:"merayap"}]},
+terbang:{text:"Kamu terbang tinggi ke langit! Dari atas, kamu lihat Kincir Raksasa berputar kencang. Di dalamnya, ada seekor burung raksasa yang terjebak dan membuat kincir bergerak!",choices:[{text:"🐦 Selamatkan burungnya!",next:"selamatkanBurung"},{text:"🏗️ Coba hentikan kincir paksa",next:"hentikanPaksa"}]},
+kuat:{text:"Kamu angkat mobil-mobil yang menghalangi jalan menuju kincir. Warga bersorak! Sesampainya di kincir, kamu lihat baut-bautnya longgar.",choices:[{text:"🔧 Kencangkan bautnya!",next:"kencangkan"},{text:"📢 Ajak warga gotong royong",next:"gotongRoyong"}]},
+cepat:{text:"Kamu berlari super cepat mengelilingi kincir! Dari gerakanmu, kamu ciptakan angin yang memperlambat putaran kincir. Tapi kamu mulai lelah...",choices:[{text:"🔄 Terus berlari!",next:"terusLari"},{text:"🤝 Minta bantuan teman",next:"mintaBantuan"}]},
+merayap:{text:"Kamu merayap naik ke atas kincir dengan lincah! Dari ketinggian, kamu lihat ada anak kucing terjebak di salah satu bilah kincir! Miaow!",choices:[{text:"🐱 Selamatkan kucingnya!",next:"selamatkanKucing"},{text:"🏃 Lanjut ke mesin utama",next:"mesinUtama"}]},
+selamatkanBurung:{text:"Kamu terbang mendekati burung raksasa. Dengan lembut, kamu melepaskan ranting yang menjepit sayapnya. Burung itu terbang bebas dan kincir mulai melambat! Burung itu menitipkan satu bulu emas sebagai tanda terima kasih!",choices:[{text:"🌟 SELAMAT! Main lagi?",next:"start"}]},
+hentikanPaksa:{text:"Kamu coba menahan kincir dengan tangan, tapi terlalu berat! Kamu terjatuh, tapi untungnya terbang lagi. Mungkin ada cara yang lebih baik...",choices:[{text:"🐦 Lihat ke dalam kincir",next:"selamatkanBurung"}]},
+kencangkan:{text:"Kamu mengencangkan baut-baut dengan kekuatan supermu! Tapi kincir masih berputar. Ternyata ada masalah di dalam! Kamu perlu masuk ke dalam kincir.",choices:[{text:"🐦 Masuk ke dalam kincir",next:"selamatkanBurung"}]},
+gotongRoyong:{text:"Warga kota bersama-sama menarik tali raksasa! Dengan kerjasama, kincir mulai melambat. Seorang kakek berkata, 'Kamu pahlawan sejati karena mengajarkan kami kebersamaan!'",choices:[{text:"🏆 SELAMAT! Main lagi?",next:"start"}]},
+terusLari:{text:"Kamu terus berlari meskipun lelah. Tapi untungnya, temanmu si Tupai Cepat datang membantu! Bersama kalian berlari dan kincir berhenti total! Persahabatan mengalahkan segalanya!",choices:[{text:"🏆 SELAMAT! Main lagi?",next:"start"}]},
+mintaBantuan:{text:"Teman-teman sekolahmu datang membantu! Mereka membawa tali panjang dan bersama-sama kalian mengikat kincir hingga berhenti. Kerja tim memang hebat!",choices:[{text:"🏆 SELAMAT! Main lagi?",next:"start"}]},
+selamatkanKucing:{text:"Kamu merayap dengan hati-hati dan menggendong kucing itu. Kucing itu mengeong lucu. Begitu aman, kincir tiba-tiba berhenti — ternyata kucing tadi penyebabnya! Semua selamat!",choices:[{text:"🌟 SELAMAT! Main lagi?",next:"start"}]},
+mesinUtama:{text:"Kamu sampai di mesin utama. Ada tuas darurat! Tapi ada kode: 'Tekan dengan hati yang tulus.' Kamu pegang tuas dan berpikir tentang keluargamu. Klik! Kincir berhenti!",choices:[{text:"🌟 SELAMAT! Main lagi?",next:"start"}]}
 };
-function go(id){const n=S[id];if(!n)return;document.getElementById('story').innerHTML=n.text;const c=document.getElementById('choices');c.innerHTML='';if(id==='start')document.getElementById('badge').textContent='Markas Pahlawan';else if(n.text.includes('SELAMAT'))document.getElementById('badge').textContent='PAHLAWAN!';else document.getElementById('badge').textContent='Sedang Bertugas';n.choices.forEach(ch=>{const b=document.createElement('button');b.className='btn';b.textContent=ch.text;b.onclick=()=>go(ch.next);c.appendChild(b)});}
+function go(id){const n=S[id];if(!n)return;document.getElementById('story').innerHTML=n.text;const c=document.getElementById('choices');c.innerHTML='';if(id==='start')document.getElementById('badge').textContent='📍 Markas Pahlawan';else if(n.text.includes('SELAMAT'))document.getElementById('badge').textContent='🏆 PAHLAWAN!';else document.getElementById('badge').textContent='🦸 Sedang Bertugas';n.choices.forEach(ch=>{const b=document.createElement('button');b.className='btn';b.textContent=ch.text;b.onclick=()=>go(ch.next);c.appendChild(b)});}
 go('start');
 </script>
 </body>

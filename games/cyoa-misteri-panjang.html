@@ -11,40 +11,124 @@ body{background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);min-height:100vh
 h1{text-align:center;color:#1a1a2e;font-size:28px;border-bottom:3px solid #e94560;padding-bottom:10px;display:inline-block;width:100%}
 .sub{text-align:center;color:#888;font-size:14px;margin:10px 0 20px;font-style:italic}
 .badge{background:#e94560;color:#fff;padding:6px 16px;border-radius:20px;font-size:13px;display:inline-block;margin-bottom:15px;font-family:'Segoe UI',sans-serif}
-.story{background:#f8f5f0;border-left:4px solid #e94560;border-radius:0 16px 16px 0;padding:25px;min-height:300px;margin-bottom:20px;font-size:16px;line-height:1.9;color:#333;text-align:justify}
+.story-box{background:#f8f5f0;border-left:4px solid #e94560;border-radius:0 16px 16px 0;padding:25px;min-height:300px;margin-bottom:20px;font-size:16px;line-height:1.9;color:#333;text-align:justify}
 .choices{display:flex;flex-direction:column;gap:12px}
 .btn{background:#16213e;color:#fff;border:none;border-radius:12px;padding:16px 22px;font-size:16px;cursor:pointer;transition:.3s;text-align:left;font-family:'Segoe UI',sans-serif}
 .btn:hover{background:#0f3460;transform:translateX(8px);box-shadow:0 6px 20px rgba(15,52,96,0.4)}
 .reset{background:#e94560;color:#fff;border:none;border-radius:12px;padding:12px;font-size:15px;cursor:pointer;width:100%;margin-top:18px;font-family:'Segoe UI',sans-serif}
+.progress{text-align:center;color:#aaa;font-size:12px;margin-top:12px;font-family:'Segoe UI',sans-serif}
 </style>
 </head>
 <body>
 <div class="game">
-<h1>Misteri Lorong Tersembunyi</h1>
+<h1>🔍 Misteri Lorong Tersembunyi</h1>
 <p class="sub">Sebuah petualangan detektif untuk penjelajah pemberani</p>
-<div class="badge" id="badge">Bab 1: Awal Mula</div>
-<div class="story" id="story">Hari pertama di Sekolah Harapan Bangsa. Kamu duduk di bangku paling belakang. Di ujung lorong, pintu kayu tua selalu terkunci. Hari ini, ada yang berbeda.</div>
+<div class="badge" id="badge">📖 Bab 1: Awal Mula</div>
+<div class="story-box" id="story">[Memuat cerita...]</div>
 <div class="choices" id="choices"></div>
-<button class="reset" onclick="go('start')">Mulai Petualangan Baru</button>
+<button class="reset" onclick="go('start')">🔄 Mulai Petualangan Baru</button>
+<div class="progress" id="progress">📖 Baca dengan saksama, Detektif!</div>
 </div>
 <script>
 const S={
-start:{text:"Hari pertama di Sekolah Harapan Bangsa. Di ujung lorong, di balik pintu kayu tua, terdengar ketukan pelan. Tok tok tok. Di buku catatanmu, seseorang menulis dengan tinta emas: 'Cari aku di balik pintu.'",choices:[{text:"Tanya Bu Ratna soal pintu itu",next:"tanyaGuru"},{text:"Ikuti jejak tinta emas",next:"ikutTinta"},{text:"Ajak sahabatmu Raka",next:"ajakRaka"}]},
-tanyaGuru:{text:"Bu Ratna terdiam. 'Pintu itu terkunci sejak 20 tahun lalu. Sejak Guru Pustaka menghilang.' Dari celah pintu, sinar keemasan memancar.",choices:[{text:"Diam-diam selidiki",next:"bukuPesan"},{text:"Foto pintu dengan HP",next:"fotoPintu"}]},
-ikutTinta:{text:"Jejak tinta emas membawamu ke pintu kayu itu. Ukiran kunci di pintu bersinar saat kau sentuh. 'Akhirnya kau datang, Detektif.'",choices:[{text:"Buka pintu!",next:"masukPintu"},{text:"Panggil Raka",next:"ajakRaka"}]},
-ajakRaka:{text:"Raka bersemangat. 'Lorong rahasia? Kayak di novel misteri!' Kalian berdua ke pintu kayu itu. Raka memegang gagang pintu.",choices:[{text:"Masuk bersama Raka",next:"masukPintu"}]},
-bukuPesan:{text:"Tinta emas bertambah: 'Temukan aku di perpustakaan lama, di belakang rak ensiklopedia.' Di halaman buku, ada kunci perak tersembunyi!",choices:[{text:"Ke perpustakaan!",next:"perpustakaan"},{text:"Telepon Raka",next:"ajakRaka"}]},
-fotoPintu:{text:"Di foto HP, ukiran kunci bersinar. Pustakawan tua tersenyum. 'Kau pasti yang dicari buku-buku itu. Ikuti aku.'",choices:[{text:"Ikuti pustakawan",next:"perpustakaan2"}]},
-masukPintu:{text:"Lorong sempit gelap membentang. Dinding batu bata merah kuno. Di ujung, pintu besi bertuliskan 'Perpustakaan Arsenal'. Kunci perak di sakumu terasa hangat.",choices:[{text:"Pakai kunci perak",next:"perpustakaan"},{text:"Cari jalan alternatif",next:"jalanLain"}]},
-perpustakaan:{text:"Kunci masuk sempurna. Pintu terbuka. Ruangan bundar penuh buku dari lantai ke langit-langit! Lampu kristal keemasan. Buku besar di meja menulis sendiri dengan tinta emas: 'Terima kasih telah menemukanku.'",choices:[{text:"Baca buku Arsip Sekolah",next:"bukuArsip"},{text:"Lihat foto di dinding",next:"fotoDinding"}]},
-perpustakaan2:{text:"Pustakawan menuntunmu ke rak ensiklopedia Z. 'Dorong rak ini.' Rak bergerak, pintu tersembunyi terbuka. 'Di dalam, kau akan temukan buku Arsip Sekolah. Gunakan dengan bijak.'",choices:[{text:"Masuk!",next:"bukuArsip"}]},
-jalanLain:{text:"Kalian buka ventilasi dan merangkak. Di ujung, cahaya keemasan hangat. Kalian berdiri di perpustakaan raksasa! Buku dari lantai ke langit-langit.",choices:[{text:"Buka buku bersinar",next:"bukuBersinar"},{text:"Jelajahi rak",next:"rakBuku"}]},
-bukuArsip:{text:"Buku Arsip Sekolah mencatat semua peristiwa sejak 1910. Halaman tentang Guru Pustaka yang menghilang - ternyata ia masuk ke dalam buku ini karena terlalu cinta cerita. 'Kau Detektif sejati. Perpustakaan ini milikmu sekarang. Bawalah teman-temanmu.'",choices:[{text:"SELAMAT! Main lagi?",next:"start"}]},
-fotoDinding:{text:"Foto guru pertama 1910 mirip pustakawan tua! 'Pendiri Perpustakaan Arsenal.' Raka bersuit. 'Ini lebih dari seratus tahun yang lalu!' Pesan di balik foto: 'Kuncimu adalah milikmu selamanya.'",choices:[{text:"Kembali ke buku Arsip",next:"bukuArsip"}]},
-bukuBersinar:{text:"Buku bersinar menulis sendiri: 'Kau telah menunjukkan keberanian dan kebaikan hati. Perpustakaan Arsenal sekarang milikmu. Jagalah ia.' Raka bersorak. Kalian punya perpustakaan rahasia sendiri!",choices:[{text:"SELAMAT! Main lagi?",next:"start"}]},
-rakBuku:{text:"Satu buku berjudul 'Sejarah Sekolah' jatuh. Foto anak laki-laki di depan pintu kayu. Di belakang foto: 'Untuk penerusku - temukan Arsip, temukan dirimu.'",choices:[{text:"Baca buku harian",next:"bukuArsip"}]}
+start:{
+text:"<b>Hari pertama di Sekolah Harapan Bangsa.</b> Kamu duduk di bangku paling belakang dekat jendela, seperti biasa. Dari sana, kamu bisa melihat seluruh kelas — dan juga lorong di luar. Guru bernama Bu Ratna sedang menerangkan tentang sistem tata surya, tapi matamu tak bisa lepas dari sesuatu yang aneh.<br><br>Di ujung lorong, di balik pintu kayu tua yang selalu terkunci, terdengar suara ketukan pelan. Tok... tok... tok. Tiga kali, lalu berhenti. Kemudian tiga kali lagi. Anak-anak lain tidak ada yang mendengar — atau pura-pura tidak mendengar.<br><br>Bu Ratna melanjutkan pelajaran seperti biasa. Namun, di buku catatanmu yang terbuka, seseorang telah menuliskan pesan dengan tinta emas yang berkilauan. \"Cari aku di balik pintu.\" Padahal, kamu yakin buku itu kosong tadi pagi.<br><br>Jantungmu berdegup kencang. Apa yang harus kamu lakukan?",
+choices:[
+{text:"🔍 Angkat tangan dan tanya Bu Ratna soal pintu itu",next:"tanyaGuru"},
+{text:"📝 Diam-diam mengikuti jejak tinta emas",next:"ikutTinta"},
+{text:"👋 Ajak sahabatmu, Raka, untuk menyelidiki bersama",next:"ajakRaka"}
+]},
+tanyaGuru:{
+text:"<b>Kamu angkat tangan.</b> Bu Ratna berhenti menerangkan. 'Ada pertanyaan, Nak?' Seluruh kelas menatapmu. Kamu bertanya tentang pintu kayu di ujung lorong.<br><br>Bu Ratna terdiam sesaat. Wajahnya berubah serius. 'Pintu itu... sudah terkunci sejak dua puluh tahun lalu. Sejak Guru Pustaka menghilang. Konon, di balik pintu itu ada lorong menuju perpustakaan rahasia.'<br><br>Beberapa anak tertawa gelisah. Yang lain berbisik-bisik. Tapi matamu tetap tertuju pada pintu itu. Kamu bisa melihat sedikit celah di bawah pintu — dan dari celah itu, sinar keemasan tipis memancar.<br><br>Bu Ratna memperingatkan, 'Jangan pernah mendekati pintu itu, ya. Sekarang lanjut pelajaran.' Tapi rasa penasaranmu sudah membuncah.",
+choices:[
+{text:"🗝️ Kamu diam, tapi dalam hati bertekad menyelidiki",next:"bukuPesan"},
+{text:"📸 Memotret pintu itu diam-diam dengan HP",next:"fotoPintu"}
+]},
+ikutTinta:{
+text:"<b>Kamu memutuskan untuk mengikuti jejak tinta emas.</b> Saat bel istirahat berbunyi, kamu pura-pura ke toilet, tapi sebenarnya mengikuti bekas tinta yang bersinar samar di lantai. Jejak itu membawamu melewati lorong utama, melewati kantin, hingga ke ujung paling sunyi.<br><br>Tinta emas berhenti tepat di depan pintu kayu tua Itu. Dari dekat, kamu melihat ukiran-ukiran rumit pada kayunya: bentuk bintang, bulan sabit, dan kunci-kunci kecil. Beberapa ukiran bergerak pelan seperti hidup.<br><br>Saat kamu mendekatkan tangan, ukiran kunci paling besar tiba-tiba bersinar. Seolah mengenalimu. Kamu mendengar suara berbisik dari balik pintu, 'Akhirnya... kau datang juga, Detektif.'<br><br>Bulu kudukmu merinding. Tapi rasa penasaran lebih kuat dari rasa takut. Kamu mencoba memegang gagang pintu — dan ternyata tidak terkunci!",
+choices:[
+{text:"🚪 Buka pintu dan masuk!",next:"masukPintu"},
+{text:"🤔 Panggil Raka dulu biar bareng",next:"ajakRaka"}
+]},
+ajakRaka:{
+text:"<b>Kamu mencari Raka di kantin.</b> Raka adalah sahabat terbaikmu — dia selalu percaya padamu, apa pun yang terjadi. Kamu ceritakan soal tinta emas, pintu misterius, dan bisikan di baliknya. Raka mengerutkan kening, lalu tersenyum lebar.<br><br>'Seriusan? Di sekolah kita ada lorong rahasia? Ini kayak di novel misteri yang aku baca!' Raka segera berdiri. 'Ayo kita selidiki bersama! Tapi janji, kalau bahaya kita mundur ya.'<br><br>Kalian berdua berjalan meny menyusuri lorong. Raka membawa senter kecil dari gantungan kuncinya. 'Ini bekas mainan detektif waktu aku kecil,' katanya malu-malu. Tapi kamu senang — lebih aman kalau tidak sendiri.<br><br>Sesampainya di depan pintu kayu, Rika bersiit pelan. 'Wah, serem juga... Tapi kita harus cari tahu, kan?' Kalian saling mengangguk. Raka memegang gagang pintu — dan mendorongnya pelan.",
+choices:[
+{text:"🚪 Masuk bersama Raka",next:"masukPintu"},
+{text:"📹 Rekam dulu pake HP",next:"rekamHP"}
+]},
+bukuPesan:{
+text:"<b>Saat pelajaran usai, kamu membuka buku catatanmu lagi.</b> Tinta emas itu tidak hilang — malah bertambah panjang! Sekarang tertulis: 'Selamat, kamu memilih jalan yang benar. Temukan aku di perpustakaan lama, di belakang rak ensiklopedia. Bawa kunci ini.'<br><br>Di halaman berikutnya, ada gambar kunci perak yang digambar dengan tinta emas. Kamu raba kertasnya — dan kunci itu terasa nyata! Bukan sekadar gambar, melainkan kunci betulan yang tersembunyi di antara halaman-halaman buku.<br><br>Kunci perak itu dingin dan ringan. Ada ukiran angka 1910 di gagangnya. Tahun berdirinya sekolah ini, seperti yang tertera di plakat depan gerbang.<br><br>Dengan jantung berdebar, kamu menyembunyikan kunci itu di saku celana. Langkahmu mantap menuju perpustakaan. Lorong-lorong sekolah yang biasanya ramai kini terasa lengang dan penuh teka-teki.",
+choices:[
+{text:"🔑 Ke perpustakaan sekarang!",next:"perpustakaan"},
+{text:"📞 Telepon Raka biar ikut",next:"ajakRaka"}
+]},
+fotoPintu:{
+text:"<b>Kamu memotret pintu itu tanpa suara.</b> Layar HP-mu menunjukkan sesuatu yang aneh — di foto, ukiran kunci di pintu bersinar terang, meskipun di dunia nyata tidak terlihat. Ini pasti pertanda. Kamu menunjukkan foto itu ke Raka nanti.<br><br>Sepanjang pelajaran berikutnya, kamu tidak bisa konsentrasi. Satu pikiran terus berputar: ada rahasia besar di sekolah ini, dan kamu bertekad untuk menemukannya. Kamu ingat rumor soal perpustakaan rahasia yang hilang.<br><br>Waktu istirahat tiba. Kamu bergegas ke perpustakaan utama — tempat di mana konon pintu rahasia itu berada. Di sana, seorang pustakawan tua sedang menata buku. Ia menatapmu lama, lalu tersenyum.<br><br>'Kau pasti yang dicari oleh buku-buku itu,' katanya pelan. 'Ikuti aku.'",
+choices:[
+{text:"📚 Ikuti pustakawan",next:"perpustakaan2"},
+{text:"🤨 Hati-hati, tanya dulu",next:"tanyaPustakawan"}
+]},
+masukPintu:{
+text:"<b>Pintu kayu tua itu terbuka dengan derit panjang.</b> Di baliknya, lorong sempit dan gelap membentang. Dindingnya terbuat dari batu bata merah kuno, berbeda dengan dinding sekolah yang modern. Udara di dalamnya terasa lembab dan dingin, tapi juga menenangkan.<br><br>Raka menyalakan senter, dan cahayanya menerangi dinding yang dipenuhi lukisan-lukisan wajah para guru dari masa ke masa. Semua mata mereka seolah mengawasi kalian. Di ujung lorong, ada pintu besi bertuliskan 'Perpustakaan Arsenal'.<br><br>'Arsenal artinya gudang senjata, kan?' bisik Raka. 'Tapi ini perpustakaan... aneh.' Kamu setuju. Di bawah tulisan itu, ada lubang kunci berbentuk bintang — persis seperti ukiran di pintu depan.<br><br>Kunci perak di sakumu terasa hangat. Mungkin ini saatnya menggunakannya. Tapi masih ada pilihan lain — mungkin ada jalan masuk lain?",
+choices:[
+{text:"🔑 Pakai kunci perak",next:"perpustakaan"},
+{text:"🔍 Cari jalan alternatif",next:"jalanLain"}
+]},
+rekamHP:{
+text:"<b>Kamu keluarkan HP dan mulai merekam.</b> Langkah kaki kalian bergema di lorong gelap. Raka berbisik komentator seperti di film dokumenter, 'Dan inilah momen bersejarah — dua detektif cilik memasuki lorong misterius!' Kalian tertawa kecil, meskipun agak tegang.<br><br>Rekaman itu menangkap sesuatu yang tidak kalian lihat langsung: di layar HP, ada bayangan putih melintas di ujung lorong. Kamu putar ulang dan Raka ikut melihat. 'Itu apa?!' Raka hampir menjatuhkan senter.<br><br>Tapi kalian memutuskan untuk tetap maju. Bayangan tadi mungkin hanya pantulan cahaya. Atau mungkin... bukan. Kalian saling menggenggam tangan dan melanjutkan perjalanan.<br><br>Di ujung lorong, kalian menemukan pintu besi dengan lubang kunci berbentuk bintang. Tepat seperti ukiran di pintu kayu tadi. Di saku celanamu, kunci perak bergetar pelan.",
+choices:[
+{text:"🔑 Masukkan kunci perak",next:"perpustakaan"},
+{text:"🔙 Mundur dulu, ini terlalu aneh",next:"mundur"}
+]},
+mundur:{
+text:"<b>Kamu memutuskan untuk mundur.</b> 'Aku rasa kita perlu persiapan lebih,' katamu pada Raka. Ia mengangguk lega. Kalian kembali ke lorang sekolah yang terang. Tapi saat kamu menutup pintu kayu itu, kamu mendengar suara bisik lagi: 'Sampai jumpa lagi, Detektif...'<br><br>Di sakumu, kunci perak masih terasa hangat. Mungkin besok kamu akan lebih berani. Atau mungkin kamu perlu mengajak lebih banyak teman.<br><br>Tapi yang jelas — pintu itu tidak akan terkunci selamanya. Dan rasa penasaran itu akan terus menghantuimu sampai kamu kembali.<br><br><i>Petualangan ditunda... Tapi belum selesai.</i>",
+choices:[
+{text:"🔄 Coba lagi dengan lebih berani!",next:"start"}
+]},
+jalanLain:{
+text:"<b>Kamu memilih mencari jalan alternatif.</b> Di sebelah kiri lorong utama, ada sebuah ventilasi berdebu yang longgar. Raka berkata, 'Kayaknya bisa dibuka!' Kalian berdua mencongkel ventilasi itu dan... terbuka! Sebuah lorong ventilasi yang cukup besar untuk kalian lewati.<br><br>Kalian merangkak di dalamnya. Debu dan sarang laba-laba di mana-mana. Tapi di ujung ventilasi, kalian melihat cahaya. Bukan cahaya lampu, melainkan cahaya keemasan yang hangat dan menenangkan.<br><br>Kalian keluar dari ventilasi dan — napas kalian tertahan. Kamu berdiri di tengah perpustakaan raksasa! Buku-buku bersampul kulit berjajar rapi dari lantai hingga langit-langit yang menjulang tiga lantai. Lampu gantung kristal menerangi ruangan dengan sinar hangat.<br><br>Di tengah ruangan, sebuah meja bundar besar dengan satu buku terbuka di atasnya. Buku itu bersinar keemasan. 'Selamat datang, Detektif. Aku sudah menunggumu.'",
+choices:[
+{text:"📖 Buka buku yang bersinar itu",next:"bukuBersinar"},
+{text:"🔍 Jelajahi rak buku dulu",next:"rakBuku"}
+]},
+perpustakaan:{
+text:"<b>Kunci perak masuk sempurna ke lubang berbentuk bintang.</b> Mekanisme di dalam pintu berdenting pelan. Raka dan kamu saling pandang. Perlahan, pintu besi itu terbuka dengan sendirinya, tanpa ada yang mendorong.<br><br>Di balik pintu, udara hangat dan harum buku tua menyapamu. Kamu melangkah masuk ke sebuah ruangan bundar yang penuh dengan buku-buku dari lantai hingga langit-langit. Di tengahnya, sebuah lampu gantung kristal besar menggantung, memancarkan cahaya keemasan.<br><br>'Ini... perpustakaan rahasia!' bisik Raka takjub. Di atas meja bundar di tengah ruangan, sebuah buku besar terbuka. Halaman-halamannya menulis sendiri dengan tinta emas — tepat di depan matamu!<br><br>Kamu mendekati buku itu. Tulisan emas itu berbunyi: 'Terima kasih telah menemukanku. Aku adalah Arsip Sekolah — penjaga semua cerita dan rahasia yang pernah ada di sekolah ini.'",
+choices:[
+{text:"📖 Baca buku Arsip Sekolah",next:"bukuArsip"},
+{text:"🖼️ Lihat foto-foto di dinding",next:"fotoDinding"}
+]},
+perpustakaan2:{
+text:"<b>Pustakawan tua itu menuntunmu melewati rak-rak buku.</b> Kalian berhenti di depan rak ensiklopedia jilid 24 — Z. 'Dorong rak ini,' katanya. Kamu ragu, tapi melakukannya juga. Rak itu bergerak mulus, memperlihatkan pintu tersembunyi!<br><br>'Di dalamnya ada perpustakaan arsenal,' pustakawan itu menjelaskan. 'Tempat menyimpan buku-buku yang sudah ada sebelum sekolah ini berdiri. Tak banyak yang tahu tentang tempat ini. Tapi kau... kau memilih untuk mencari.'<br><br>Ia tersenyum ramah. 'Di dalam, kau akan menemukan buku Arsip Sekolah. Ia menunggumu. Tapi ingat — pengetahuan adalah tanggung jawab. Gunakan dengan bijak.'<br><br>Kamu mengangguk dan melangkah masuk. Langkahmu mantap. Kamu tidak sendiri — Raka tiba-tiba muncul di sampingmu. 'Aku ikut dari tadi!' bisiknya. Kalian tersenyum dan masuk bersama.",
+choices:[
+{text:"📚 Masuk dan cari buku Arsip",next:"bukuArsip"}
+]},
+tanyaPustakawan:{
+text:"<b>'Maaf, Pak. Siapa Bapak?'</b> tanyamu hati-hati. Pustakawan itu tertawa kecil. 'Aku penjaga perpustakaan ini sejak 40 tahun lalu. Aku tahu setiap buku, setiap halaman, dan setiap rahasia di sekolah ini.'<br><br>'Termasuk pintu misterius itu?' Kamu menunjuk ke arah lorong. Ia mengangguk. 'Termasuk pintu itu. Dan kau, anak muda, adalah orang pertama dalam 20 tahun yang berani menanyakannya.'<br><br>Dia membuka laci mejanya dan mengeluarkan sebuah kunci perak — persis sama dengan yang kamu temukan di buku! 'Ini kunci cadangan. Sepertinya kau memang ditakdirkan untuk menemukannya.'<br><br>'Ikuti aku, dan aku akan menunjukkanmu rahasia terbesar sekolah ini.'",
+choices:[
+{text:"🔑 Ikuti Pustakawan",next:"perpustakaan2"}
+]},
+bukuArsip:{
+text:"<b>Kamu membaca buku itu dengan saksama.</b> Buku Arsip Sekolah ternyata adalah buku ajaib yang mencatat semua peristiwa penting di sekolah sejak 1910. Setiap halaman menggambarkan cerita, lengkap dengan ilustrasi yang bergerak seperti film.<br><br>Kamu melihat halaman tentang Guru Pustaka yang menghilang — ternyata ia tidak menghilang, melainkan masuk ke dalam buku ini karena terlalu cinta pada cerita-cerita di perpustakaannya. Ia hidup di antara halaman-halaman, menjaga arsip sekolah selamanya.<br><br>'Terima kasih sudah datang,' tulis halaman terakhir dengan tinta emas. 'Kau adalah Detektif sejati. Sebagai hadiah, aku memberimu akses ke perpustakaan ini kapan pun kau mau. Bawalah teman-temanmu. Cerita harus dibagi, bukan disimpan sendirian.'<br><br>Kamu dan Raka tersenyum. Kalian pulang dengan membawa pengetahuan baru — dan kunci perak yang akan selalu mengingatkan kalian pada petualangan hari ini. Sekolah tidak akan pernah terasa membosankan lagi.",
+choices:[
+{text:"🏆 SELAMAT! Main petualangan lain?",next:"start"}
+]},
+fotoDinding:{
+text:"<b>Foto-foto di dinding menunjukkan sejarah sekolah.</b> Ada foto guru pertama pada 1910, foto tim basket juara, dan... foto seorang anak laki-laki yang tersenyum lebar — wajahnya mirip dengan pustakawan tua tadi! Di bawah foto itu tertulis: 'Pendiri Perpustakaan Arsenal, 1910'.<br><br>Raka bersuit pelan. 'Itu pustakawan, kan? Tapi fotonya dari 1910...' Kamu menghitung. Itu lebih dari seratus tahun yang lalu!<br><br>Kamu memandang foto itu lebih dekat. Mata anak laki-laki di foto itu seolah berkedip padamu. Sebuah pesan muncul di balik foto — ditulis dengan tinta emas: 'Terima kasih sudah menemukanku. Kuncimu adalah milikmu selamanya.'<br><br>Kamu tersenyum. Mungkin pustakawan itu bukan manusia biasa. Mungkin dia adalah penjaga perpustakaan abadi. Tapi satu hal yang pasti — kamu sekarang punya akses ke tempat paling misterius di sekolah ini.",
+choices:[
+{text:"📖 Kembali ke buku Arsip",next:"bukuArsip"}
+]},
+bukuBersinar:{
+text:"<b>Kamu buka buku yang bersinar itu.</b> Cahaya keemasan menyelimuti seluruh ruangan. Halaman-halamannya kosong — tapi ketika kamu mendekatkan wajah, tulisan-tulisan mulai muncul dengan sendirinya, seolah buku itu mengenalimu dan menulis khusus untukmu.<br><br>'Detektif cilik,' tulis buku itu. 'Kau telah menunjukkan keberanian, rasa ingin tahu, dan kebaikan hati. Tiga kualitas yang membuat seseorang pantas disebut detektif sejati. Perpustakaan Arsenal sekarang adalah milikmu. Jagalah ia.'<br><br>Raka berseru kegirangan. 'Kita punya perpustakaan rahasia sendiri!' Kalian berdua tertawa. Di rak-rak sekitar, buku-buku berkilauan seolah ikut bahagia. Kamu merasa hangat dan bangga.<br><br>Sejak hari itu, kamu dan Raka sering mengunjungi perpustakaan rahasia untuk membaca dan bertualang melalui buku-buku. Dan kunci perak itu — kamu simpan di leher, sebagai kalung pengingat bahwa keberanian dan rasa ingin tahu selalu membawa ke tempat-tempat indah.",
+choices:[
+{text:"🏆 SELAMAT! Main lagi?",next:"start"}
+]},
+rakBuku:{
+text:"<b>Kamu memutuskan menjelajahi rak buku terlebih dahulu.</b> Jari-jarimu menyusuri punggung buku-buku tua. Ada judul-judul yang belum pernah kaudengar: 'Ensiklopedia Mimpi', 'Atlas Dunia Tersembunyi', 'Kitab Puisi Hujan'.<br><br>Satu buku berjudul 'Sejarah Sekolah Harapan Bangsa' jatuh ke lantai. Saat kamu memungutnya, sebuah foto jatuh dari sela-sela halaman. Foto itu menunjukkan seorang anak laki-laki sedang tersenyum di depan pintu kayu — pintu yang sama yang baru saja kamu lewati!<br><br>Di belakang foto, tertulis: 'Untuk penerusku — temukan Arsip, temukan dirimu.' Kamu membalik buku itu dan membaca halaman pertama. Ini adalah buku harian pendiri perpustakaan rahasia!<br><br>Kamu duduk bersila di lantai dan mulai membaca. Raka duduk di sampingmu. Luar biasa — seolah buku ini memang sengaja menunggumu untuk ditemukan.",
+choices:[
+{text:"📖 Baca buku harian pendiri",next:"bukuArsip"}
+]}
 };
-function go(id){const n=S[id];if(!n)return;document.getElementById('story').innerHTML=n.text;const c=document.getElementById('choices');c.innerHTML='';if(id==='start')document.getElementById('badge').textContent='Bab 1: Awal Mula';else if(n.text.includes('SELAMAT'))document.getElementById('badge').textContent='KASUS PECAH!';else document.getElementById('badge').textContent='Menyelidiki...';n.choices.forEach(ch=>{const b=document.createElement('button');b.className='btn';b.textContent=ch.text;b.onclick=()=>go(ch.next);c.appendChild(b)});}
+function go(id){const n=S[id];if(!n)return;document.getElementById('story').innerHTML=n.text;const c=document.getElementById('choices');c.innerHTML='';const p=document.getElementById('progress');if(id==='start'){document.getElementById('badge').textContent='📖 Bab 1: Awal Mula';p.textContent='📖 Baca dengan saksama, Detektif!'}else if(n.text.includes('SELAMAT')){document.getElementById('badge').textContent='🏆 KASUS PECAH!';p.textContent='🌟 Selamat, Detektif Cilik! 🌟'}else if(n.text.includes('ditunda')){document.getElementById('badge').textContent='⏸️ DITUNDA';p.textContent='Kembalilah saat kau siap'}else{document.getElementById('badge').textContent='🔍 Bab '+(Math.floor(Math.random()*3)+2);p.textContent='✏️ '+n.choices.length+' pilihan tersedia'}n.choices.forEach(ch=>{const b=document.createElement('button');b.className='btn';b.textContent=ch.text;b.onclick=()=>go(ch.next);c.appendChild(b)})}
 go('start');
 </script>
 </body>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Space Explorers - CYOA</title>
+<title>Space Explorers: Misi Persahabatan - CYOA</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:linear-gradient(135deg,#0a0015,#1a0a3e,#0d1b2a);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;font-family:'Segoe UI','Comic Sans MS',sans-serif}
@@ -11,51 +11,72 @@ body{background:linear-gradient(135deg,#0a0015,#1a0a3e,#0d1b2a);min-height:100vh
 h1{text-align:center;color:#ffd700;font-size:26px;text-shadow:0 0 10px rgba(255,215,0,0.3)}
 .sub{text-align:center;color:#aaa;font-size:13px;margin-bottom:15px}
 .badge{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#1a1a3e;padding:5px 14px;border-radius:20px;font-size:13px;display:inline-block;font-weight:bold;margin-bottom:10px}
-.story{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:24px;min-height:200px;margin-bottom:20px;font-size:17px;line-height:1.8;color:#e0d0ff}
+.story-box{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:24px;min-height:200px;margin-bottom:20px;font-size:17px;line-height:1.8;color:#e0d0ff}
 .choices{display:flex;flex-direction:column;gap:10px}
 .btn{background:linear-gradient(135deg,#4a00e0,#8e2de2);color:#fff;border:none;border-radius:12px;padding:15px 20px;font-size:16px;cursor:pointer;transition:.3s;text-align:left}
-.btn:hover{transform:translateX(5px);box-shadow:0 6px 25px rgba(142,45,226,0.4)}
+.btn:hover{transform:translateX(5px);box-shadow:0 6px 25px rgba(142,45,226,0.4);background:linear-gradient(135deg,#5a10f0,#9e3df2)}
 .reset{background:#ff6b6b;border:none;border-radius:12px;padding:10px;font-size:14px;cursor:pointer;width:100%;margin-top:15px;color:#fff}
+.progress{text-align:center;color:#666;font-size:12px;margin-top:10px}
+@keyframes twinkle{0%,100%{opacity:1}50%{opacity:0.3}}
+.star{animation:twinkle 2s infinite}
 </style>
 </head>
 <body>
 <div class="game">
-<h1>Space Explorers</h1>
-<p class="sub">Misi: Menyelamatkan Persahabatan di Luar Angkasa</p>
-<div class="badge" id="badge">Bumi</div>
-<div class="story" id="story">Hari ini bukan hari biasa! Kamu dan sahabatmu Luna terpilih ikut program pertukaran pelajar antariksa! Tapi begitu sampai di stasiun luar angkasa, sesuatu terjadi...</div>
+<h1>🚀 Space Explorers</h1>
+<p class="sub">🌟 Misi: Menyelamatkan Persahabatan di Luar Angkasa 🌟</p>
+<div class="badge" id="badge">🌍 Bumi</div>
+<div class="story-box" id="story">[Loading cerita...]</div>
 <div class="choices" id="choices"></div>
-<button class="reset" onclick="go('start')">Mulai Lagi</button>
+<button class="reset" onclick="go('start')">🔄 Mulai Petualangan Baru</button>
+<div class="progress" id="progress">✨ Petualangan menanti</div>
 </div>
 <script>
 const S={
-start:{text:"Kamu dan Luna naik roket Nusantara-1! Dari jendela, Bumi terlihat biru dan indah. Tapi alarm berbunyi! Sebuah pesawat asing menabrak stasiun!",choices:[{text:"Investigasi benda asing",next:"bendaAsing"},{text:"Cari petugas stasiun",next:"petugas"}]},
-bendaAsing:{text:"Di ruang observasi, terlihat pod kristal ungu. Di dalamnya makhluk kecil bercahaya! Matanya biru besar dan ketakutan.",choices:[{text:"Jangan takut, kami teman!",next:"kenalan"},{text:"Cari cara buka pod",next:"bukaPod"}]},
-petugas:{text:"Pak Adi datang. 'Ada pesawat mini asing menabrak perisai. Sepertinya ada makhluk di dalamnya.'",choices:[{text:"Kita harus bantu!",next:"bendaAsing"}]},
-kenalan:{text:"Makhluk itu mengulurkan tangan bercahaya. 'Aku... Starlight...' bisiknya di pikiranmu. Dia bisa telepati!",choices:[{text:"Senang berteman, Starlight!",next:"bukaPod"}]},
-bukaPod:{text:"Pak Adi buka pod dengan laser. Starlight melayang keluar! Seluruh ruangan terasa hangat. Starlight tunjukkan peta bintang.",choices:[{text:"Ikuti peta bintang!",next:"petaBintang"},{text:"Tanya soal planetnya",next:"tanyaPlanet"}]},
-tanyaPlanet:{text:"Starlight tunjukkan Planet Lumina! Segalanya dari cahaya dan kristal. Tapi Starlight tersesat.",choices:[{text:"Ayo antar Starlight pulang!",next:"petaBintang"}]},
-petaBintang:{text:"Peta bintang menunjukkan 3 lokasi: Asteroid Crystal, Nebula Pelangi, Planet Biru. Pilih urutan!",choices:[{text:"Ke Asteroid Crystal",next:"asteroid"},{text:"Ke Nebula Pelangi",next:"nebula"},{text:"Ke Planet Biru",next:"planetBiru"}]},
-asteroid:{text:"Hujan meteor! Pod oleng. Luna hampir terlempar!",choices:[{text:"Tenangkan Starlight",next:"tenangkan"},{text:"Ambil alih kendali",next:"kendali"},{text:"Aktifkan perisai",next:"perisai"}]},
-tenangkan:{text:"Kamu pegang Luna dan bilang ke Starlight, 'Tenang, kita bisa lewati ini!' Pod stabil. Kalian mendarat di Asteroid Crystal.",choices:[{text:"Ambil kristal",next:"asteroid2"}]},
-kendali:{text:"Kamu hindari meteor dengan lincah! Luna bersorak. Kamu mendarat dengan mulus.",choices:[{text:"Mendarat sempurna!",next:"asteroid2"}]},
-perisai:{text:"Perisai aktif, tapi energi habis. Starlight sedih. Kalian harus isi ulang.",choices:[{text:"Cari sumber energi",next:"asteroid2"}]},
-asteroid2:{text:"Asteroid Crystal penuh kristal raksasa! Starlight ambil kristal biru. Tapi tanah berguncang!",choices:[{text:"Lari ke pod!",next:"asteroid3"},{text:"Ambil lebih banyak",next:"rakus"}]},
-rakus:{text:"Terlalu banyak kristal! Asteroid pecah! Kalian kabur, tapi pod kelebihan muatan.",choices:[{text:"Buang sebagian kristal",next:"asteroid3"}]},
-asteroid3:{text:"Bahan bakar terisi! Lanjut ke lokasi berikutnya!",choices:[{text:"Ke Nebula Pelangi",next:"nebula"},{text:"Ke Planet Biru",next:"planetBiru"}]},
-nebula:{text:"Nebula Pelangi - awan warna-warni paling indah! Tapi visibilitas rendah.",choices:[{text:"Ikuti suara musik",next:"musik"},{text:"Nyalakan lampu",next:"lampu"},{text:"Ikuti insting Starlight",next:"insting"}]},
-musik:{text:"Nyanyian Bintang! Kamu ikuti suara dan temukan kristal musik raksasa!",choices:[{text:"Mainkan kristal",next:"nebula2"}]},
-lampu:{text:"Cahaya menyilaukan Starlight. 'Matikan!' Kalian ikuti arah Starlight.",choices:[{text:"Ikuti Starlight",next:"nebula2"}]},
-insting:{text:"Starlight rasakan energi murni di dekat sana. Kalian temukan partikel cahaya!",choices:[{text:"Kumpulkan partikel",next:"nebula2"}]},
-nebula2:{text:"Baterai terisi penuh! Starlight senang. Pod bisa terbang lebih cepat!",choices:[{text:"Ke Asteroid Crystal",next:"asteroid"},{text:"Ke Planet Biru",next:"planetBiru"}]},
-planetBiru:{text:"Planet air! Semuanya lautan biru dengan pulau mengambang. Pusaran air menuju inti planet.",choices:[{text:"Selam ke pusaran",next:"menyelam"},{text:"Cari perahu",next:"perahu"},{text:"Panggil penghuni",next:"panggil"}]},
-menyelam:{text:"Di dasar laut, ada kota bawah air! Bangunan dari gelembung. Penduduk ikan ramah!",choices:[{text:"Berteman dengan penduduk",next:"laut2"}]},
-perahu:{text:"Perahu daun raksasa yang bisa bicara! 'Aku Daun Ajaib!' Perahu membawa kalian ke pusaran.",choices:[{text:"Terima kasih!",next:"menyelam"}]},
-panggil:{text:"Lumba-lumba bercahaya muncul! 'Kami penjaga Planet Biru. Ikut kami!'",choices:[{text:"Ikuti lumba-lumba!",next:"menyelam"}]},
-laut2:{text:"Penduduk memberi Mutiara Keberanian. Bahan bakar penuh! Kamu menari bersama ikan.",choices:[{text:"Lanjutkan",next:"lengkap"}]},
-lengkap:{text:"Semua kristal terkumpul! Pod bersinar. Kalian terbang ke Planet Lumina. Orang tua Starlight memeluknya. 'Kalian pahlawan sejati.' Starlight memberi gelang kristal untuk komunikasi lintas galaksi.",choices:[{text:"SELAMAT! Main lagi?",next:"start"}]}
+// === INTRO ===
+start:{text:"Hari ini bukan hari biasa! Kamu dan sahabat baikmu, Luna, terpilih mengikuti program pertukaran pelajar antariksa! Kalian akan terbang ke Stasiun Luar Angkasa Internasional. Tapi begitu sampai, sesuatu yang tak terduga terjadi...",choices:[{text:"🚀 Bersemangat! Ayo cepat naik roket!",next:"roket"},{text:"😰 Agak deg-degan... tapi penasaran",next:"roket2"},{text:"📸 Foto-foto dulu buat kenang-kenangan",next:"foto"}]},
+roket:{text:"Kamu dan Luna masuk ke roket 'Nusantara-1'. Hitung mundur dimulai: 5... 4... 3... 2... 1... WUSSH! Kalian meluncur ke angkasa! Dari jendela, Bumi terlihat semakin kecil dan biru. 'Indah banget!' seru Luna matanya berbinar.",choices:[{text:"🌍 \"Aku bisa lihat rumahku dari sini!\"",next:"diRoket"},{text:"🪐 \"Kira-kira ada alien nggak ya?\"",next:"alienTanya"}]},
+roket2:{text:"Kamu gugup, tapi Luna menggenggam tanganmu. 'Tenang aja, kita bersama!' Roket meluncur mulus. Setelah 20 menit, kalian sampai di stasiun luar angkasa 'Harapan Bangsa' yang megah!",choices:[{text:"😊 Makasih Luna, kamu sahabat terbaik",next:"sesampai"},{text:"🤩 WOW stasiunnya keren banget!",next:"stasiunKeren"}]},
+foto:{text:"Kamu foto-foto momen seru. Ada foto selfie bareng Luna, foto roket, foto Bumi dari jauh. 'Aku akan buat album kenangan!' Tiba-tiba alarm berbunyi...",choices:[{text:"🚨 Cek alarmnya!",next:"alarm"},{text:"📱 Panggil petugas",next:"petugas"}]},
+alarm:{text:"Alarm makin keras! Lampu merah berkedip. Di layar monitor, terlihat sebuah pesawat asing kecil menabrak stasiun! Untungnya, stasiun punya perisai pelindung. Tapi benda asing itu terjebak dan tidak bisa keluar.",choices:[{text:"🔭 Investigasi benda asing itu",next:"bendaAsing"},{text:"🏃 Cari petugas stasiun",next:"petugas"}]},
+petugas:{text:"Petugas stasiun, Pak Adi, datang. 'Ada pesawat mini asing menabrak perisai kita. Tapi anehnya... sepertinya ada makhluk di dalamnya, dan dia membutuhkan pertolongan.'",choices:[{text:"👽 \"Kita harus bantu!\"",next:"bendaAsing"},{text:"🤔 \"Apa ini jebakan?\"",next:"waspada"}]},
+waspada:{text:"Luna berkata, 'Kalau ada makhluk asing butuh bantuan, kita wajib menolong! Itu yang diajarkan di sekolah.' Kamu setuju dan kalian pergi ke lokasi tumbukan.",choices:[{text:"👽 Baiklah, ayo tolong!",next:"bendaAsing"}]},
+// === MIDDLE - Meet Alien ===
+bendaAsing:{text:"Kalian menuju ruang observasi. Di luar jendela, terlihat sebuah pod kecil berbentuk kristal berwarna ungu. Di dalamnya... ada makhluk kecil bercahaya! Matanya biru besar dan dia kelihatan ketakutan.",choices:[{text:"💜 \"Jangan takut! Kami teman!\"",next:"kenalan"},{text:"🛠️ Cari cara buka podnya",next:"bukaPod"},{text:"📞 Hubungi Bumi minta instruksi",next:"hubungiBumi"}]},
+kenalan:{text:"Makhluk itu menatapmu. Perlahan, dia mengulurkan tangan kecilnya yang bercahaya. Meski ada kaca pemisah, kamu bisa merasakan kehangatan. 'Aku... Starlight...' bisiknya dalam pikiranmu. Dia bisa telepati!",choices:[{text:"🌟 Senang berteman denganmu, Starlight!",next:"bukaPod"},{text:"😲 Kamu bisa bicara di pikiran?",next:"telepati"}]},
+telepati:{text:"Starlight tersenyum. 'Di planetku, semua makhluk berkomunikasi dengan hati. Aku tersesat saat mengejar komet Pelangi. Bisakah kalian membantuku pulang?' Matanya yang biru besar tampak berharap.",choices:[{text:"💪 \"Tentu! Kami akan bantu!\"",next:"bukaPod"}]},
+bukaPod:{text:"Pak Adi berhasil membuka pod kristal menggunakan laser khusus. Starlight melayang keluar! Tubuhnya yang bercahaya membuat seluruh ruangan terasa hangat. Luna bertanya, 'Bagaimana cara kami mengantarmu pulang?' Starlight menunjukkan sebuah peta bintang di telapak tangannya.",choices:[{text:"🗺️ Ikuti peta bintang!",next:"petaBintang"},{text:"❓ Tanya Starlight soal planetnya",next:"tanyaPlanet"}]},
+hubungiBumi:{text:"Kamu hubungi Bumi. Pusat kendali berkata, 'Jangan sentuh apa pun, kami kirim tim ahli!' Tapi Luna berkata, 'Dia kelihatan ketakutan... kalau kita tunggu, mungkin udah telat.'",choices:[{text:"⏳ Ikuti instruksi Bumi",next:"tungguBumi"},{text:"💜 Percaya insting Luna",next:"kenalan"}]},
+tungguBumi:{text:"Tim ahli datang 2 jam kemudian. Starlight sudah sangat lelah dan tidak bisa bicara lagi. Tim ahli membawanya pergi. Kamu dan Luna pulang tanpa tahu apakah Starlight baik-baik saja. Tapi kalian belajar: kadang kita harus berani mengambil keputusan sendiri.",choices:[{text:"😔 Ending: Terlambat... Mulai lagi?",next:"start"}]},
+tanyaPlanet:{text:"Starlight menunjukkan gambar planetnya: Planet Lumina! Di sana, segalanya terbuat dari cahaya dan kristal. Penduduknya hidup damai. Tapi Starlight adalah penjelajah cilik yang tersesat terlalu jauh.",choices:[{text:"✨ \"Ayo antar Starlight pulang!\"",next:"petaBintang"}]},
+// === MIDDLE - Journey Begins ===
+petaBintang:{text:"Peta bintang menunjukkan 3 lokasi yang harus dikunjungi untuk mengisi bahan bakar pesawat Starlight: 1) Asteroid Crystal, 2) Nebula Pelangi, dan 3) Planet Biru Kecil. Kalian harus memilih urutan perjalanan!",choices:[{text:"💎 Ke Asteroid Crystal dulu",next:"asteroid"},{text:"🌈 Ke Nebula Pelangi dulu",next:"nebula"},{text:"🔵 Ke Planet Biru Kecil dulu",next:"planetBiru"}]},
+// === ASTEROID PATH ===
+asteroid:{text:"Kalian naik pod kristal Starlight menuju Asteroid Crystal! Di tengah jalan, hujan meteor melintas. Starlight panik dan pod oleng. Luna hampir terlempar!",choices:[{text:"🤝 Tarik Luna dan tenangkan Starlight",next:"tenangkan"},{text:"🎮 Ambil alih kendali pod",next:"kendali"},{text:"🛡️ Aktifkan perisai pelindung",next:"perisai"}]},
+tenangkan:{text:"Kamu pegang tangan Luna dan bilang ke Starlight, 'Tenang, kita bisa melewati ini bersama!' Starlight mengambil napas dalam-dalam. Pod itu stabil. 'Aku... aku tidak ingin kehilangan kalian,' bisik Starlight. Kalian tersenyum. Persahabatan memberimu kekuatan.",choices:[{text:"💪 Lanjut ke Asteroid Crystal!",next:"asteroid2"}]},
+kendali:{text:"Kamu ambil alih kendali dengan cepat! Dengan lincah kamu menghindari meteor satu per satu. Luna bersorak, 'Hei, kamu jago banget!' Bahkan Starlight terkesima. Kamu berhasil mendaratkan pod dengan mulus di Asteroid Crystal.",choices:[{text:"🌟 Mendarat sempurna!",next:"asteroid2"}]},
+perisai:{text:"Kamu aktifkan perisai tepat waktu! Meteor-meteor memantul. Tapi perisai menggunakan banyak energi. Starlight sedih, 'Energiku habis...' Kalian harus mengisi ulang di Asteroid Crystal.",choices:[{text:"💎 Cari sumber energi di asteroid",next:"asteroid2"}]},
+asteroid2:{text:"Asteroid Crystal dipenuhi kristal raksasa yang berkilauan! Starlight mengambil kristal biru dan memasukkannya ke pod. Pod mulai bersinar lagi. Tapi tiba-tiba, tanah berguncang! Asteroid itu mulai pecah!",choices:[{text:"🏃 Lari ke pod dan kabur!",next:"asteroid3"},{text:"💎 Ambil kristal lebih banyak",next:"rakus"}]},
+rakus:{text:"Kamu ambil terlalu banyak kristal. Asteroid makin cepat pecah! Starlight menarikmu, 'Tinggalkan! Keselamatan lebih penting!' Kalian kabur tepat waktu, tapi pod kelebihan muatan dan melambat.",choices:[{text:"🚀 Buang sebagian kristal",next:"asteroid3"}]},
+asteroid3:{text:"Kalian berhasil lepas dari Asteroid Crystal! Bahan bakar terisi 50%. Starlight tersenyum. 'Kamu penyelamatku.' Sekarang, lanjut ke tujuan berikutnya!",choices:[{text:"🌈 Lanjut ke Nebula Pelangi",next:"nebula"},{text:"🔵 Lanjut ke Planet Biru Kecil",next:"planetBiru"}]},
+// === NEBULA PATH ===
+nebula:{text:"Kalian memasuki Nebula Pelangi — awan raksasa berwarna-warni yang paling indah di galaksi! Warna-warnanya berubah-ubah seperti pelangi hidup. Tapi di dalam nebula, visibilitas sangat rendah. Kalian bisa tersesat!",choices:[{text:"🎵 Ikuti suara musik merdu",next:"musik"},{text:"💡 Nyalakan lampu pencari",next:"lampu"},{text:"🧭 Ikuti insting Starlight",next:"insting"}]},
+musik:{text:"Dari dalam nebula, terdengar alunan musik yang indah. Starlight bilang itu adalah 'Nyanyian Bintang' — cara alam semesta berkomunikasi. Kalian mengikuti suara itu dan menemukan pusat nebula yang berisi sebuah kristal musik raksasa!",choices:[{text:"🎶 Mainkan kristal musiknya",next:"nebula2"}]},
+lampu:{text:"Kamu nyalakan lampu pencari, tapi cahayanya terlalu terang dan malah membuat Starlight silau. 'Matikan!' Starlight menutup mata. 'Cahaya buatan menyakitiku. Aku bisa merasakan jalannya.'",choices:[{text:"🔦 Matikan lampu, ikuti Starlight",next:"nebula2"}]},
+insting:{text:"Starlight menutup mata dan merasakan. 'Di sebelah sana... ada energi murni.' Kalian mengikuti arah yang ditunjuk Starlight. Benar saja, kalian menemukan pusat nebula yang penuh partikel bercahaya!",choices:[{text:"✨ Kumpulkan partikel cahaya",next:"nebula2"}]},
+nebula2:{text:"Partikel-partikel cahaya masuk ke pod dan mengisi baterai! Sekarang energi Starlight penuh! Sebagai bonus, partikel itu membuat pod bisa terbang lebih cepat. Starlight sangat senang. 'Aku merasa kuat lagi!'",choices:[{text:"💎 Lanjut ke Asteroid Crystal",next:"asteroid"},{text:"🔵 Lanjut ke Planet Biru Kecil",next:"planetBiru"}]},
+// === PLANET BIRU ===
+planetBiru:{text:"Planet Biru Kecil ternyata adalah planet air! Semuanya lautan biru jernih dengan pulau-pulau kecil mengambang. Di tengah planet, ada pusaran air raksasa yang menuju ke inti planet. Starlight bilang di sana ada kristal terakhir.",choices:[{text:"🏊‍♂️ Menyelam ke pusaran air",next:"menyelam"},{text:"🚤 Cari perahu di pulau",next:"perahu"},{text:"🐬 Panggil penghuni planet",next:"panggil"}]},
+menyelam:{text:"Kalian menyelam ke dalam pusaran! Di dasar laut, ada kota bawah air yang indah! Bangunan-bangunan dari gelembung dan karang bercahaya. Penduduknya adalah makhluk ikan yang ramah! Mereka memberi sambutan meriah.",choices:[{text:"🐟 Berteman dengan penduduk laut",next:"laut2"}]},
+perahu:{text:"Kalian menemukan perahu daun raksasa! Saat naik, perahu itu ternyata bisa bicara! 'Aku Daun Ajaib! Aku akan mengantarmu ke pusat laut!' Perahu melaju kencang menembus ombak menuju pusaran.",choices:[{text:"🌊 Terima kasih, Daun Ajaib!",next:"menyelam"}]},
+panggil:{text:"Kamu berteriak, 'Halo! Ada yang bisa bantu?' Beberapa detik kemudian, lumba-lumba bercahaya muncul! 'Kami penjaga Planet Biru. Ikut kami!' Lumba-lumba menuntun kalian melewati jalur aman menuju dasar laut.",choices:[{text:"🐬 Ikuti lumba-lumba!",next:"menyelam"}]},
+laut2:{text:"Penduduk bawah air memberi kalian Mutiara Keberanian — kristal laut yang sangat langka. Starlight memasangnya di pod. Bahan bakar terisi penuh! Sebagai ucapan terima kasih, kamu dan Luna menari bersama ikan-ikan.",choices:[{text:"💃 Besok-besok main lagi ya!",next:"lengkap"}]},
+// === FINAL ===
+lengkap:{text:"Semua kristal terkumpul! Pod Starlight bersinar terang. Kalian terbang menuju Planet Lumina. Sesampainya di sana, kalian disambut penduduk Planet Lumina. Orang tua Starlight memeluknya erat. 'Terima kasih telah mengantarkan anak kami pulang. Kalian pahlawan sejati.'",choices:[{text:"😊 "Kami hanya melakukan yang benar"",next:"endingBaik"},{text:"🤝 "Persahabatan melintasi galaksi!"",next:"endingBaik2"}]},
+endingBaik:{text:"🏆 SELAMAT! 🏆\n\nKamu dan Luna berhasil mengantar Starlight pulang ke Planet Lumina! Starlight berjanji akan mengunjungi Bumi suatu hari nanti. Sebagai kenang-kenangan, dia memberi kalian gelang kristal yang bisa berkomunikasi lintas galaksi. Kalian pulang dengan membawa pengalaman dan persahabatan yang tak terlupakan. 🌟\n\n'Persahabatan sejati tidak mengenal jarak. Bahkan ribuan tahun cahaya tidak bisa memisahkan hati yang saling terhubung.'",choices:[{text:"🚀 Main lagi petualangan baru!",next:"start"}]},
+endingBaik2:{text:"🏆 SELAMAT! 🏆\n\nStarlight dan seluruh Planet Lumina mengadakan pesta perpisahan untukmu! Ada kembang api bintang, tarian cahaya, dan makanan alien yang unik! Kamu dan Luna diangkat menjadi 'Sahabat Kehormatan Lumina'. Sebelum pulang, Starlight berbisik, 'Aku akan selalu mengingat kalian. Kalian adalah bintang paling terang di hidupku.' ✨",choices:[{text:"🚀 Petualangan baru, yuk!",next:"start"}]}
 };
-function go(id){const n=S[id];if(!n)return;document.getElementById('story').innerHTML=n.text;const c=document.getElementById('choices');c.innerHTML='';if(id==='start')document.getElementById('badge').textContent='Bumi';else if(n.text.includes('SELAMAT'))document.getElementById('badge').textContent='MISI SELESAI!';else document.getElementById('badge').textContent='Luar Angkasa';n.choices.forEach(ch=>{const b=document.createElement('button');b.className='btn';b.textContent=ch.text;b.onclick=()=>go(ch.next);c.appendChild(b)});}
+function go(id){const n=S[id];if(!n)return;document.getElementById('story').innerHTML=n.text;const c=document.getElementById('choices');c.innerHTML='';const p=document.getElementById('progress');if(id==='start'){document.getElementById('badge').textContent='🌍 Bumi';p.textContent='✨ Petualangan baru dimulai!'}else if(n.text.includes('SELAMAT')){document.getElementById('badge').textContent='🏆 MISI SELESAI!';p.textContent='🌟 Selamat, Pahlawan! 🌟'}else if(n.text.includes('Terlambat')){document.getElementById('badge').textContent='😔 ENDING';p.textContent='Coba lagi lain kali'}else{document.getElementById('badge').textContent='🚀 Luar Angkasa';p.textContent='⭐ '+(n.choices?.length||0)+' pilihan tersedia'}n.choices.forEach(ch=>{const b=document.createElement('button');b.className='btn';b.textContent=ch.text;b.onclick=()=>go(ch.next);c.appendChild(b)});if(n.choices.length===0){const b=document.createElement('button');b.className='btn';b.textContent='🔄 Mulai Lagi';b.onclick=()=>go('start');c.appendChild(b)}}
 go('start');
 </script>
 </body>
