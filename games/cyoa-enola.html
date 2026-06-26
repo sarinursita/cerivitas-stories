@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Petualangan Enola - CYOA Game</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', 'Comic Sans MS', sans-serif;
+      background: linear-gradient(135deg, #2d1b4e 0%, #1a1a2e 50%, #16213e 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .game-container {
+      background: white;
+      border-radius: 24px;
+      padding: 30px;
+      max-width: 650px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    h1 {
+      text-align: center;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 28px;
+      margin-bottom: 5px;
+    }
+    .subtitle {
+      text-align: center;
+      color: #888;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    .badge {
+      display: inline-block;
+      background: #ffd700;
+      color: #333;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+    .story-box {
+      background: #f8f6ff;
+      border-radius: 16px;
+      padding: 24px;
+      min-height: 200px;
+      margin-bottom: 20px;
+      font-size: 16px;
+      line-height: 1.8;
+      color: #333;
+      white-space: pre-wrap;
+    }
+    .story-box p { margin-bottom: 12px; }
+    .choices {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .choice-btn {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 20px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .choice-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+    .choice-btn.end-btn {
+      background: linear-gradient(135deg, #ff6b6b, #c44d4d);
+    }
+    .choice-btn.restart-btn {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      margin-top: 5px;
+    }
+    .reset-btn {
+      background: #ff6b6b;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 10px 20px;
+      font-size: 14px;
+      cursor: pointer;
+      margin-top: 15px;
+      display: block;
+      width: 100%;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .emoji-deco { font-size: 24px; display: block; text-align: center; margin-bottom: 8px; }
+    @media (max-width: 480px) {
+      .game-container { padding: 20px; }
+      .story-box { font-size: 15px; padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+<div class="game-container">
+  <h1>🌿 Petualangan Enola</h1>
+  <p class="subtitle">Aesthetic Manifestation — Choose Your Own Adventure</p>
+  <div class="badge" id="badgeDisplay">🌟 Awal Cerita</div>
+  <div class="story-box" id="storyBox"></div>
+  <div class="choices" id="choicesContainer"></div>
+  <button class="reset-btn" onclick="resetGame()">🔄 Mulai Lagi</button>
+</div>
+<script>
+const story = {
+  intro: {
+    text: "Hari itu benar-benar definisi perfect day yang aesthetic abis. Aku lagi nugas santai di sebuah coffee shop tersembunyi yang suasananya Pinterest banget. Di layarku, jemariku lincah menggoreskan stylus, mendesain sebuah karakter pelindung fiksi yang anggun, slay abiez, dengan palet warna earth tone yang adem banget di mata.\n\nJEDARRR! Tiba-tiba petir menyambar tanpa permisi, padahal cuaca lagi cerah-cerahnya. Detik berikutnya, tablet grafisku bergetar hebat dan memancarkan cahaya putih bersih yang langsung merambat ke telapak tanganku. Ada sensasi hangat yang menjalar, dan entah bagaimana, kepalaku mendadak mendapat update OS instan tentang sebuah kekuatan baru.\n\nKenalin, namaku Enola, dan per hari ini, aku resmi punya Kekuatan Unik: Aesthetic Manifestation. Singkatnya, apa pun yang kugambar dengan visual yang rapi dan terstruktur, bisa langsung spawn jadi nyata di dunia asli! Tapi ada syarat dan ketentuan berlaku yang agak bikin ketar-ketir. Kekuatan ini cuma aktif kalau lingkungan di sekitarku tetap aesthetic dan rapi. Kalau suasananya mendadak berantakan atau penuh polusi visual, energi magisku langsung drop ke zero percent.\n\nBaru juga mau mencerna situasi, bumi tiba-tiba bergetar seolah ada gempa lokal. Dari ujung jalan, muncul sesosok monster raksasa yang visualnya bener-bener bikin mata perih. Namanya Bowo-Bogo. Dia adalah manifestasi dari tumpukan baliho bekas yang desainnya tabrakan, juntaian kabel tiang listrik yang kusutnya melebihi benang layangan, dan sampah-sampah plastik yang berserakan.\n\n\"Hancurkan kerapian! Jadikan dunia ini penuh kekacauan visual!\" teriak si monster dengan suara cempreng yang merusak vibe lagu lo-fi di kafe. Di belakangnya, badai debu mulai bertiup, mengancam kebersihan kafe estetik tempatku bernaung. Kalau tempat ini kotor, kekuatanku bisa langsung error!\n\nAku menarik napas dalam-dalam, menggenggam tablet dengan mantap. \"Okay, Enola... Tarik nafas...\" kataku menenangkan diri. \"Aduhh! aku harus bagaimana ya?\" tanganku refleks memegangi kepalaku. Keadaan ini rasanya mumet pake banget nget!!",
+    choices: [
+      { text: "\u{1F4AA} Yakin! Aku bisa hadapi ini!", next: "yakin" },
+      { text: "\u{1F614} Aku ragu...", next: "ragu" },
+      { text: "\u{1F645} Ya Sudahlah, bukan urusanku.", next: "notMyProblem" }
+    ]
+  },
+  yakin: {
+    text: "mataku melirik ke arah stylus milikku. \"Tenang Enola...\". Stylus itu sekarang sudah berada di tanganku. ku genggam erat-erat seperti lagu balonku yang sering aku nyanyikan saat kecil. \"You can do this Enola\". Aku segera berpikir cepat apa yang harus aku gambar.\n\nLayar di tabku menampilkan karakter peri bumi yang aku gambar sebelumnya. Ah!\n\nSret sret sret. Dalam 3 menit cahaya terang menyilaukan merambat ke tangan, dan lantai sekitarku. Tiba-tiba ada sebuah gumpalan cahaya yang muncul di tengah-tengah ruangan. Silau sekali melihatnya, mataku seketika menyipit. \"Astaga... Cahaya apa ini...\", Aku bergumam pada diriku. Tunggu... Apa itu? Bola mataku seperti menangkap sesuatu di antara cahaya-cahaya menyilaukan itu. aku menyipitkan mata lebih lancip lagi.\n\nWOOSHH! Cahaya menyilaukan itu digantikan oleh angin yang berhembus cukup kencang. Dari tengah-tengah angin itu muncul sosok yang seperti melayang. Aku mengedipkan mata. sekali. dua kali. Sheesh... Muncul seorang peri cantik sedang menatap ke arahku. Senyum manis menghiasi bibirnya. dengan rambut blonde panjang sepinggang yang bersinar. Matanya berwarna kehijauan, tampak tenang. wajahnya cantik seperti putri-putri negeri dongeng. badannya tidak pendek, tidak terlalu tinggi juga, benar-benar definisi sempurna. pakaiannya perpaduan hijau dan coklat, membuatnya semakin mendalami karakter earth tone girl. mataku kembali bertemu matanya. senyumnya melebar sepersekian senti. \"Hai, Enola!\". Lamunanku terhenti. \"Ah! hai!\", kataku tersipu. sepertinya dia sadar aku memperhatikannya terlalu lama. \"Terima kasih sudah memanggilku Enola! Apa yang bisa aku bantu?~\". Senyum manisnya setia menghiasi wajahnya.\n\n\"Tunggu. Bagaimana kau bisa tau namaku?\"",
+    choices: [
+      { text: "\u2753 Bagaimana? (Curiga dengan peri ini)", next: "how" },
+      { text: "\u{1F198} Ah, Aku sangat butuh bantuanmu!", next: "help" }
+    ]
+  },
+  how: {
+    text: "Alisku berkerut. \"Tunggu... Bagaimana.. Kamu bisa tau namaku?\". Senyumnya hilang sepersekian detik. lalu detik berikutnya senyum manis kembali muncul. Dia tertawa imut, \"Ada banyak hal yang kamu tidak tau. Enola...\". \"O-oke..\". Tidak. bukan itu yang aku lihat. diantara sepersekian detik senyum manisnya hilang.. tatapannya. tatapan itu... 180 derajat berubah. bukan lagi tenang bak sungai pada siang yang hangat. tapi tajam seperti duri. di sepersekian detik itu, aku merasa ada sesuatu yang menusuk tepat di dadaku. \"Enola?\". terkejut, namun aku kembali tersadar dari lamunanku. \"y-ya?\", aku menarik nafas. berusaha mengontrolnya. Senyumnya melebar sepersekian senti. \"Kamu tidak apa apa? sepertinya kamu tipe yang sering.. melamun..\". \"Ah...\" Aku tertawa canggung.. \"Maaf, aku kadang memang suka... melamun\". Dasar Enola!! Sudah berapa kali aku melamun hari ini! Tunggu. kenapa... kenapa tidak ada suara lain selain suara ku dan peri ini? Aku melihat keluar jendela. RRRAAAAWRRRRR!~ Tiba-tiba suara itu kembali muncul. \"Ada apa, Enola?\". Aku kembali mendengar apa yang ada di sekelilingku. \"Tidak.. bukan apa apa..\", aku memaksa bibirku untuk tersenyum. Rasa apa ini? rasanya... seperti ada yang janggal... ini.. Jujur janggal...",
+    choices: [
+      { text: "\u{1F198} \"Apa kamu bisa membantuku?\"", next: "helpP2" },
+      { text: "\u{1F50D} \"Apakah kamu merasakan hal yang sama?\"", next: "ask" }
+    ]
+  },
+  help: {
+    text: "\"Ah, Aku sangat butuh bantuanmu!\" Aku langsung menunjuk ke arah luar jendela kafe. Di sana, monster baliho dan kabel kusut bernama Bowo-Bogo itu sedang mengamuk, meniupkan badai debu yang mengancam kebersihan tempat ini.\n\n\"Lihat monster jelek di luar itu!\" kataku panik. \"Kalau kafe ini sampai kotor atau berantakan, kekuatanku bisa langsung drop jadi nol! Aku butuh bantuanmu untuk mengalahkannya. Aku tidak bisa menang sendirian!\"\n\nSang peri langsung menengok ke luar jendela, wajah cantiknya seketika berubah serius. Dia mengangguk mantap dan menatapku.\n\n\"Kekacauan visual yang buruk,\" ucapnya. \"Aku akan keluar untuk menahan badai debu dan mengalihkan perhatiannya agar kafe ini tetap bersih. Sementara aku menahannya, cepat gunakan stylus-mu untuk menggambar kelemahannya. Kita kalahkan monster itu bersama-sama!\"\n\nAku mengangguk, \"Hati-hati ya?\". Sang peri tersenyum manis. aku yakin seorang Albert Einstein pun tak bisa menghitung kadar manis dari senyumnya itu. \"Tentu. kamu juga ya?\", Katanya sambil terbang keluar. Oke, Enola. sekarang giliranmu.\n\nHufttt! aku kembali menggenggam erat stylusku. sekarang.. apa yang harus aku gambar?",
+    choices: [
+      { text: "\u{1F91D} Buat teman untuk sang peri", next: "friend" },
+      { text: "\u26A1 Buat power up untuk peri", next: "power" }
+    ]
+  },
+  ragu: {
+    text: "Aku menyalakan bluetooth lalu memasang earphone di telingaku. Jariku gesit membuka aplikasi di Tablet. \"Hai Chat GPT. Aku sedang didatangi monster. Lalu aku tiba-tiba mendapat kekuatan bisa mewujudkan apa yang aku gambar. apa yang harus aku lakukan?\". Aku melirik ke arah layar yang berputar-putar. Sepertinya dia sedang berpikir. \"Ah!\". Aku berkedip terkejut. \"Kamu sedang membuat cerita ya? oke. biar aku bantu kamu membuat cerita ini lebih menarik dan seru seperti yang kamu harapkan!\". Mataku membesar, mulutku terbuka. Ingin rasanya aku protes, tapi AI satu ini suka sekali yapping dan tak henti-henti berbicara. aku menghembuskan nafas kesal, membiarkan ia berbicara. \"Aku sudah membuat dua opsi untukmu! satu. Cari tau alasan kenapa dia bisa muncul dan lain-lain. mungkin dari situ kamu bisa menemukan kelemahannya. Dua. Buat lawan yang setimpal! monster lain, Superhero, Dll. Apa ada lagi yang bisa aku bantu?\".\n\nAduhhh! ini mah aku mikir lagi namanya! Baiklah! aku pilih...",
+    choices: [
+      { text: "\u{1F50D} Opsi 1: Cari tau kelemahan monster", next: "opsi1" },
+      { text: "\u{1F3A8} Opsi 2: Buat lawan yang setimpal!", next: "opsi2" }
+    ]
+  },
+  opsi1: {
+    text: "Baiklah! aku pilih... Opsi 1.\n\nAku memutuskan mengikuti saran pertama dari Yappers ini. Mencari tahu alasan kemunculannya rasanya jauh lebih masuk akal daripada asal menggambar lawan.\n\nAku buru-buru mengintip ke luar jendela kafe, mengamati monster itu lekat-lekat. Tubuh raksasanya berguncang, tersusun dari tumpukan baliho bekas yang robek dan juntaian kabel listrik yang saling melilit kusut.\n\nTunggu dulu...\n\nDi bagian tengah dadanya, ada satu baliho raksasa usang yang dipenuhi debu paling tebal. Setiap kali badai debunya membuat jalanan kafe semakin kotor, baliho di dadanya justru bersinar makin terang, membuat si monster bergerak kian brutal.\n\n\"Ah, jadi itu alasannya!\" gumamku. Monster ini adalah perwujudan dari polusi visual kota yang terbengkalai. Dia ditenagai oleh kekacauan dan kekotoran lingkungan.\n\nBerarti kelemahannya sudah jelas: estetika dan keteraturan. Selama inti baliho kotor di dadanya itu belum dibersihkan, dia akan terus menguras energiku sampai nol persen. Aku kembali menggenggam stylus-ku erat-erat, bersiap menggambar sesuatu untuk menghancurkan inti kelemahannya!",
+    choices: [
+      { text: "\u{1F916} Tanya AI lagi buat saran", next: "ask" },
+      { text: "\u{1F52B} Buat senjata pembersih!", next: "senjata" }
+    ]
+  },
+  opsi2: {
+    text: "Baiklah! aku pilih... Opsi 2.\n\nBodo amat dengan asal-usulnya, monster itu sudah di depan mata dan kafe ini harus tetap bersih! Aku harus segera membuat lawan yang sepadan.\n\nJariku bergerak secepat kilat menari di atas layar bersama stylus-ku. Sret sret sret!\n\nDalam dua menit, aku berhasil menggambar sesosok robot pembersih futuristik raksasa berzirah putih aesthetic. Tangan kanannya dilengkapi meriam vakum bertenaga turbo untuk menyedot polusi, dan tangan kirinya dibekali pedang laser pemotong kabel.\n\nAku mengetuk layar dengan ujung penaku. Wushhh! Cahaya putih terang memancar, dan robot raksasa itu benar-benar terwujud di depan kafe, langsung menghadang si Bowo-Bogo.\n\n\"Robot aesthetic, bersihkan kekacauan itu!\" seruku dari balik jendela. Meriam vakumnya langsung menderu, siap menyedot badai debu sebelum energiku turun menjadi nol persen!",
+    choices: [
+      { text: "\u{1F9F9} Bersihkan kekacauan sekitar coffee shop dulu", next: "clean" },
+      { text: "\u2694\uFE0F Langsung serang Bowo-Bogo!", next: "act" }
+    ]
+  },
+  notMyProblem: {
+    text: "Aku melihat keluar jendela. Polisi, Perawat, Pemadam mulai berdatangan. Kalau aku ga bantu... ga papa kan? tidak akan berubah banyak. mereka juga pasti bisa atasi ini. kan?\n\nYa... semua akan baik-baik saja...\n\nROAAAARRRRRR! Monster itu mengaung lebih keras dari sebelumnya. ROOOAAAAARRRRRRRRR!! Lebih keras lagi. Badanku bergetar. Segera aku rapikan barang-barangku dan mencari tempat aman.\n\nRRRRRROOOOOOOOOOAAAAAAAARRRRRRRRRRRR! Mataku membesar. Tanganku mencari pegangan. Badanku? serasa mati rasa.\n\nBRUAK! Orang-orang berteriakan. aku melihat ke arah suara. Mataku kembali membesar sebesar-besarnya. Setengah dari Tembok coffee shop itu sudah tak tertolong. runtuh. aku mengernyit ngeri. Tiba-tiba saat aku berbalik...",
+    choices: [
+      { text: "\u{1F4A5} \"Ketemu\"", next: "ketemu" },
+      { text: "\u{1F4A5} DUAR!", next: "duar" }
+    ]
+  },
+  helpP2: {
+    text: "Aku mencoba mengabaikan rasa janggal yang terus mengusik hatiku. Mengingat kembali raungan misterius RRRAAAAWWRRRRR! yang baru saja terdengar, aku tahu aku tidak bisa menghadapi situasi ini sendirian. Jika peri ini tahu namaku, dia pasti tahu sesuatu tentang tempat ini.\n\n\"Apa kamu bisa membantuku?\" tanyaku, berusaha menjaga agar suaraku tidak bergetar.\n\nPeri itu memiringkan kepalanya sedikit. Sepasang sayapnya mengepak pelan, menciptakan kilau tipis di udara. Senyum manisnya kembali mengembang sempurna, seolah-olah tatapan tajam bak duri yang kulihat sepersekian detik lalu hanyalah halusinasi dari kepalaku yang panik.\n\n\"Membantumu?\" suaranya berdenting riang, terdengar sangat tulus hingga hampir membuatku melupakan kecurigaanku. \"Tentu saja, Enola! Aku ada di sini untuk itu. Apa yang bisa dibantu oleh peri kecil sepertiku?\"\n\nMeskipun sikapnya kembali ramah, atmosfer di dalam ruangan ini terasa semakin pekat. Keheningan yang sempat terjadi tadi seolah menjadi peringatan bahwa ada bahaya yang sedang mengintai di luar jendela sana.\n\nAku mengepalkan tanganku tersembunyi di balik pakaian, bersiap untuk mengajukan pertanyaan berikutnya.",
+    isEnding: true,
+    choices: [
+      { text: "\u{1F6E1}\uFE0F \"Suara raungan tadi... Apa kita aman di sini?\"", next: null }
+    ]
+  },
+  ask: {
+    text: "\"Apakah kamu merasakan hal yang sama?\" tanyaku, suaraku sedikit bergetar, memecah keheningan yang tersisa setelah raungan mengerikan itu. Aku menatap lurus ke arah peri itu, mencoba mencari kejujuran di balik wajah imutnya. Maksudku bukan hanya raungan itu, tapi rasa janggal yang tiba-tiba menyelimuti seluruh ruangan ini.\n\nPeri itu terdiam. Kepakan sayapnya yang transparan melambat sesaat.\n\n\"Merasakan apa, Enola?\" tanyanya kembali. Nadanya begitu polos dan ringan, seolah menganggap pertanyaanku hanyalah angin lalu. Senyum manisnya tak goyah sedikit pun. Namun tatapan tenangnya mulai memudar. \"Aku hanya merasakan ketenangan di sini. Apakah kamu merasa kurang sehat sehingga berhalusinasi?\"\n\nBulu kudukku merinding. Raungan RRRAAAAWWRRRRR! tadi cukup keras untuk membuat jantungku hampir copot, mustahil dia tidak mendengarnya. Ditambah lagi dengan tatapan dinginnya yang kulihat sepersekian detik lalu. Sikap manisnya yang terlalu sempurna ini justru membuat bel alarm di kepalaku berdering semakin keras.\n\nDia berbohong. Atau lebih buruk lagi, dia sengaja mengabaikannya untuk membuatku lengah.\n\nSecara naluriah, aku memundurkan kakiku selangkah, menciptakan jarak di antara kami. Udara di ruangan ini tiba-tiba terasa jauh lebih dingin.\n\n\"Jangan berpura-pura. Raungan tadi sangat jelas, orang-orang yang ketakutan, dan tatapanmu sebelumnya... Sebenarnya apa yang terjadi di sini?!\"\n\n\"Ah... ya, mungkin aku hanya kelelahan dan berhalusinasi.\" (mundur 5 langkah)",
+    isEnding: true,
+    choices: [
+      { text: "\u{1F630} Mundur perlahan...", next: null }
+    ]
+  },
+  friend: {
+    text: "Aku menatap cemas ke luar jendela. Peri itu berkelebat lincah menahan badai debu Bowo-Bogo, tapi sulur kabel monster itu terlalu banyak dan menyerang membabi buta. Dia butuh bantuan.\n\nUjung stylus-ku menyentuh layar. Jika monster itu adalah perwujudan \"kekacauan\", aku harus menggambar sesuatu yang presisi, berestetika 3D yang rapi, dan memiliki pergerakan taktis! Tanganku bergerak cepat, merangkai garis-garis membentuk sosok Bidak Kuda Catur raksasa yang terbuat dari kristal neon biru.\n\nSringgg! Layarku berpendar terang. Sosok kuda kristal itu melesat keluar dari kanvas menjadi nyata. Dengan pergerakan zig-zag berbentuk huruf \"L\" yang sangat taktis, ia melompat lincah menghindari setiap sabetan kabel kusut Bowo-Bogo.\n\n\"keren abiezz!!\" seru sang peri riang. Bidak kuda ciptaanku itu mendarat dengan keras, menghancurkan tumpukan kabel yang membelit jalan sang peri dengan hantaman tubuh kristalnya yang kokoh.\n\nPerhatian monster baliho itu kini terbelah. \"Kerja bagus, Enola!\" teriak peri itu sambil bersiap menembakkan serangan balasan. \"Sekarang, bagaimana cara kita mengakhirinya?\"",
+    isEnding: true,
+    choices: [
+      { text: "\u2728 Transform Tool x panah cahaya!", next: null },
+      { text: "\u{1F48E} Lasso Tool x hantaman kuda crystal!", next: null }
+    ]
+  },
+  power: {
+    text: "Aku menyadari peri itu kewalahan melawan sulur kabel Bowo-Bogo yang tak ada habisnya. Daripada membagi fokus dengan membuat makhluk baru, aku harus membuat kekuatan sang peri sendiri berlipat ganda!\n\nAku mengatur stylus-ku ke mode Glow Brush dengan warna neon cerah. Dengan tarikan garis yang cepat dan tegas, aku menggambar sepasang sayap mekanik tambahan dan armor cahaya langsung menimpa sketsa tubuh sang peri di layar.\n\nSringgg! Pancaran cahaya silau melesat keluar jendela. Armor dan sayap neon itu kini menempel sempurna di tubuhnya. Kecepatan sang peri meningkat drastis! Ia melesat bak kilat, memutar tubuhnya menyerupai gasing cahaya yang dengan mudah mencacah sulur-sulur kabel Bowo-Bogo menjadi serpihan piksel tak berbahaya.\n\n\"Kekuatan yang keren, Enola!\" seru sang peri dengan suara yang kini menggema.\n\nIa melayang tepat di atas monster baliho yang kini kehilangan senjata utamanya. Di kedua tangan sang peri, terkumpul bola energi cahaya yang bersinar sangat terang. Inti tubuh Bowo-Bogo kini tidak terlindungi.\n\n\"Dia sudah terpojok! Cepat, Enola, apa instruksi penyelesaiannya?!\"",
+    isEnding: true,
+    choices: [
+      { text: "\u{1F3A8} Gunakan Paint Bucket Tool! Guyur seluruh tubuhnya!", next: null },
+      { text: "\u{1F4A1} Fokuskan cahayanya! Tembak ke inti baliho!", next: null }
+    ]
+  },
+  senjata: {
+    text: "Tidak ada waktu berdebat dengan Yappers satu ini. Setiap detik sangat berharga; jalanan kafe ini bisa rata dengan tanah kapan saja. Aku harus percaya pada intuisi senimanku.\n\nKelemahannya adalah estetika dan kebersihan. Pedang atau peluncur roket hanya akan menambah puing rongsokan. Aku butuh pembersih berskala penghancur.\n\nAku memantapkan tangan dan langsung mengayunkan stylus di udara. Garis-garis cahaya biru dengan cepat membentuk siluet senjata: tabung silinder besar, nosel meruncing, dan pelatuk ergonomis.\n\nSketsa selesai. Materialisasi aktif.\n\nCahaya biru memadat. Sebuah Airbrush Pemurni seukuran bazoka jatuh ke pelukanku—berat, namun pas di genggaman. Tabungnya mendengung, terisi cairan neon bertekanan tinggi pelarut karat dan kotoran.\n\nMonster baliho itu memekik marah—suaranya bagai gesekan logam berkarat yang memekakkan telinga. Ia mengayunkan lengan kabelnya yang tebal ke arah jendela kafe.\n\nPRANG! Pecahan kaca berhamburan. Aku berguling, menghindari tebasan kabel listrik yang memercikkan api. Debu mengepul sejenak. Aku langsung mengangkat Airbrush Pemurni, jari bersiap di pelatuk. Indikator energi di stylus berkedip; tembakan ini memakan banyak tenaga, harus tepat sasaran.",
+    isEnding: true,
+    choices: [
+      { text: "\u{1F3AF} Bidik dan tembak langsung ke inti baliho di dadanya!", next: null },
+      { text: "\u{1F517} Tembak kabel-kabel lengan & kakinya dulu!", next: null }
+    ]
+  },
+  clean: {
+    text: "\"Robot Aesthetic, tahan dulu serangannya!\" perintahku. \"Prioritas utama: sterilisasi area kafe!\"\n\nRobot raksasa berzirah putih itu mengangguk pelan. Alih-alih menerjang Bowo-Bogo yang masih mengamuk, ia memutar tubuhnya menghadap teras kafe yang porak-poranda.\n\nMeriam vakum di tangan kanannya terangkat dan berderu kencang, menciptakan dengungan yang membuat kaca jendela kafe bergetar.\n\nVROOOM! Pusaran angin mini tercipta dari ujung meriam, seketika menyedot gumpalan debu, sampah plastik, hingga sisa jelaga hitam di dinding kafe ke dalam tabung penyaringnya.\n\nDalam hitungan detik, area teras kafe kembali terlihat bersih dan udaranya terasa jauh lebih jernih.\n\nAjaibnya, seiring bersihnya lingkungan, Bowo-Bogo terlihat melemah. Gerakan brutalnya melambat, raungannya memudar, dan beberapa kabel kusut di tubuhnya tampak mengendur.\n\n\"Tentu saja!\" gumamku. \"Monster itu tercipta dari polusi visual dan kekacauan. Dengan membersihkan lingkungan, aku memotong sumber kekuatannya!\"\n\nIndikator energi di stylus-ku kembali stabil. Keputusanku tepat. Namun, meski melemah, Bowo-Bogo masih menjadi ancaman. Ia kini menatap tajam ke arah Robot Aesthetic, bersiap melancarkan serangan balasan.",
+    isEnding: true,
+    choices: [
+      { text: "\u2694\uFE0F Pedang laser! Potong kabel-kabel penyangganya!", next: null },
+      { text: "\u{1F9FC} Ubah meriam jadi penembak busa pembersih!", next: null }
+    ]
+  },
+  act: {
+    text: "\"Robot Aesthetic, abaikan debunya! Langsung hancurkan monster itu!\" teriakku.\n\nRobot berzirah putih itu merespons seketika. Mengabaikan puing-puing di sekitar teras kafe, ia melompat menerjang Bowo-Bogo. Pedang laser di tangan kirinya menyala menyilaukan, menebas udara dengan dengungan tajam.\n\nTRANG! Tebasan itu telak memotong beberapa juntai kabel tebal yang menjadi lengan si monster. Bowo-Bogo memekik marah.\n\nNamun, tebakanku meleset. Karena jalanan masih penuh sampah dan polusi visual—sumber energi utamanya—kabel-kabel yang terputus itu bergerak liar seperti ular, menyambung kembali dan beregenerasi dalam hitungan detik.\n\nMonster itu membalas! Dengan satu ayunan tubuh raksasanya, ia menghantam Robot Aesthetic hingga terdorong mundur secara brutal.\n\nBRAK! Getaran benturannya membuat sisa kaca jendela kafe di dekatku retak rambut.\n\n\"Sial, regenerasinya terlalu cepat karena lingkungannya masih kotor!\" gerutuku panik. Indikator energi di stylus-ku mulai berkedip kuning. Serangan fisik biasa tidak akan cukup selama sumber tenaganya melimpah.\n\nAku harus segera mengubah taktik sebelum robot buatanku hancur berkeping-keping.",
+    isEnding: true,
+    choices: [
+      { text: "\u{1F300} Vakum inti dada monster dengan kekuatan maksimal!", next: null },
+      { text: "\u{1F6E1}\uFE0F Robot tahan serangan, aku gambar kubah pelindung!", next: null }
+    ]
+  },
+  duar: {
+    text: "DUAR!! \"AAAAGGGHHHH!!\" setengah dinding lainnya ikut terjatuh. membuat coffee shop itu tanpa dinding. tapi bukan itu permasalahannya. Tanganku tertimpa dinding yang jatuh. Aku menjerit. Air mataku mengalir deras. Sakit.. sakit sekali... tiba-tiba di depanku muncul monster itu. benci sekali aku melihat wajahnya. senyum liciknya. mata tajamnya. semuanya.\n\n\"Sekarang.. kamu paham artinya kekuasaan?...~\", Ia tertawa. aku juga benci tawa itu. benciiii... sekali...\n\nApa maksudnya? aku sama sekali tidak paham.\n\nAir mataku menolak untuk berhenti mengalir. badanku mulai terasa lemas. mataku kunang-kunang. nafasku semakin susah. Buk! Aku kalah. mataku mulai tertutup. Tawanya yang sangat aku benci masih terngiang-ngiang. di ulang, di ulang, di ulang terus seperti kaset rusak. aku masih tak paham apa yang ia maksud. detik berikutnya.. aku sudah tidak ada. air mataku berhenti. begitu juga nafasku.",
+    isEnding: true,
+    choices: [
+      { text: "\u{1F480} ENDING — DUAR", next: null }
+    ]
+  },
+  ketemu: {
+    text: "Sebuah mata seukuran badanku menatap ke arahku. Ingin sekali aku teriak. tapi dadaku terasa sesak. suaraku tercekat. T-tolong... Itu. Itu kata yang ingin aku keluarkan. tapi suaraku seperti hilang entah kemana. Mataku berair. Air mataku mengalir melewati pipiku tanpa kupinta. Tiba-tiba senyuman licik terukir di wajah Bowo-Bogo. Aku benci sekali senyum itu. rasanya ada seperti ada hal aneh yang aku sendiri sulit untuk menjelaskannya.\n\nGrrr... \"U-ugh-\" Dadaku yang sudah sesak sekarang membuatku tak bisa nafas. air mataku mengalir deras membasahi bajuku. Monster itu tertawa jahat. aku juga benci tawa itu. dia melihat ke arahku dalam-dalam. tatapannya seperti menusukku.\n\n\"Ketemu...~\"\n\nKetemu?.. Apa maksudnya?...",
+    isEnding: true,
+    choices: [
+      { text: "\u{1F630} ENDING 1 — Ketemu", next: null }
+    ]
+  }
+};
+function startGame() { showNode("intro"); }
+function showNode(nodeId) {
+  const node = story[nodeId];
+  if (!node) return;
+  document.getElementById("storyBox").innerHTML = node.text.replace(/\n/g, '<br>');
+  const container = document.getElementById("choicesContainer");
+  container.innerHTML = "";
+  document.getElementById("badgeDisplay").textContent = node.isEnding ? "\u{1F3C1} THE END" : "\u{1F31F} " + (node.choices?.[0]?.text?.substring(0, 30) || "Lanjutan");
+  if (node.choices) {
+    node.choices.forEach(choice => {
+      const btn = document.createElement("button");
+      btn.className = "choice-btn" + (node.isEnding ? " end-btn" : "");
+      btn.textContent = choice.text;
+      btn.onclick = choice.next ? () => showNode(choice.next) : () => showNode("intro");
+      container.appendChild(btn);
+    });
+  }
+}
+function resetGame() { showNode("intro"); }
+startGame();
+</script>
+</body>
+</html>
