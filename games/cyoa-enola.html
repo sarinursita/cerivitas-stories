@@ -29,13 +29,7 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       font-size: 28px;
-      margin-bottom: 5px;
-    }
-    .subtitle {
-      text-align: center;
-      color: #888;
-      font-size: 14px;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
     .badge {
       display: inline-block;
@@ -57,7 +51,6 @@
       color: #333;
       white-space: pre-wrap;
     }
-    .story-box p { margin-bottom: 12px; }
     .choices {
       display: flex;
       flex-direction: column;
@@ -81,10 +74,6 @@
     .choice-btn.end-btn {
       background: linear-gradient(135deg, #ff6b6b, #c44d4d);
     }
-    .choice-btn.restart-btn {
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      margin-top: 5px;
-    }
     .reset-btn {
       background: #ff6b6b;
       color: white;
@@ -98,7 +87,6 @@
       width: 100%;
       font-family: 'Segoe UI', sans-serif;
     }
-    .emoji-deco { font-size: 24px; display: block; text-align: center; margin-bottom: 8px; }
     @media (max-width: 480px) {
       .game-container { padding: 20px; }
       .story-box { font-size: 15px; padding: 16px; }
@@ -108,7 +96,6 @@
 <body>
 <div class="game-container">
   <h1>🌿 Petualangan Enola</h1>
-  <p class="subtitle">Aesthetic Manifestation — Choose Your Own Adventure</p>
   <div class="badge" id="badgeDisplay">🌟 Awal Cerita</div>
   <div class="story-box" id="storyBox"></div>
   <div class="choices" id="choicesContainer"></div>
