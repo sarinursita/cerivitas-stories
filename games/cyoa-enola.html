@@ -96,6 +96,7 @@
 <body>
 <div class="game-container">
   <h1>🌿 Petualangan Enola</h1>
+  <p style="text-align:center;color:#666;margin-bottom:10px;font-size:14px;">Aesthetic Manifestation — Choose Your Own Adventure</p>
   <div class="badge" id="badgeDisplay">🌟 Awal Cerita</div>
   <div class="story-box" id="storyBox"></div>
   <div class="choices" id="choicesContainer"></div>
@@ -230,39 +231,30 @@ const story = {
     ]
   }
 };
-function startGame() { showNode("intro"); }
+let lastChosenText = "";
+function startGame() { lastChosenText=""; showNode("intro"); }
 function showNode(nodeId) {
   const node = story[nodeId];
   if (!node) return;
   document.getElementById("storyBox").innerHTML = node.text.replace(/\n/g, '<br>');
   const container = document.getElementById("choicesContainer");
   container.innerHTML = "";
-  const badgeMap = {
-    intro: "\u{1F31F} Awal Cerita",
-    yakin: "\u{1F4AA} Yakin",
-    how: "\u{2753} Bagaimana?",
-    help: "\u{1F198} Minta Bantuan",
-    ragu: "\u{1F614} Ragu",
-    opsi1: "\u{1F50D} Cari Kelemahan",
-    opsi2: "\u{1F3A8} Buat Lawan",
-    notMyProblem: "\u{1F645} Acuh",
-    helpP2: "\u{1F198} Minta Bantuan Lagi",
-    ask: "\u{1F50D} Konfrontasi",
-    friend: "\u{1F91D} Bantuan Kuda Crystal",
-    power: "\u26A1 Power Up Peri",
-    senjata: "\u{1F52B} Airbrush Pemurni",
-    clean: "\u{1F9F9} Bersihkan Dulu",
-    act: "\u2694\uFE0F Serang Langsung",
-    duar: "\u{1F480} Ending: DUAR",
-    ketemu: "\u{1F630} Ending: Ketemu"
-  };
-  document.getElementById("badgeDisplay").textContent = badgeMap[nodeId] || (node.isEnding ? "\u{1F3C1} THE END" : "\u{1F31F} Lanjutan");
+  if (nodeId === "intro") {
+    document.getElementById("badgeDisplay").textContent = "\u{1F31F} Awal Cerita";
+  } else if (lastChosenText) {
+    document.getElementById("badgeDisplay").textContent = lastChosenText;
+  } else {
+    document.getElementById("badgeDisplay").textContent = "\u{1F31F} Lanjutan";
+  }
   if (node.choices) {
     node.choices.forEach(choice => {
       const btn = document.createElement("button");
       btn.className = "choice-btn" + (node.isEnding ? " end-btn" : "");
       btn.textContent = choice.text;
-      btn.onclick = choice.next ? () => showNode(choice.next) : () => showNode("intro");
+      btn.onclick = function() {
+        lastChosenText = choice.text;
+        if (choice.next) showNode(choice.next); else showNode("intro");
+      };
       container.appendChild(btn);
     });
   }
